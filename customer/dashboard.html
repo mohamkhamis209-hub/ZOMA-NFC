@@ -1,3 +1,1392 @@
-<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>لوحة العميل | ZOMA</title><link rel="stylesheet" href="../assets/css/style.css"><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="../assets/js/config.js"></script><script src="../assets/js/app.js"></script></head><body><header class="topbar"><div class="container nav"><a class="brand" href="../index.html"><span class="brand-badge">Z</span>ZOMA</a><div class="nav-actions"><a class="btn primary" href="order.html">طلب بطاقة</a><button class="btn" id="logout">خروج</button></div></div></header><main class="section"><div class="container"><div class="dash-top"><div><h1>أهلاً <span id="hello"></span> 👋</h1><p class="muted">إدارة بياناتك وبطاقاتك وطلباتك.</p></div></div><div class="two-col"><section class="panel order-card"><h2>بيانات الملف</h2><form id="profileForm" class="form"><div class="field"><label>الاسم</label><input id="full_name"></div><div class="grid-2"><div class="field"><label>Facebook</label><input id="facebook_url"></div><div class="field"><label>TikTok</label><input id="tiktok_url"></div><div class="field"><label>WhatsApp 1</label><input id="whatsapp_1"></div><div class="field"><label>WhatsApp 2</label><input id="whatsapp_2"></div></div><div class="field"><label>إظهار واتساب 2</label><select id="show_whatsapp_2"><option value="true">نعم</option><option value="false">لا</option></select></div><div class="field"><label>الصورة</label><input id="photo" type="file" accept="image/*"></div><button class="btn primary">حفظ التعديلات</button></form></section><section class="panel order-card"><h2>بطاقاتي</h2><div id="cards"></div></section></div><section class="panel order-card" style="margin-top:16px"><h2>تواصل مع ZOMA</h2><form id="msgForm" class="form"><div class="field"><label>الموضوع</label><input id="msgSubject" required></div><div class="field"><label>الرسالة</label><textarea id="msgBody" rows="4" required></textarea></div><button class="btn primary">إرسال</button></form><div id="myMessages" style="margin-top:16px"></div></section><section class="panel order-card" style="margin-top:16px"><div class="toolbar"><h2>طلباتي</h2><a class="btn" href="order.html">طلب جديد</a></div><div class="table-wrap"><table class="table"><thead><tr><th>الطلب</th><th>التصميم</th><th>السعر</th><th>الحالة</th><th>ملاحظات الإدارة</th></tr></thead><tbody id="orders"></tbody></table></div></section></div></main><script>
-let user,cardRows=[];$('#logout').onclick=zoma.signOut;async function boot(){user=await zoma.currentUser();if(!user){location.href='login.html';return}const c=(await sb.from('customers').select('*').eq('id',user.id).single()).data;if(c){hello.textContent=zoma.escape(c.full_name||'');full_name.value=c.full_name||'';phone=c.phone||''}const p=(await sb.from('profiles').select('*').in('card_id',(await sb.from('cards').select('id').eq('customer_id',user.id)).data?.map(x=>x.id)||[])).data||[];if(p[0]){full_name.value=p[0].full_name||full_name.value;facebook_url.value=p[0].facebook_url||'';tiktok_url.value=p[0].tiktok_url||'';whatsapp_1.value=p[0].whatsapp_1||'';whatsapp_2.value=p[0].whatsapp_2||'';show_whatsapp_2.value=String(p[0].show_whatsapp_2!==false)}const cr=await sb.from('cards').select('*,orders(order_number,designs(name))').eq('customer_id',user.id).order('created_at',{ascending:false});cardRows=cr.data||[];cards.innerHTML=cardRows.length?cardRows.map(c=>`<div class="notice-box" style="margin-bottom:10px"><b>${c.card_id}</b><div class="muted">${zoma.statusLabel(c.status)}</div><div class="actions" style="margin-top:9px"><a class="btn" target="_blank" href="${c.public_url}">فتح البطاقة</a><button class="btn" onclick="navigator.clipboard.writeText('${c.public_url}').then(()=>zoma.toast('تم نسخ الرابط','success'))">نسخ الرابط</button></div></div>`).join(''):'<div class="empty">لا توجد بطاقات حتى الآن.</div>';const or=await sb.from('orders').select('*,designs(name)').eq('customer_id',user.id).order('created_at',{ascending:false});const mym=(await sb.from('messages').select('*').eq('customer_id',user.id).order('created_at',{ascending:false})).data||[];myMessages.innerHTML=mym.length?mym.map(m=>`<div class="notice-box" style="margin-bottom:8px"><b>${zoma.escape(m.subject||'بدون موضوع')}</b><div>${zoma.escape(m.body)}</div><div class="muted">${zoma.escape(m.admin_reply||'بانتظار الرد')}</div></div>`).join(''):'<div class="muted">لا توجد رسائل.</div>';orders.innerHTML=(or.data||[]).map(o=>`<tr><td>${o.order_number}</td><td>${zoma.escape(o.designs?.name||'—')}</td><td>${zoma.money(o.total_price)}</td><td><span class="status ${zoma.statusClass(o.status)}">${zoma.statusLabel(o.status)}</span></td><td>${zoma.escape(o.admin_notes||'—')}</td></tr>`).join('')||'<tr><td colspan="5" class="empty">لا توجد طلبات.</td></tr>'}profileForm.addEventListener('submit',async e=>{e.preventDefault();const card=(await sb.from('cards').select('id').eq('customer_id',user.id).order('created_at',{ascending:true}).limit(1).maybeSingle()).data;if(!card){zoma.toast('أنشئ طلبًا أولاً حتى يتم إنشاء بطاقة','error');return}let photo_url;const file=photo.files[0];if(file)try{photo_url=await zoma.uploadPhoto(file)}catch(err){zoma.toast(err.message,'error');return}const payload={card_id:card.id,full_name:full_name.value,facebook_url:facebook_url.value,tiktok_url:tiktok_url.value,whatsapp_1:whatsapp_1.value,whatsapp_2:whatsapp_2.value,show_whatsapp_2:show_whatsapp_2.value==='true'};if(photo_url)payload.photo_url=photo_url;const {error}=await sb.from('profiles').upsert(payload,{onConflict:'card_id'});if(error){zoma.toast(error.message,'error');return}await sb.from('customers').update({full_name:full_name.value}).eq('id',user.id);zoma.toast('تم حفظ البيانات','success')});msgForm.addEventListener('submit',async e=>{e.preventDefault();const {error}=await sb.from('messages').insert({customer_id:user.id,subject:msgSubject.value,body:msgBody.value});if(error)zoma.toast(error.message,'error');else{msgSubject.value='';msgBody.value='';zoma.toast('تم إرسال الرسالة','success');boot()}});boot();
-</script></body></html>
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <title>لوحة العميل | ZOMA</title>
+
+  <link rel="stylesheet" href="../assets/css/style.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../assets/js/config.js"></script>
+  <script src="../assets/js/app.js"></script>
+</head>
+
+<body>
+
+<header class="topbar">
+
+  <div class="container nav">
+
+    <a class="brand" href="../index.html">
+      <span class="brand-badge">Z</span>
+      ZOMA
+    </a>
+
+    <div class="nav-actions">
+
+      <a class="btn primary" href="order.html">
+        طلب بطاقة
+      </a>
+
+      <button class="btn" id="logout">
+        خروج
+      </button>
+
+    </div>
+
+  </div>
+
+</header>
+
+
+<main class="section">
+
+  <div class="container">
+
+    <!-- Header -->
+    <div class="dash-top">
+
+      <div>
+
+        <h1>
+          أهلاً
+          <span id="hello"></span>
+          👋
+        </h1>
+
+        <p class="muted">
+          إدارة بياناتك وبطاقاتك وطلباتك.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <!-- Profile + Cards -->
+    <div class="two-col">
+
+
+      <!-- Profile -->
+      <section class="panel order-card">
+
+        <h2>
+          بيانات الملف
+        </h2>
+
+
+        <form
+          id="profileForm"
+          class="form"
+        >
+
+          <div class="field">
+
+            <label>
+              الاسم
+            </label>
+
+            <input
+              id="full_name"
+              autocomplete="name"
+            >
+
+          </div>
+
+
+          <div class="grid-2">
+
+            <div class="field">
+
+              <label>
+                Facebook
+              </label>
+
+              <input
+                id="facebook_url"
+                type="url"
+                placeholder="رابط Facebook"
+              >
+
+            </div>
+
+
+            <div class="field">
+
+              <label>
+                TikTok
+              </label>
+
+              <input
+                id="tiktok_url"
+                type="url"
+                placeholder="رابط TikTok"
+              >
+
+            </div>
+
+
+            <div class="field">
+
+              <label>
+                WhatsApp 1
+              </label>
+
+              <input
+                id="whatsapp_1"
+                type="tel"
+              >
+
+            </div>
+
+
+            <div class="field">
+
+              <label>
+                WhatsApp 2
+              </label>
+
+              <input
+                id="whatsapp_2"
+                type="tel"
+              >
+
+            </div>
+
+          </div>
+
+
+          <div class="field">
+
+            <label>
+              إظهار واتساب 2
+            </label>
+
+            <select id="show_whatsapp_2">
+
+              <option value="true">
+                نعم
+              </option>
+
+              <option value="false">
+                لا
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div class="field">
+
+            <label>
+              الصورة
+            </label>
+
+            <input
+              id="photo"
+              type="file"
+              accept="image/*"
+            >
+
+          </div>
+
+
+          <button
+            class="btn primary"
+            type="submit"
+          >
+            حفظ التعديلات
+          </button>
+
+        </form>
+
+      </section>
+
+
+      <!-- Cards -->
+      <section class="panel order-card">
+
+        <h2>
+          بطاقاتي
+        </h2>
+
+        <div id="cards"></div>
+
+      </section>
+
+    </div>
+
+
+    <!-- Messages -->
+    <section
+      class="panel order-card"
+      style="margin-top:16px"
+    >
+
+      <h2>
+        تواصل مع ZOMA
+      </h2>
+
+
+      <form
+        id="msgForm"
+        class="form"
+      >
+
+        <div class="field">
+
+          <label>
+            الموضوع
+          </label>
+
+          <input
+            id="msgSubject"
+            required
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label>
+            الرسالة
+          </label>
+
+          <textarea
+            id="msgBody"
+            rows="4"
+            required
+          ></textarea>
+
+        </div>
+
+
+        <button
+          class="btn primary"
+          type="submit"
+        >
+          إرسال
+        </button>
+
+      </form>
+
+
+      <div
+        id="myMessages"
+        style="margin-top:16px"
+      ></div>
+
+    </section>
+
+
+    <!-- Orders -->
+    <section
+      class="panel order-card"
+      style="margin-top:16px"
+    >
+
+      <div class="toolbar">
+
+        <h2>
+          طلباتي
+        </h2>
+
+        <a
+          class="btn"
+          href="order.html"
+        >
+          طلب جديد
+        </a>
+
+      </div>
+
+
+      <div class="table-wrap">
+
+        <table class="table">
+
+          <thead>
+
+            <tr>
+
+              <th>
+                الطلب
+              </th>
+
+              <th>
+                التصميم
+              </th>
+
+              <th>
+                السعر
+              </th>
+
+              <th>
+                الحالة
+              </th>
+
+              <th>
+                ملاحظات الإدارة
+              </th>
+
+            </tr>
+
+          </thead>
+
+
+          <tbody id="orders"></tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+  </div>
+
+</main>
+
+
+<script>
+
+/* =========================================================
+   ZOMA CUSTOMER DASHBOARD
+   بدون $
+   وبدون الاعتماد على IDs كمتغيرات تلقائية
+========================================================= */
+
+
+/* =========================
+   DOM REFERENCES
+========================= */
+
+const logoutBtn =
+  document.getElementById('logout');
+
+const helloEl =
+  document.getElementById('hello');
+
+const profileFormEl =
+  document.getElementById('profileForm');
+
+const fullNameEl =
+  document.getElementById('full_name');
+
+const facebookUrlEl =
+  document.getElementById('facebook_url');
+
+const tiktokUrlEl =
+  document.getElementById('tiktok_url');
+
+const whatsapp1El =
+  document.getElementById('whatsapp_1');
+
+const whatsapp2El =
+  document.getElementById('whatsapp_2');
+
+const showWhatsapp2El =
+  document.getElementById('show_whatsapp_2');
+
+const photoEl =
+  document.getElementById('photo');
+
+const cardsEl =
+  document.getElementById('cards');
+
+const msgFormEl =
+  document.getElementById('msgForm');
+
+const msgSubjectEl =
+  document.getElementById('msgSubject');
+
+const msgBodyEl =
+  document.getElementById('msgBody');
+
+const myMessagesEl =
+  document.getElementById('myMessages');
+
+const ordersEl =
+  document.getElementById('orders');
+
+
+/* =========================
+   DATA
+========================= */
+
+let user = null;
+let cardRows = [];
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+logoutBtn.addEventListener(
+  'click',
+  function() {
+
+    if (
+      window.zoma &&
+      typeof window.zoma.signOut === 'function'
+    ) {
+      window.zoma.signOut();
+    }
+
+  }
+);
+
+
+/* =========================
+   BOOT
+========================= */
+
+async function boot() {
+
+  try {
+
+    /* التأكد من وجود ZOMA */
+
+    if (
+      !window.zoma ||
+      typeof window.zoma.currentUser !== 'function'
+    ) {
+
+      console.error(
+        'ZOMA app.js غير محمل بشكل صحيح.'
+      );
+
+      return;
+    }
+
+
+    /* المستخدم الحالي */
+
+    user =
+      await window.zoma.currentUser();
+
+
+    if (!user) {
+
+      window.location.href =
+        'login.html';
+
+      return;
+    }
+
+
+    /* =========================
+       CUSTOMER
+    ========================= */
+
+    const customerResult =
+      await sb
+        .from('customers')
+        .select('*')
+        .eq('id', user.id)
+        .single();
+
+
+    if (customerResult.error) {
+
+      console.error(
+        'Customer error:',
+        customerResult.error
+      );
+
+    }
+
+
+    const customer =
+      customerResult.data;
+
+
+    if (customer) {
+
+      helloEl.textContent =
+        customer.full_name || '';
+
+      fullNameEl.value =
+        customer.full_name || '';
+
+    }
+
+
+    /* =========================
+       CARDS
+    ========================= */
+
+    const cardsResult =
+      await sb
+        .from('cards')
+        .select('id')
+        .eq('customer_id', user.id);
+
+
+    if (cardsResult.error) {
+
+      console.error(
+        'Cards IDs error:',
+        cardsResult.error
+      );
+
+    }
+
+
+    const customerCardIds =
+      (cardsResult.data || [])
+        .map(function(card) {
+          return card.id;
+        });
+
+
+    /* =========================
+       PROFILES
+    ========================= */
+
+    if (customerCardIds.length > 0) {
+
+      const profilesResult =
+        await sb
+          .from('profiles')
+          .select('*')
+          .in(
+            'card_id',
+            customerCardIds
+          );
+
+
+      if (profilesResult.error) {
+
+        console.error(
+          'Profiles error:',
+          profilesResult.error
+        );
+
+      }
+
+
+      const profiles =
+        profilesResult.data || [];
+
+
+      if (profiles[0]) {
+
+        const profile =
+          profiles[0];
+
+
+        fullNameEl.value =
+          profile.full_name ||
+          fullNameEl.value ||
+          '';
+
+
+        facebookUrlEl.value =
+          profile.facebook_url ||
+          '';
+
+
+        tiktokUrlEl.value =
+          profile.tiktok_url ||
+          '';
+
+
+        whatsapp1El.value =
+          profile.whatsapp_1 ||
+          '';
+
+
+        whatsapp2El.value =
+          profile.whatsapp_2 ||
+          '';
+
+
+        showWhatsapp2El.value =
+          String(
+            profile.show_whatsapp_2 !== false
+          );
+
+      }
+
+    }
+
+
+    /* =========================
+       CUSTOMER CARDS
+    ========================= */
+
+    const customerCardsResult =
+      await sb
+        .from('cards')
+        .select(
+          '*,orders(order_number,designs(name))'
+        )
+        .eq(
+          'customer_id',
+          user.id
+        )
+        .order(
+          'created_at',
+          {
+            ascending: false
+          }
+        );
+
+
+    if (customerCardsResult.error) {
+
+      console.error(
+        'Customer cards error:',
+        customerCardsResult.error
+      );
+
+    }
+
+
+    cardRows =
+      customerCardsResult.data || [];
+
+
+    renderCards();
+
+
+    /* =========================
+       ORDERS
+    ========================= */
+
+    const ordersResult =
+      await sb
+        .from('orders')
+        .select(
+          '*,designs(name)'
+        )
+        .eq(
+          'customer_id',
+          user.id
+        )
+        .order(
+          'created_at',
+          {
+            ascending: false
+          }
+        );
+
+
+    if (ordersResult.error) {
+
+      console.error(
+        'Orders error:',
+        ordersResult.error
+      );
+
+    }
+
+
+    renderOrders(
+      ordersResult.data || []
+    );
+
+
+    /* =========================
+       MESSAGES
+    ========================= */
+
+    const messagesResult =
+      await sb
+        .from('messages')
+        .select('*')
+        .eq(
+          'customer_id',
+          user.id
+        )
+        .order(
+          'created_at',
+          {
+            ascending: false
+          }
+        );
+
+
+    if (messagesResult.error) {
+
+      console.error(
+        'Messages error:',
+        messagesResult.error
+      );
+
+    }
+
+
+    renderMessages(
+      messagesResult.data || []
+    );
+
+
+  } catch (error) {
+
+    console.error(
+      'Customer dashboard error:',
+      error
+    );
+
+
+    if (
+      window.zoma &&
+      typeof window.zoma.toast === 'function'
+    ) {
+
+      window.zoma.toast(
+        error.message ||
+        'حدث خطأ أثناء تحميل لوحة العميل',
+        'error'
+      );
+
+    }
+
+  }
+
+}
+
+
+/* =========================
+   RENDER CARDS
+========================= */
+
+function renderCards() {
+
+  if (!cardRows.length) {
+
+    cardsEl.innerHTML = `
+      <div class="empty">
+        لا توجد بطاقات حتى الآن.
+      </div>
+    `;
+
+    return;
+  }
+
+
+  cardsEl.innerHTML =
+    cardRows.map(function(card) {
+
+      const safeCardId =
+        window.zoma.escape(
+          card.card_id || ''
+        );
+
+
+      const safeStatus =
+        window.zoma.statusLabel(
+          card.status
+        );
+
+
+      return `
+
+        <div
+          class="notice-box"
+          style="margin-bottom:10px"
+        >
+
+          <b>
+            ${safeCardId}
+          </b>
+
+          <div class="muted">
+            ${safeStatus}
+          </div>
+
+
+          <div
+            class="actions"
+            style="margin-top:9px"
+          >
+
+            ${
+              card.public_url
+
+                ? `
+                  <a
+                    class="btn"
+                    target="_blank"
+                    rel="noopener"
+                    href="${window.zoma.escape(
+                      card.public_url
+                    )}"
+                  >
+                    فتح البطاقة
+                  </a>
+                `
+
+                : ''
+            }
+
+
+            ${
+              card.public_url
+
+                ? `
+                  <button
+                    class="btn"
+                    onclick="copyCardUrl('${card.id}')"
+                  >
+                    نسخ الرابط
+                  </button>
+                `
+
+                : ''
+            }
+
+          </div>
+
+        </div>
+
+      `;
+
+    }).join('');
+
+}
+
+
+/* =========================
+   COPY CARD URL
+========================= */
+
+window.copyCardUrl =
+  async function(id) {
+
+    const card =
+      cardRows.find(function(item) {
+        return item.id === id;
+      });
+
+
+    if (!card || !card.public_url) {
+
+      window.zoma.toast(
+        'رابط البطاقة غير متوفر',
+        'error'
+      );
+
+      return;
+    }
+
+
+    try {
+
+      await navigator.clipboard.writeText(
+        card.public_url
+      );
+
+
+      window.zoma.toast(
+        'تم نسخ الرابط',
+        'success'
+      );
+
+    } catch (error) {
+
+      console.error(error);
+
+      window.zoma.toast(
+        'تعذر نسخ الرابط',
+        'error'
+      );
+
+    }
+
+  };
+
+
+/* =========================
+   RENDER ORDERS
+========================= */
+
+function renderOrders(orderRows) {
+
+  if (!orderRows.length) {
+
+    ordersEl.innerHTML = `
+      <tr>
+        <td
+          colspan="5"
+          class="empty"
+        >
+          لا توجد طلبات.
+        </td>
+      </tr>
+    `;
+
+    return;
+  }
+
+
+  ordersEl.innerHTML =
+    orderRows.map(function(order) {
+
+      const orderNumber =
+        window.zoma.escape(
+          order.order_number || '—'
+        );
+
+
+      const designName =
+        window.zoma.escape(
+          order.designs?.name || '—'
+        );
+
+
+      const notes =
+        window.zoma.escape(
+          order.admin_notes || '—'
+        );
+
+
+      return `
+
+        <tr>
+
+          <td>
+            ${orderNumber}
+          </td>
+
+          <td>
+            ${designName}
+          </td>
+
+          <td>
+            ${window.zoma.money(
+              order.total_price
+            )}
+          </td>
+
+          <td>
+
+            <span
+              class="status ${
+                window.zoma.statusClass(
+                  order.status
+                )
+              }"
+            >
+              ${window.zoma.statusLabel(
+                order.status
+              )}
+            </span>
+
+          </td>
+
+          <td>
+            ${notes}
+          </td>
+
+        </tr>
+
+      `;
+
+    }).join('');
+
+}
+
+
+/* =========================
+   RENDER MESSAGES
+========================= */
+
+function renderMessages(messageRows) {
+
+  if (!messageRows.length) {
+
+    myMessagesEl.innerHTML = `
+      <div class="muted">
+        لا توجد رسائل.
+      </div>
+    `;
+
+    return;
+  }
+
+
+  myMessagesEl.innerHTML =
+    messageRows.map(function(message) {
+
+      const subject =
+        window.zoma.escape(
+          message.subject ||
+          'بدون موضوع'
+        );
+
+
+      const body =
+        window.zoma.escape(
+          message.body || ''
+        );
+
+
+      const reply =
+        window.zoma.escape(
+          message.admin_reply ||
+          'بانتظار الرد'
+        );
+
+
+      return `
+
+        <div
+          class="notice-box"
+          style="margin-bottom:8px"
+        >
+
+          <b>
+            ${subject}
+          </b>
+
+          <div>
+            ${body}
+          </div>
+
+          <div class="muted">
+            ${reply}
+          </div>
+
+        </div>
+
+      `;
+
+    }).join('');
+
+}
+
+
+/* =========================
+   PROFILE FORM
+========================= */
+
+profileFormEl.addEventListener(
+  'submit',
+  async function(event) {
+
+    event.preventDefault();
+
+
+    try {
+
+      /* البحث عن أول بطاقة للعميل */
+
+      const cardResult =
+        await sb
+          .from('cards')
+          .select('id')
+          .eq(
+            'customer_id',
+            user.id
+          )
+          .order(
+            'created_at',
+            {
+              ascending: true
+            }
+          )
+          .limit(1)
+          .maybeSingle();
+
+
+      if (cardResult.error) {
+
+        window.zoma.toast(
+          cardResult.error.message,
+          'error'
+        );
+
+        return;
+      }
+
+
+      const card =
+        cardResult.data;
+
+
+      if (!card) {
+
+        window.zoma.toast(
+          'أنشئ طلبًا أولاً حتى يتم إنشاء بطاقة',
+          'error'
+        );
+
+        return;
+      }
+
+
+      /* =========================
+         UPLOAD PHOTO
+      ========================= */
+
+      let photoUrl = null;
+
+
+      const file =
+        photoEl.files &&
+        photoEl.files[0];
+
+
+      if (file) {
+
+        try {
+
+          if (
+            typeof window.zoma.uploadPhoto !==
+            'function'
+          ) {
+
+            window.zoma.toast(
+              'وظيفة رفع الصورة غير متاحة في app.js',
+              'error'
+            );
+
+            return;
+          }
+
+
+          photoUrl =
+            await window.zoma.uploadPhoto(
+              file
+            );
+
+        } catch (error) {
+
+          window.zoma.toast(
+            error.message ||
+            'فشل رفع الصورة',
+            'error'
+          );
+
+          return;
+        }
+
+      }
+
+
+      /* =========================
+         PROFILE PAYLOAD
+      ========================= */
+
+      const payload = {
+
+        card_id:
+          card.id,
+
+        full_name:
+          fullNameEl.value.trim(),
+
+        facebook_url:
+          facebookUrlEl.value.trim(),
+
+        tiktok_url:
+          tiktokUrlEl.value.trim(),
+
+        whatsapp_1:
+          whatsapp1El.value.trim(),
+
+        whatsapp_2:
+          whatsapp2El.value.trim(),
+
+        show_whatsapp_2:
+          showWhatsapp2El.value === 'true'
+
+      };
+
+
+      if (photoUrl) {
+
+        payload.photo_url =
+          photoUrl;
+
+      }
+
+
+      /* =========================
+         SAVE PROFILE
+      ========================= */
+
+      const profileResult =
+        await sb
+          .from('profiles')
+          .upsert(
+            payload,
+            {
+              onConflict: 'card_id'
+            }
+          );
+
+
+      if (profileResult.error) {
+
+        window.zoma.toast(
+          profileResult.error.message,
+          'error'
+        );
+
+        return;
+      }
+
+
+      /* =========================
+         UPDATE CUSTOMER
+      ========================= */
+
+      const customerUpdate =
+        await sb
+          .from('customers')
+          .update({
+            full_name:
+              fullNameEl.value.trim()
+          })
+          .eq(
+            'id',
+            user.id
+          );
+
+
+      if (customerUpdate.error) {
+
+        console.error(
+          'Customer update error:',
+          customerUpdate.error
+        );
+
+      }
+
+
+      /* تحديث الاسم أعلى الصفحة */
+
+      helloEl.textContent =
+        fullNameEl.value.trim();
+
+
+      window.zoma.toast(
+        'تم حفظ البيانات',
+        'success'
+      );
+
+
+      /* إعادة تحميل البيانات */
+
+      await boot();
+
+    } catch (error) {
+
+      console.error(error);
+
+      window.zoma.toast(
+        error.message ||
+        'حدث خطأ أثناء حفظ البيانات',
+        'error'
+      );
+
+    }
+
+  }
+);
+
+
+/* =========================
+   MESSAGE FORM
+========================= */
+
+msgFormEl.addEventListener(
+  'submit',
+  async function(event) {
+
+    event.preventDefault();
+
+
+    const subject =
+      msgSubjectEl.value.trim();
+
+    const body =
+      msgBodyEl.value.trim();
+
+
+    if (!subject || !body) {
+
+      window.zoma.toast(
+        'اكتب الموضوع والرسالة أولاً',
+        'error'
+      );
+
+      return;
+    }
+
+
+    try {
+
+      const result =
+        await sb
+          .from('messages')
+          .insert({
+
+            customer_id:
+              user.id,
+
+            subject:
+              subject,
+
+            body:
+              body
+
+          });
+
+
+      if (result.error) {
+
+        window.zoma.toast(
+          result.error.message,
+          'error'
+        );
+
+        return;
+      }
+
+
+      msgSubjectEl.value = '';
+      msgBodyEl.value = '';
+
+
+      window.zoma.toast(
+        'تم إرسال الرسالة',
+        'success'
+      );
+
+
+      await boot();
+
+    } catch (error) {
+
+      console.error(error);
+
+      window.zoma.toast(
+        error.message ||
+        'حدث خطأ أثناء إرسال الرسالة',
+        'error'
+      );
+
+    }
+
+  }
+);
+
+
+/* =========================
+   START
+========================= */
+
+boot();
+
+</script>
+
+</body>
+</html>
