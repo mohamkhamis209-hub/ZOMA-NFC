@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -30,7 +31,11 @@
         طلب بطاقة
       </a>
 
-      <button class="btn" id="logout">
+      <button
+        class="btn"
+        id="logout"
+        type="button"
+      >
         خروج
       </button>
 
@@ -45,7 +50,11 @@
 
   <div class="container">
 
-    <!-- Header -->
+
+    <!-- =========================
+         HEADER
+    ========================== -->
+
     <div class="dash-top">
 
       <div>
@@ -65,16 +74,26 @@
     </div>
 
 
-    <!-- Profile + Cards -->
+    <!-- =========================
+         PROFILE + CARDS
+    ========================== -->
+
     <div class="two-col">
 
 
-      <!-- Profile -->
+      <!-- =========================
+           PROFILE
+      ========================== -->
+
       <section class="panel order-card">
 
         <h2>
           بيانات الملف
         </h2>
+
+        <p class="muted">
+          يمكنك تعديل بياناتك في أي وقت.
+        </p>
 
 
         <form
@@ -84,13 +103,14 @@
 
           <div class="field">
 
-            <label>
+            <label for="full_name">
               الاسم
             </label>
 
             <input
               id="full_name"
               autocomplete="name"
+              required
             >
 
           </div>
@@ -100,7 +120,7 @@
 
             <div class="field">
 
-              <label>
+              <label for="facebook_url">
                 Facebook
               </label>
 
@@ -115,7 +135,7 @@
 
             <div class="field">
 
-              <label>
+              <label for="tiktok_url">
                 TikTok
               </label>
 
@@ -130,7 +150,7 @@
 
             <div class="field">
 
-              <label>
+              <label for="whatsapp_1">
                 WhatsApp 1
               </label>
 
@@ -144,7 +164,7 @@
 
             <div class="field">
 
-              <label>
+              <label for="whatsapp_2">
                 WhatsApp 2
               </label>
 
@@ -160,11 +180,13 @@
 
           <div class="field">
 
-            <label>
+            <label for="show_whatsapp_2">
               إظهار واتساب 2
             </label>
 
-            <select id="show_whatsapp_2">
+            <select
+              id="show_whatsapp_2"
+            >
 
               <option value="true">
                 نعم
@@ -181,7 +203,7 @@
 
           <div class="field">
 
-            <label>
+            <label for="photo">
               الصورة
             </label>
 
@@ -194,8 +216,17 @@
           </div>
 
 
+          <div
+            id="profileCardHint"
+            class="notice-box"
+          >
+            سيتم ربط هذه البيانات بالبطاقة بعد إصدارها.
+          </div>
+
+
           <button
             class="btn primary"
+            id="saveProfileBtn"
             type="submit"
           >
             حفظ التعديلات
@@ -206,12 +237,20 @@
       </section>
 
 
-      <!-- Cards -->
+      <!-- =========================
+           CARDS
+      ========================== -->
+
       <section class="panel order-card">
 
-        <h2>
-          بطاقاتي
-        </h2>
+        <div class="toolbar">
+
+          <h2>
+            بطاقاتي
+          </h2>
+
+        </div>
+
 
         <div id="cards"></div>
 
@@ -220,7 +259,10 @@
     </div>
 
 
-    <!-- Messages -->
+    <!-- =========================
+         MESSAGES
+    ========================== -->
+
     <section
       class="panel order-card"
       style="margin-top:16px"
@@ -238,7 +280,7 @@
 
         <div class="field">
 
-          <label>
+          <label for="msgSubject">
             الموضوع
           </label>
 
@@ -252,7 +294,7 @@
 
         <div class="field">
 
-          <label>
+          <label for="msgBody">
             الرسالة
           </label>
 
@@ -283,7 +325,10 @@
     </section>
 
 
-    <!-- Orders -->
+    <!-- =========================
+         ORDERS
+    ========================== -->
+
     <section
       class="panel order-card"
       style="margin-top:16px"
@@ -305,44 +350,7 @@
       </div>
 
 
-      <div class="table-wrap">
-
-        <table class="table">
-
-          <thead>
-
-            <tr>
-
-              <th>
-                الطلب
-              </th>
-
-              <th>
-                التصميم
-              </th>
-
-              <th>
-                السعر
-              </th>
-
-              <th>
-                الحالة
-              </th>
-
-              <th>
-                ملاحظات الإدارة
-              </th>
-
-            </tr>
-
-          </thead>
-
-
-          <tbody id="orders"></tbody>
-
-        </table>
-
-      </div>
+      <div id="orders"></div>
 
     </section>
 
@@ -353,277 +361,333 @@
 
 <script>
 
-/* =========================================================
-   ZOMA CUSTOMER DASHBOARD
-   بدون $
-   وبدون الاعتماد على IDs كمتغيرات تلقائية
-========================================================= */
+(function () {
+
+  'use strict';
 
 
-/* =========================
-   DOM REFERENCES
-========================= */
+  /* =========================================================
+     DOM REFERENCES
+  ========================================================= */
 
-const logoutBtn =
-  document.getElementById('logout');
+  const logoutBtn =
+    document.getElementById('logout');
 
-const helloEl =
-  document.getElementById('hello');
+  const helloEl =
+    document.getElementById('hello');
 
-const profileFormEl =
-  document.getElementById('profileForm');
+  const profileFormEl =
+    document.getElementById('profileForm');
 
-const fullNameEl =
-  document.getElementById('full_name');
+  const fullNameEl =
+    document.getElementById('full_name');
 
-const facebookUrlEl =
-  document.getElementById('facebook_url');
+  const facebookUrlEl =
+    document.getElementById('facebook_url');
 
-const tiktokUrlEl =
-  document.getElementById('tiktok_url');
+  const tiktokUrlEl =
+    document.getElementById('tiktok_url');
 
-const whatsapp1El =
-  document.getElementById('whatsapp_1');
+  const whatsapp1El =
+    document.getElementById('whatsapp_1');
 
-const whatsapp2El =
-  document.getElementById('whatsapp_2');
+  const whatsapp2El =
+    document.getElementById('whatsapp_2');
 
-const showWhatsapp2El =
-  document.getElementById('show_whatsapp_2');
+  const showWhatsapp2El =
+    document.getElementById('show_whatsapp_2');
 
-const photoEl =
-  document.getElementById('photo');
+  const photoEl =
+    document.getElementById('photo');
 
-const cardsEl =
-  document.getElementById('cards');
+  const profileCardHintEl =
+    document.getElementById('profileCardHint');
 
-const msgFormEl =
-  document.getElementById('msgForm');
+  const saveProfileBtn =
+    document.getElementById('saveProfileBtn');
 
-const msgSubjectEl =
-  document.getElementById('msgSubject');
+  const cardsEl =
+    document.getElementById('cards');
 
-const msgBodyEl =
-  document.getElementById('msgBody');
+  const msgFormEl =
+    document.getElementById('msgForm');
 
-const myMessagesEl =
-  document.getElementById('myMessages');
+  const msgSubjectEl =
+    document.getElementById('msgSubject');
 
-const ordersEl =
-  document.getElementById('orders');
+  const msgBodyEl =
+    document.getElementById('msgBody');
 
+  const myMessagesEl =
+    document.getElementById('myMessages');
 
-/* =========================
-   DATA
-========================= */
-
-let user = null;
-let cardRows = [];
+  const ordersEl =
+    document.getElementById('orders');
 
 
-/* =========================
-   LOGOUT
-========================= */
+  /* =========================================================
+     DATA
+  ========================================================= */
 
-logoutBtn.addEventListener(
-  'click',
-  function() {
+  let user = null;
+
+  let cardRows = [];
+
+  let orderRows = [];
+
+
+  /* =========================================================
+     HELPERS
+  ========================================================= */
+
+  function escapeHtml(value) {
 
     if (
       window.zoma &&
-      typeof window.zoma.signOut === 'function'
+      typeof window.zoma.escape === 'function'
     ) {
-      window.zoma.signOut();
+
+      return window.zoma.escape(
+        value == null
+          ? ''
+          : String(value)
+      );
+
+    }
+
+
+    const div =
+      document.createElement('div');
+
+    div.textContent =
+      value == null
+        ? ''
+        : String(value);
+
+    return div.innerHTML;
+  }
+
+
+  function money(value) {
+
+    if (
+      window.zoma &&
+      typeof window.zoma.money === 'function'
+    ) {
+
+      return window.zoma.money(value);
+    }
+
+
+    return (
+      Number(value || 0)
+        .toLocaleString('ar-EG') +
+      ' جنيه'
+    );
+  }
+
+
+  function statusLabel(status) {
+
+    if (
+      window.zoma &&
+      typeof window.zoma.statusLabel === 'function'
+    ) {
+
+      return window.zoma.statusLabel(status);
+    }
+
+
+    const labels = {
+
+      pending:
+        'قيد المراجعة',
+
+      confirmed:
+        'تم التأكيد',
+
+      preparing:
+        'جاري التجهيز',
+
+      ready:
+        'جاهز',
+
+      shipped:
+        'تم الشحن',
+
+      delivered:
+        'تم التسليم',
+
+      rejected:
+        'مرفوض',
+
+      active:
+        'نشطة',
+
+      suspended:
+        'موقوفة',
+
+      unactivated:
+        'غير مفعلة'
+
+    };
+
+
+    return (
+      labels[status] ||
+      status ||
+      '—'
+    );
+
+  }
+
+
+  function statusClass(status) {
+
+    if (
+      window.zoma &&
+      typeof window.zoma.statusClass === 'function'
+    ) {
+
+      return window.zoma.statusClass(status);
+    }
+
+
+    return status || '';
+
+  }
+
+
+  function toast(message, type) {
+
+    if (
+      window.zoma &&
+      typeof window.zoma.toast === 'function'
+    ) {
+
+      window.zoma.toast(
+        message,
+        type
+      );
+
+    } else {
+
+      console.log(
+        message
+      );
+
     }
 
   }
-);
 
 
-/* =========================
-   BOOT
-========================= */
+  function getDesignImage(design) {
 
-async function boot() {
-
-  try {
-
-    /* التأكد من وجود ZOMA */
-
-    if (
-      !window.zoma ||
-      typeof window.zoma.currentUser !== 'function'
-    ) {
-
-      console.error(
-        'ZOMA app.js غير محمل بشكل صحيح.'
-      );
-
-      return;
+    if (!design) {
+      return '';
     }
 
 
-    /* المستخدم الحالي */
+    return (
+      design.image_url ||
+      design.preview_url ||
+      design.image ||
+      ''
+    );
 
-    user =
-      await window.zoma.currentUser();
+  }
 
 
-    if (!user) {
+  /* =========================================================
+     LOGOUT
+  ========================================================= */
 
-      window.location.href =
-        'login.html';
+  logoutBtn.addEventListener(
+    'click',
+    async function () {
 
-      return;
+      try {
+
+        if (
+          window.zoma &&
+          typeof window.zoma.signOut === 'function'
+        ) {
+
+          await window.zoma.signOut();
+
+        }
+
+      } catch (error) {
+
+        console.error(
+          'Logout Error:',
+          error
+        );
+
+      }
+
     }
+  );
 
 
-    /* =========================
-       CUSTOMER
-    ========================= */
+  /* =========================================================
+     LOAD CUSTOMER
+  ========================================================= */
 
-    const customerResult =
+  async function loadCustomer() {
+
+    const result =
       await sb
         .from('customers')
         .select('*')
-        .eq('id', user.id)
-        .single();
+        .eq(
+          'id',
+          user.id
+        )
+        .maybeSingle();
 
 
-    if (customerResult.error) {
-
-      console.error(
-        'Customer error:',
-        customerResult.error
-      );
-
-    }
-
-
-    const customer =
-      customerResult.data;
-
-
-    if (customer) {
-
-      helloEl.textContent =
-        customer.full_name || '';
-
-      fullNameEl.value =
-        customer.full_name || '';
-
-    }
-
-
-    /* =========================
-       CARDS
-    ========================= */
-
-    const cardsResult =
-      await sb
-        .from('cards')
-        .select('id')
-        .eq('customer_id', user.id);
-
-
-    if (cardsResult.error) {
+    if (result.error) {
 
       console.error(
-        'Cards IDs error:',
-        cardsResult.error
+        'Customer Error:',
+        result.error
       );
 
+      return null;
     }
 
 
-    const customerCardIds =
-      (cardsResult.data || [])
-        .map(function(card) {
-          return card.id;
-        });
+    return result.data || null;
+
+  }
 
 
-    /* =========================
-       PROFILES
-    ========================= */
+  /* =========================================================
+     LOAD CARDS
+  ========================================================= */
 
-    if (customerCardIds.length > 0) {
+  async function loadCards() {
 
-      const profilesResult =
-        await sb
-          .from('profiles')
-          .select('*')
-          .in(
-            'card_id',
-            customerCardIds
-          );
-
-
-      if (profilesResult.error) {
-
-        console.error(
-          'Profiles error:',
-          profilesResult.error
-        );
-
-      }
-
-
-      const profiles =
-        profilesResult.data || [];
-
-
-      if (profiles[0]) {
-
-        const profile =
-          profiles[0];
-
-
-        fullNameEl.value =
-          profile.full_name ||
-          fullNameEl.value ||
-          '';
-
-
-        facebookUrlEl.value =
-          profile.facebook_url ||
-          '';
-
-
-        tiktokUrlEl.value =
-          profile.tiktok_url ||
-          '';
-
-
-        whatsapp1El.value =
-          profile.whatsapp_1 ||
-          '';
-
-
-        whatsapp2El.value =
-          profile.whatsapp_2 ||
-          '';
-
-
-        showWhatsapp2El.value =
-          String(
-            profile.show_whatsapp_2 !== false
-          );
-
-      }
-
-    }
-
-
-    /* =========================
-       CUSTOMER CARDS
-    ========================= */
-
-    const customerCardsResult =
+    const result =
       await sb
         .from('cards')
         .select(
-          '*,orders(order_number,designs(name))'
+          `
+          *,
+          orders(
+            order_number,
+            status,
+            total_price,
+            designs(
+              name,
+              image_url,
+              preview_url,
+              image
+            )
+          ),
+          profiles(*)
+          `
         )
         .eq(
           'customer_id',
@@ -637,32 +701,88 @@ async function boot() {
         );
 
 
-    if (customerCardsResult.error) {
+    /*
+     * لو استعلام التصميم بالصورة فشل لأن أعمدة
+     * الصور غير موجودة في قاعدة البيانات،
+     * نعيد الاستعلام بدون أعمدة الصور.
+     */
 
-      console.error(
-        'Customer cards error:',
-        customerCardsResult.error
+    if (result.error) {
+
+      console.warn(
+        'Cards query with preview fields failed:',
+        result.error
       );
+
+
+      const fallback =
+        await sb
+          .from('cards')
+          .select(
+            `
+            *,
+            orders(
+              order_number,
+              status,
+              total_price,
+              designs(name)
+            ),
+            profiles(*)
+            `
+          )
+          .eq(
+            'customer_id',
+            user.id
+          )
+          .order(
+            'created_at',
+            {
+              ascending: false
+            }
+          );
+
+
+      if (fallback.error) {
+
+        console.error(
+          'Cards fallback error:',
+          fallback.error
+        );
+
+        return [];
+
+      }
+
+
+      return fallback.data || [];
 
     }
 
 
-    cardRows =
-      customerCardsResult.data || [];
+    return result.data || [];
+
+  }
 
 
-    renderCards();
+  /* =========================================================
+     LOAD ORDERS
+  ========================================================= */
 
+  async function loadOrders() {
 
-    /* =========================
-       ORDERS
-    ========================= */
-
-    const ordersResult =
+    const result =
       await sb
         .from('orders')
         .select(
-          '*,designs(name)'
+          `
+          *,
+          designs(
+            name,
+            image_url,
+            preview_url,
+            image
+          )
+          `
         )
         .eq(
           'customer_id',
@@ -676,26 +796,64 @@ async function boot() {
         );
 
 
-    if (ordersResult.error) {
+    if (result.error) {
 
-      console.error(
-        'Orders error:',
-        ordersResult.error
+      console.warn(
+        'Orders query with preview fields failed:',
+        result.error
       );
+
+
+      const fallback =
+        await sb
+          .from('orders')
+          .select(
+            `
+            *,
+            designs(name)
+            `
+          )
+          .eq(
+            'customer_id',
+            user.id
+          )
+          .order(
+            'created_at',
+            {
+              ascending: false
+            }
+          );
+
+
+      if (fallback.error) {
+
+        console.error(
+          'Orders fallback error:',
+          fallback.error
+        );
+
+        return [];
+
+      }
+
+
+      return fallback.data || [];
 
     }
 
 
-    renderOrders(
-      ordersResult.data || []
-    );
+    return result.data || [];
+
+  }
 
 
-    /* =========================
-       MESSAGES
-    ========================= */
+  /* =========================================================
+     LOAD MESSAGES
+  ========================================================= */
 
-    const messagesResult =
+  async function loadMessages() {
+
+    const result =
       await sb
         .from('messages')
         .select('*')
@@ -711,163 +869,387 @@ async function boot() {
         );
 
 
-    if (messagesResult.error) {
+    if (result.error) {
 
       console.error(
-        'Messages error:',
-        messagesResult.error
+        'Messages Error:',
+        result.error
       );
+
+      return [];
 
     }
 
 
-    renderMessages(
-      messagesResult.data || []
-    );
+    return result.data || [];
+
+  }
 
 
-  } catch (error) {
+  /* =========================================================
+     LOAD PROFILE DATA
+  ========================================================= */
 
-    console.error(
-      'Customer dashboard error:',
-      error
-    );
+  function loadProfileIntoForm(
+    customer,
+    cards
+  ) {
+
+    /*
+     * أولاً نضع بيانات العميل الأساسية.
+     */
+
+    fullNameEl.value =
+      customer?.full_name || '';
 
 
-    if (
-      window.zoma &&
-      typeof window.zoma.toast === 'function'
+    helloEl.textContent =
+      customer?.full_name || '';
+
+
+    /*
+     * نحاول أخذ أحدث Profile موجود.
+     */
+
+    let profile = null;
+
+
+    for (
+      let i = 0;
+      i < cards.length;
+      i++
     ) {
 
-      window.zoma.toast(
-        error.message ||
-        'حدث خطأ أثناء تحميل لوحة العميل',
-        'error'
-      );
+      if (
+        cards[i] &&
+        cards[i].profiles
+      ) {
+
+        if (
+          Array.isArray(
+            cards[i].profiles
+          )
+        ) {
+
+          if (
+            cards[i].profiles.length
+          ) {
+
+            profile =
+              cards[i].profiles[0];
+
+            break;
+
+          }
+
+        } else {
+
+          profile =
+            cards[i].profiles;
+
+          if (profile) {
+            break;
+          }
+
+        }
+
+      }
+
+    }
+
+
+    /*
+     * لو يوجد Profile، نعوض به بيانات الفورم.
+     */
+
+    if (profile) {
+
+      fullNameEl.value =
+        profile.full_name ||
+        fullNameEl.value ||
+        '';
+
+
+      facebookUrlEl.value =
+        profile.facebook_url ||
+        '';
+
+
+      tiktokUrlEl.value =
+        profile.tiktok_url ||
+        '';
+
+
+      whatsapp1El.value =
+        profile.whatsapp_1 ||
+        '';
+
+
+      whatsapp2El.value =
+        profile.whatsapp_2 ||
+        '';
+
+
+      showWhatsapp2El.value =
+        String(
+          profile.show_whatsapp_2 !== false
+        );
+
+
+      profileCardHintEl.textContent =
+        'بياناتك مرتبطة بالبطاقة الحالية ويمكنك تعديلها في أي وقت.';
+
+    } else {
+
+      profileCardHintEl.textContent =
+        cards.length
+          ? 'سيتم حفظ البيانات على البطاقة الحالية.'
+          : 'يمكنك حفظ الاسم الآن، وسيتم ربط باقي بيانات البطاقة عند إصدار البطاقة.';
 
     }
 
   }
 
-}
 
+  /* =========================================================
+     RENDER CARDS
+  ========================================================= */
 
-/* =========================
-   RENDER CARDS
-========================= */
+  function renderCards() {
 
-function renderCards() {
+    if (!cardRows.length) {
 
-  if (!cardRows.length) {
+      cardsEl.innerHTML = `
 
-    cardsEl.innerHTML = `
-      <div class="empty">
-        لا توجد بطاقات حتى الآن.
-      </div>
-    `;
+        <div class="empty">
 
-    return;
-  }
+          <p>
+            لا توجد بطاقات حتى الآن.
+          </p>
 
-
-  cardsEl.innerHTML =
-    cardRows.map(function(card) {
-
-      const safeCardId =
-        window.zoma.escape(
-          card.card_id || ''
-        );
-
-
-      const safeStatus =
-        window.zoma.statusLabel(
-          card.status
-        );
-
-
-      return `
-
-        <div
-          class="notice-box"
-          style="margin-bottom:10px"
-        >
-
-          <b>
-            ${safeCardId}
-          </b>
-
-          <div class="muted">
-            ${safeStatus}
-          </div>
-
-
-          <div
-            class="actions"
-            style="margin-top:9px"
+          <a
+            class="btn primary"
+            href="order.html"
+            style="margin-top:10px"
           >
-
-            ${
-              card.public_url
-
-                ? `
-                  <a
-                    class="btn"
-                    target="_blank"
-                    rel="noopener"
-                    href="${window.zoma.escape(
-                      card.public_url
-                    )}"
-                  >
-                    فتح البطاقة
-                  </a>
-                `
-
-                : ''
-            }
-
-
-            ${
-              card.public_url
-
-                ? `
-                  <button
-                    class="btn"
-                    onclick="copyCardUrl('${card.id}')"
-                  >
-                    نسخ الرابط
-                  </button>
-                `
-
-                : ''
-            }
-
-          </div>
+            طلب بطاقة جديدة
+          </a>
 
         </div>
 
       `;
 
-    }).join('');
+      return;
+    }
 
-}
+
+    cardsEl.innerHTML =
+      cardRows
+        .map(
+          function (card) {
+
+            const order =
+              card.orders || null;
 
 
-/* =========================
-   COPY CARD URL
-========================= */
+            const design =
+              order?.designs || null;
 
-window.copyCardUrl =
-  async function(id) {
+
+            const designImage =
+              getDesignImage(
+                design
+              );
+
+
+            return `
+
+              <div
+                class="notice-box"
+                style="
+                  margin-bottom:12px;
+                  overflow:hidden;
+                "
+              >
+
+
+                ${
+                  designImage
+
+                    ? `
+                      <div
+                        style="
+                          margin-bottom:12px;
+                          text-align:center;
+                        "
+                      >
+
+                        <img
+                          src="${escapeHtml(
+                            designImage
+                          )}"
+                          alt="معاينة التصميم"
+                          style="
+                            width:100%;
+                            max-height:220px;
+                            object-fit:contain;
+                            border-radius:12px;
+                            background:#fff;
+                          "
+                        >
+
+                      </div>
+                    `
+
+                    : ''
+                }
+
+
+                <div>
+
+                  <b>
+                    ${escapeHtml(
+                      card.card_id ||
+                      'بطاقة'
+                    )}
+                  </b>
+
+                </div>
+
+
+                <div
+                  class="muted"
+                  style="margin-top:5px"
+                >
+
+                  الحالة:
+
+                  ${escapeHtml(
+                    statusLabel(
+                      card.status
+                    )
+                  )}
+
+                </div>
+
+
+                ${
+                  design?.name
+
+                    ? `
+                      <div
+                        class="muted"
+                        style="margin-top:5px"
+                      >
+                        التصميم:
+                        ${escapeHtml(
+                          design.name
+                        )}
+                      </div>
+                    `
+
+                    : ''
+                }
+
+
+                <div
+                  class="actions"
+                  style="margin-top:12px"
+                >
+
+                  ${
+                    card.public_url
+
+                      ? `
+                        <a
+                          class="btn primary"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          href="${escapeHtml(
+                            card.public_url
+                          )}"
+                        >
+                          فتح البطاقة
+                        </a>
+                      `
+
+                      : ''
+                  }
+
+
+                  ${
+                    card.public_url
+
+                      ? `
+                        <button
+                          class="btn"
+                          type="button"
+                          data-copy-card="${escapeHtml(
+                            card.id
+                          )}"
+                        >
+                          نسخ الرابط
+                        </button>
+                      `
+
+                      : ''
+                  }
+
+                </div>
+
+              </div>
+
+            `;
+
+          }
+        )
+        .join('');
+
+
+    document
+      .querySelectorAll(
+        '[data-copy-card]'
+      )
+      .forEach(
+        function (button) {
+
+          button.addEventListener(
+            'click',
+            function () {
+
+              copyCardUrl(
+                button.dataset.copyCard
+              );
+
+            }
+          );
+
+        }
+      );
+
+  }
+
+
+  /* =========================================================
+     COPY CARD URL
+  ========================================================= */
+
+  async function copyCardUrl(id) {
 
     const card =
-      cardRows.find(function(item) {
-        return item.id === id;
-      });
+      cardRows.find(
+        function (item) {
+          return item.id === id;
+        }
+      );
 
 
-    if (!card || !card.public_url) {
+    if (
+      !card ||
+      !card.public_url
+    ) {
 
-      window.zoma.toast(
+      toast(
         'رابط البطاقة غير متوفر',
         'error'
       );
@@ -878,227 +1260,424 @@ window.copyCardUrl =
 
     try {
 
-      await navigator.clipboard.writeText(
-        card.public_url
-      );
+      if (
+        navigator.clipboard &&
+        navigator.clipboard.writeText
+      ) {
+
+        await navigator.clipboard.writeText(
+          card.public_url
+        );
+
+      } else {
+
+        const temp =
+          document.createElement(
+            'textarea'
+          );
+
+        temp.value =
+          card.public_url;
+
+        document.body.appendChild(
+          temp
+        );
+
+        temp.select();
+
+        document.execCommand(
+          'copy'
+        );
+
+        temp.remove();
+
+      }
 
 
-      window.zoma.toast(
+      toast(
         'تم نسخ الرابط',
         'success'
       );
 
+
     } catch (error) {
 
-      console.error(error);
+      console.error(
+        error
+      );
 
-      window.zoma.toast(
+      toast(
         'تعذر نسخ الرابط',
         'error'
       );
 
     }
 
-  };
+  }
 
 
-/* =========================
-   RENDER ORDERS
-========================= */
+  /* =========================================================
+     RENDER ORDERS
+  ========================================================= */
 
-function renderOrders(orderRows) {
+  function renderOrders() {
 
-  if (!orderRows.length) {
+    if (!orderRows.length) {
 
-    ordersEl.innerHTML = `
-      <tr>
-        <td
-          colspan="5"
-          class="empty"
-        >
+      ordersEl.innerHTML = `
+
+        <div class="empty">
+
           لا توجد طلبات.
-        </td>
-      </tr>
-    `;
 
-    return;
-  }
+          <div
+            style="margin-top:10px"
+          >
 
-
-  ordersEl.innerHTML =
-    orderRows.map(function(order) {
-
-      const orderNumber =
-        window.zoma.escape(
-          order.order_number || '—'
-        );
-
-
-      const designName =
-        window.zoma.escape(
-          order.designs?.name || '—'
-        );
-
-
-      const notes =
-        window.zoma.escape(
-          order.admin_notes || '—'
-        );
-
-
-      return `
-
-        <tr>
-
-          <td>
-            ${orderNumber}
-          </td>
-
-          <td>
-            ${designName}
-          </td>
-
-          <td>
-            ${window.zoma.money(
-              order.total_price
-            )}
-          </td>
-
-          <td>
-
-            <span
-              class="status ${
-                window.zoma.statusClass(
-                  order.status
-                )
-              }"
+            <a
+              class="btn primary"
+              href="order.html"
             >
-              ${window.zoma.statusLabel(
-                order.status
-              )}
-            </span>
+              إنشاء أول طلب
+            </a>
 
-          </td>
-
-          <td>
-            ${notes}
-          </td>
-
-        </tr>
-
-      `;
-
-    }).join('');
-
-}
-
-
-/* =========================
-   RENDER MESSAGES
-========================= */
-
-function renderMessages(messageRows) {
-
-  if (!messageRows.length) {
-
-    myMessagesEl.innerHTML = `
-      <div class="muted">
-        لا توجد رسائل.
-      </div>
-    `;
-
-    return;
-  }
-
-
-  myMessagesEl.innerHTML =
-    messageRows.map(function(message) {
-
-      const subject =
-        window.zoma.escape(
-          message.subject ||
-          'بدون موضوع'
-        );
-
-
-      const body =
-        window.zoma.escape(
-          message.body || ''
-        );
-
-
-      const reply =
-        window.zoma.escape(
-          message.admin_reply ||
-          'بانتظار الرد'
-        );
-
-
-      return `
-
-        <div
-          class="notice-box"
-          style="margin-bottom:8px"
-        >
-
-          <b>
-            ${subject}
-          </b>
-
-          <div>
-            ${body}
-          </div>
-
-          <div class="muted">
-            ${reply}
           </div>
 
         </div>
 
       `;
 
-    }).join('');
-
-}
-
-
-/* =========================
-   PROFILE FORM
-========================= */
-
-profileFormEl.addEventListener(
-  'submit',
-  async function(event) {
-
-    event.preventDefault();
+      return;
+    }
 
 
-    try {
+    ordersEl.innerHTML =
+      orderRows
+        .map(
+          function (order) {
 
-      /* البحث عن أول بطاقة للعميل */
-
-      const cardResult =
-        await sb
-          .from('cards')
-          .select('id')
-          .eq(
-            'customer_id',
-            user.id
-          )
-          .order(
-            'created_at',
-            {
-              ascending: true
-            }
-          )
-          .limit(1)
-          .maybeSingle();
+            const design =
+              order.designs || null;
 
 
-      if (cardResult.error) {
+            const designImage =
+              getDesignImage(
+                design
+              );
 
-        window.zoma.toast(
-          cardResult.error.message,
+
+            return `
+
+              <div
+                class="notice-box"
+                style="
+                  margin-bottom:12px;
+                "
+              >
+
+
+                <div
+                  style="
+                    display:flex;
+                    gap:14px;
+                    align-items:flex-start;
+                    flex-wrap:wrap;
+                  "
+                >
+
+
+                  ${
+                    designImage
+
+                      ? `
+                        <div
+                          style="
+                            width:150px;
+                            flex:0 0 150px;
+                          "
+                        >
+
+                          <img
+                            src="${escapeHtml(
+                              designImage
+                            )}"
+                            alt="معاينة التصميم"
+                            style="
+                              width:150px;
+                              height:150px;
+                              object-fit:cover;
+                              border-radius:12px;
+                              background:#fff;
+                            "
+                          >
+
+                        </div>
+                      `
+
+                      : `
+                        <div
+                          style="
+                            width:150px;
+                            height:150px;
+                            flex:0 0 150px;
+                            display:flex;
+                            align-items:center;
+                            justify-content:center;
+                            border-radius:12px;
+                            border:1px solid rgba(255,255,255,.08);
+                          "
+                        >
+
+                          <span class="muted">
+                            لا توجد معاينة
+                          </span>
+
+                        </div>
+                      `
+                  }
+
+
+                  <div
+                    style="
+                      flex:1;
+                      min-width:220px;
+                    "
+                  >
+
+                    <div
+                      style="
+                        font-weight:700;
+                        font-size:17px;
+                      "
+                    >
+
+                      ${escapeHtml(
+                        order.order_number ||
+                        'طلب'
+                      )}
+
+                    </div>
+
+
+                    <div
+                      class="muted"
+                      style="margin-top:6px"
+                    >
+
+                      التصميم:
+
+                      ${escapeHtml(
+                        design?.name ||
+                        '—'
+                      )}
+
+                    </div>
+
+
+                    <div
+                      style="margin-top:7px"
+                    >
+
+                      السعر:
+
+                      <b>
+                        ${money(
+                          order.total_price
+                        )}
+                      </b>
+
+                    </div>
+
+
+                    <div
+                      style="margin-top:7px"
+                    >
+
+                      الحالة:
+
+                      <span
+                        class="status ${statusClass(
+                          order.status
+                        )}"
+                      >
+                        ${escapeHtml(
+                          statusLabel(
+                            order.status
+                          )
+                        )}
+                      </span>
+
+                    </div>
+
+
+                    ${
+                      order.admin_notes
+
+                        ? `
+                          <div
+                            class="muted"
+                            style="
+                              margin-top:9px;
+                            "
+                          >
+
+                            ملاحظات الإدارة:
+
+                            ${escapeHtml(
+                              order.admin_notes
+                            )}
+
+                          </div>
+                        `
+
+                        : ''
+                    }
+
+
+                    ${
+                      order.created_at
+
+                        ? `
+                          <div
+                            class="muted"
+                            style="
+                              margin-top:9px;
+                              font-size:13px;
+                            "
+                          >
+                            تاريخ الطلب:
+                            ${new Date(
+                              order.created_at
+                            ).toLocaleString(
+                              'ar-EG'
+                            )}
+                          </div>
+                        `
+
+                        : ''
+                    }
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            `;
+
+          }
+        )
+        .join('');
+
+  }
+
+
+  /* =========================================================
+     RENDER MESSAGES
+  ========================================================= */
+
+  function renderMessages(
+    messageRows
+  ) {
+
+    if (!messageRows.length) {
+
+      myMessagesEl.innerHTML = `
+
+        <div class="muted">
+          لا توجد رسائل.
+        </div>
+
+      `;
+
+      return;
+    }
+
+
+    myMessagesEl.innerHTML =
+      messageRows
+        .map(
+          function (message) {
+
+            const subject =
+              escapeHtml(
+                message.subject ||
+                'بدون موضوع'
+              );
+
+
+            const body =
+              escapeHtml(
+                message.body ||
+                ''
+              );
+
+
+            const reply =
+              escapeHtml(
+                message.admin_reply ||
+                'بانتظار الرد'
+              );
+
+
+            return `
+
+              <div
+                class="notice-box"
+                style="
+                  margin-bottom:8px;
+                "
+              >
+
+                <b>
+                  ${subject}
+                </b>
+
+                <div
+                  style="margin-top:6px"
+                >
+                  ${body}
+                </div>
+
+                <div
+                  class="muted"
+                  style="
+                    margin-top:8px;
+                  "
+                >
+
+                  الرد:
+
+                  ${reply}
+
+                </div>
+
+              </div>
+
+            `;
+
+          }
+        )
+        .join('');
+
+  }
+
+
+  /* =========================================================
+     SAVE PROFILE
+  ========================================================= */
+
+  profileFormEl.addEventListener(
+    'submit',
+    async function (event) {
+
+      event.preventDefault();
+
+
+      if (!user) {
+
+        toast(
+          'يجب تسجيل الدخول أولًا',
           'error'
         );
 
@@ -1106,44 +1685,108 @@ profileFormEl.addEventListener(
       }
 
 
-      const card =
-        cardResult.data;
+      saveProfileBtn.disabled =
+        true;
+
+      saveProfileBtn.textContent =
+        'جاري الحفظ...';
 
 
-      if (!card) {
+      try {
 
-        window.zoma.toast(
-          'أنشئ طلبًا أولاً حتى يتم إنشاء بطاقة',
-          'error'
-        );
+        /* =========================
+           بيانات المستخدم
+        ========================= */
 
-        return;
-      }
+        const fullName =
+          fullNameEl.value.trim();
+
+        const facebook =
+          facebookUrlEl.value.trim();
+
+        const tiktok =
+          tiktokUrlEl.value.trim();
+
+        const whatsapp1 =
+          whatsapp1El.value.trim();
+
+        const whatsapp2 =
+          whatsapp2El.value.trim();
+
+        const showWhatsapp2 =
+          showWhatsapp2El.value === 'true';
 
 
-      /* =========================
-         UPLOAD PHOTO
-      ========================= */
+        if (!fullName) {
 
-      let photoUrl = null;
+          toast(
+            'اكتب الاسم أولًا',
+            'error'
+          );
+
+          return;
+        }
 
 
-      const file =
-        photoEl.files &&
-        photoEl.files[0];
+        /* =========================
+           تحديث customers
+        ========================= */
+
+        const customerResult =
+          await sb
+            .from('customers')
+            .update({
+              full_name:
+                fullName
+            })
+            .eq(
+              'id',
+              user.id
+            );
 
 
-      if (file) {
+        if (
+          customerResult.error
+        ) {
 
-        try {
+          console.error(
+            'Customer Update Error:',
+            customerResult.error
+          );
+
+
+          toast(
+            customerResult.error.message,
+            'error'
+          );
+
+          return;
+        }
+
+
+        /* =========================
+           الصورة
+        ========================= */
+
+        let photoUrl =
+          null;
+
+
+        const file =
+          photoEl.files &&
+          photoEl.files[0];
+
+
+        if (file) {
 
           if (
+            !window.zoma ||
             typeof window.zoma.uploadPhoto !==
-            'function'
+              'function'
           ) {
 
-            window.zoma.toast(
-              'وظيفة رفع الصورة غير متاحة في app.js',
+            toast(
+              'رفع الصور غير متاح في app.js',
               'error'
             );
 
@@ -1156,77 +1799,234 @@ profileFormEl.addEventListener(
               file
             );
 
-        } catch (error) {
+        }
 
-          window.zoma.toast(
-            error.message ||
-            'فشل رفع الصورة',
+
+        /* =========================
+           هل توجد بطاقة؟
+        ========================= */
+
+        const cardResult =
+          await sb
+            .from('cards')
+            .select(
+              'id,created_at'
+            )
+            .eq(
+              'customer_id',
+              user.id
+            )
+            .order(
+              'created_at',
+              {
+                ascending: false
+              }
+            )
+            .limit(1);
+
+
+        if (cardResult.error) {
+
+          console.error(
+            'Card lookup error:',
+            cardResult.error
+          );
+
+          /*
+           * حتى لو فشل البحث عن البطاقة،
+           * اسم العميل تم حفظه بالفعل.
+           */
+
+          toast(
+            'تم حفظ الاسم، لكن تعذر تحديث بيانات البطاقة',
             'error'
           );
 
           return;
         }
 
-      }
+
+        const currentCard =
+          cardResult.data &&
+          cardResult.data[0];
 
 
-      /* =========================
-         PROFILE PAYLOAD
-      ========================= */
+        /* =========================
+           لا توجد بطاقة
+        ========================= */
 
-      const payload = {
+        if (!currentCard) {
 
-        card_id:
-          card.id,
+          /*
+           * لا يمكن تخزين Facebook/WhatsApp والصورة
+           * داخل profiles بدون card_id.
+           *
+           * لكن الاسم تم حفظه داخل customers.
+           */
 
-        full_name:
-          fullNameEl.value.trim(),
-
-        facebook_url:
-          facebookUrlEl.value.trim(),
-
-        tiktok_url:
-          tiktokUrlEl.value.trim(),
-
-        whatsapp_1:
-          whatsapp1El.value.trim(),
-
-        whatsapp_2:
-          whatsapp2El.value.trim(),
-
-        show_whatsapp_2:
-          showWhatsapp2El.value === 'true'
-
-      };
+          profileCardHintEl.textContent =
+            'تم حفظ الاسم. سيتم ربط Facebook وTikTok وWhatsApp والصورة تلقائيًا عند إصدار البطاقة.';
 
 
-      if (photoUrl) {
-
-        payload.photo_url =
-          photoUrl;
-
-      }
-
-
-      /* =========================
-         SAVE PROFILE
-      ========================= */
-
-      const profileResult =
-        await sb
-          .from('profiles')
-          .upsert(
-            payload,
-            {
-              onConflict: 'card_id'
-            }
+          toast(
+            'تم حفظ الاسم بنجاح',
+            'success'
           );
 
 
-      if (profileResult.error) {
+          return;
+        }
 
-        window.zoma.toast(
-          profileResult.error.message,
+
+        /* =========================
+           Profile Payload
+        ========================= */
+
+        const profilePayload = {
+
+          card_id:
+            currentCard.id,
+
+          full_name:
+            fullName,
+
+          facebook_url:
+            facebook,
+
+          tiktok_url:
+            tiktok,
+
+          whatsapp_1:
+            whatsapp1,
+
+          whatsapp_2:
+            whatsapp2,
+
+          show_whatsapp_2:
+            showWhatsapp2
+
+        };
+
+
+        if (photoUrl) {
+
+          profilePayload.photo_url =
+            photoUrl;
+
+        }
+
+
+        /* =========================
+           Upsert Profile
+        ========================= */
+
+        const profileResult =
+          await sb
+            .from('profiles')
+            .upsert(
+              profilePayload,
+              {
+                onConflict:
+                  'card_id'
+              }
+            );
+
+
+        if (
+          profileResult.error
+        ) {
+
+          console.error(
+            'Profile Upsert Error:',
+            profileResult.error
+          );
+
+
+          toast(
+            profileResult.error.message,
+            'error'
+          );
+
+          return;
+        }
+
+
+        profileCardHintEl.textContent =
+          'تم حفظ البيانات وربطها بالبطاقة بنجاح.';
+
+
+        helloEl.textContent =
+          fullName;
+
+
+        toast(
+          'تم حفظ البيانات بنجاح',
+          'success'
+        );
+
+
+        /*
+         * تحديث الشاشة
+         */
+
+        await refreshDashboard();
+
+
+      } catch (error) {
+
+        console.error(
+          'Save Profile Error:',
+          error
+        );
+
+
+        toast(
+          error.message ||
+          'حدث خطأ أثناء حفظ البيانات',
+          'error'
+        );
+
+      } finally {
+
+        saveProfileBtn.disabled =
+          false;
+
+        saveProfileBtn.textContent =
+          'حفظ التعديلات';
+
+      }
+
+    }
+  );
+
+
+  /* =========================================================
+     SEND MESSAGE
+  ========================================================= */
+
+  msgFormEl.addEventListener(
+    'submit',
+    async function (event) {
+
+      event.preventDefault();
+
+
+      if (!user) {
+        return;
+      }
+
+
+      const subject =
+        msgSubjectEl.value.trim();
+
+      const body =
+        msgBodyEl.value.trim();
+
+
+      if (!subject || !body) {
+
+        toast(
+          'اكتب الموضوع والرسالة أولًا',
           'error'
         );
 
@@ -1234,158 +2034,191 @@ profileFormEl.addEventListener(
       }
 
 
-      /* =========================
-         UPDATE CUSTOMER
-      ========================= */
+      try {
 
-      const customerUpdate =
-        await sb
-          .from('customers')
-          .update({
-            full_name:
-              fullNameEl.value.trim()
-          })
-          .eq(
-            'id',
-            user.id
+        const result =
+          await sb
+            .from('messages')
+            .insert({
+
+              customer_id:
+                user.id,
+
+              subject:
+                subject,
+
+              body:
+                body
+
+            });
+
+
+        if (result.error) {
+
+          toast(
+            result.error.message,
+            'error'
           );
 
+          return;
+        }
 
-      if (customerUpdate.error) {
+
+        msgSubjectEl.value =
+          '';
+
+        msgBodyEl.value =
+          '';
+
+
+        toast(
+          'تم إرسال الرسالة',
+          'success'
+        );
+
+
+        const messages =
+          await loadMessages();
+
+
+        renderMessages(
+          messages
+        );
+
+
+      } catch (error) {
 
         console.error(
-          'Customer update error:',
-          customerUpdate.error
+          'Send Message Error:',
+          error
+        );
+
+
+        toast(
+          error.message ||
+          'حدث خطأ أثناء إرسال الرسالة',
+          'error'
         );
 
       }
 
-
-      /* تحديث الاسم أعلى الصفحة */
-
-      helloEl.textContent =
-        fullNameEl.value.trim();
-
-
-      window.zoma.toast(
-        'تم حفظ البيانات',
-        'success'
-      );
-
-
-      /* إعادة تحميل البيانات */
-
-      await boot();
-
-    } catch (error) {
-
-      console.error(error);
-
-      window.zoma.toast(
-        error.message ||
-        'حدث خطأ أثناء حفظ البيانات',
-        'error'
-      );
-
     }
+  );
+
+
+  /* =========================================================
+     REFRESH DASHBOARD
+  ========================================================= */
+
+  async function refreshDashboard() {
+
+    const [
+      customer,
+      cards,
+      orders,
+      messages
+    ] = await Promise.all([
+
+      loadCustomer(),
+
+      loadCards(),
+
+      loadOrders(),
+
+      loadMessages()
+
+    ]);
+
+
+    loadProfileIntoForm(
+      customer,
+      cards
+    );
+
+
+    cardRows =
+      cards;
+
+
+    orderRows =
+      orders;
+
+
+    renderCards();
+
+    renderOrders();
+
+    renderMessages(
+      messages
+    );
 
   }
-);
 
 
-/* =========================
-   MESSAGE FORM
-========================= */
+  /* =========================================================
+     BOOT
+  ========================================================= */
 
-msgFormEl.addEventListener(
-  'submit',
-  async function(event) {
-
-    event.preventDefault();
-
-
-    const subject =
-      msgSubjectEl.value.trim();
-
-    const body =
-      msgBodyEl.value.trim();
-
-
-    if (!subject || !body) {
-
-      window.zoma.toast(
-        'اكتب الموضوع والرسالة أولاً',
-        'error'
-      );
-
-      return;
-    }
-
+  async function boot() {
 
     try {
 
-      const result =
-        await sb
-          .from('messages')
-          .insert({
+      if (
+        !window.zoma ||
+        typeof window.zoma.currentUser !==
+          'function'
+      ) {
 
-            customer_id:
-              user.id,
-
-            subject:
-              subject,
-
-            body:
-              body
-
-          });
-
-
-      if (result.error) {
-
-        window.zoma.toast(
-          result.error.message,
-          'error'
+        console.error(
+          'app.js غير محمل بشكل صحيح.'
         );
 
         return;
       }
 
 
-      msgSubjectEl.value = '';
-      msgBodyEl.value = '';
+      user =
+        await window.zoma.currentUser();
 
 
-      window.zoma.toast(
-        'تم إرسال الرسالة',
-        'success'
-      );
+      if (!user) {
+
+        window.location.href =
+          'login.html';
+
+        return;
+      }
 
 
-      await boot();
+      await refreshDashboard();
+
 
     } catch (error) {
 
-      console.error(error);
+      console.error(
+        'Customer Dashboard Error:',
+        error
+      );
 
-      window.zoma.toast(
+
+      toast(
         error.message ||
-        'حدث خطأ أثناء إرسال الرسالة',
+        'حدث خطأ أثناء تحميل لوحة العميل',
         'error'
       );
 
     }
 
   }
-);
 
 
-/* =========================
-   START
-========================= */
+  /* =========================================================
+     START
+  ========================================================= */
 
-boot();
+  boot();
 
+})();
 </script>
 
 </body>
