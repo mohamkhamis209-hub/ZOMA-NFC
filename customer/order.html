@@ -1,3 +1,665 @@
-<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>طلب بطاقة | ZOMA</title><link rel="stylesheet" href="../assets/css/style.css"><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="../assets/js/config.js"></script><script src="../assets/js/app.js"></script></head><body><header class="topbar"><div class="container nav"><a class="brand" href="dashboard.html"><span class="brand-badge">Z</span>ZOMA</a><div class="nav-actions"><a class="btn" href="dashboard.html">لوحة العميل</a><button class="btn" id="logout">خروج</button></div></div></header><main class="section"><div class="container"><div class="section-title"><h2>طلب بطاقة جديدة</h2><p>اختَر التصميم وأدخل بيانات التوصيل.</p></div><div class="two-col"><form id="f" class="panel order-card form"><div class="field"><label>التصميم</label><select id="design" required></select></div><div class="grid-2"><div class="field"><label>الاسم</label><input id="name" required></div><div class="field"><label>الهاتف</label><input id="phone" required></div><div class="field"><label>المحافظة</label><input id="gov" required></div><div class="field"><label>المدينة</label><input id="city" required></div></div><div class="field"><label>العنوان بالتفصيل</label><textarea id="address" rows="4" required></textarea></div><div class="field"><label>ملاحظات</label><textarea id="notes" rows="3"></textarea></div><div class="notice-box" id="price">السعر: —</div><button class="btn primary">إرسال الطلب</button></form><div class="panel order-card"><h3>قبل الإرسال</h3><p class="muted">بعد إرسال الطلب سيظهر في لوحة الإدارة، ويمكن للمشرف تأكيده وتجهيز البطاقة ثم ربطها بحسابك.</p><div class="notice">للطلب أو التواصل مع ZOMA: <b>01033459821</b></div></div></div></div></main><script>
-let designs=[];zoma.$('#logout').onclick=zoma.signOut;async function boot(){const u=await zoma.currentUser();if(!u){location.href='login.html';return}const {data:c}=await sb.from('customers').select('*').eq('id',u.id).single();if(!c){zoma.toast('بيانات العميل غير موجودة','error');return}name.value=c.full_name||'';phone.value=c.phone||'';const r=await sb.from('designs').select('*').eq('is_available',true).order('created_at');designs=r.data||[];design.innerHTML=designs.map(d=>`<option value="${d.id}">${zoma.escape(d.name)} — ${zoma.money(d.price)}</option>`).join('');updatePrice()}function updatePrice(){const d=designs.find(x=>x.id===design.value);price.textContent=d?'السعر: '+zoma.money(d.price):'السعر: —'}design.onchange=updatePrice;f.addEventListener('submit',async e=>{e.preventDefault();const u=await zoma.currentUser();const d=designs.find(x=>x.id===design.value);const order_number=zoma.orderNo();const {data,error}=await sb.from('orders').insert({customer_id:u.id,design_id:d.id,order_number,total_price:d.price,customer_name:name.value,phone:phone.value,shipping_governorate:gov.value,shipping_city:city.value,shipping_address:address.value,customer_notes:notes.value,status:'pending'}).select().single();if(error){zoma.toast(error.message,'error');return}await zoma.log('create_order','order',data.id,{order_number});zoma.toast('تم إرسال الطلب بنجاح','success');location.href='dashboard.html'});boot();
-</script></body></html>
+<!doctype html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <title>طلب بطاقة | ZOMA</title>
+
+  <link rel="stylesheet" href="../assets/css/style.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../assets/js/config.js"></script>
+  <script src="../assets/js/app.js"></script>
+</head>
+
+<body>
+
+<header class="topbar">
+  <div class="container nav">
+
+    <a class="brand" href="dashboard.html">
+      <span class="brand-badge">Z</span>
+      ZOMA
+    </a>
+
+    <div class="nav-actions">
+      <a class="btn" href="dashboard.html">لوحة العميل</a>
+      <button class="btn" id="logout" type="button">خروج</button>
+    </div>
+
+  </div>
+</header>
+
+
+<main class="section">
+
+  <div class="container">
+
+    <div class="section-title">
+      <h2>طلب بطاقة جديدة</h2>
+      <p>اختَر التصميم وأدخل بيانات التوصيل.</p>
+    </div>
+
+
+    <div class="two-col">
+
+      <!-- نموذج الطلب -->
+      <form id="orderForm" class="panel order-card form">
+
+        <div class="field">
+          <label for="design">التصميم</label>
+
+          <select id="design" required>
+            <option value="">جاري تحميل التصميمات...</option>
+          </select>
+        </div>
+
+
+        <div class="grid-2">
+
+          <div class="field">
+            <label for="name">الاسم</label>
+            <input id="name" type="text" required>
+          </div>
+
+          <div class="field">
+            <label for="phone">الهاتف</label>
+            <input id="phone" type="tel" required>
+          </div>
+
+          <div class="field">
+            <label for="gov">المحافظة</label>
+            <input id="gov" type="text" required>
+          </div>
+
+          <div class="field">
+            <label for="city">المدينة</label>
+            <input id="city" type="text" required>
+          </div>
+
+        </div>
+
+
+        <div class="field">
+          <label for="address">العنوان بالتفصيل</label>
+
+          <textarea
+            id="address"
+            rows="4"
+            required
+          ></textarea>
+        </div>
+
+
+        <div class="field">
+          <label for="notes">ملاحظات</label>
+
+          <textarea
+            id="notes"
+            rows="3"
+          ></textarea>
+        </div>
+
+
+        <div class="notice-box" id="price">
+          السعر: —
+        </div>
+
+
+        <button
+          class="btn primary"
+          id="submitBtn"
+          type="submit"
+        >
+          إرسال الطلب
+        </button>
+
+      </form>
+
+
+      <!-- معلومات قبل الإرسال -->
+      <div class="panel order-card">
+
+        <h3>قبل الإرسال</h3>
+
+        <p class="muted">
+          بعد إرسال الطلب سيظهر في لوحة الإدارة،
+          ويمكن للمشرف تأكيده وتجهيز البطاقة ثم ربطها بحسابك.
+        </p>
+
+        <div class="notice">
+          للطلب أو التواصل مع ZOMA:
+          <b>01033459821</b>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</main>
+
+
+<script>
+(function () {
+
+  /* =========================
+     عناصر الصفحة
+  ========================= */
+
+  const logoutBtn = document.getElementById('logout');
+
+  const orderForm = document.getElementById('orderForm');
+
+  const designSelect = document.getElementById('design');
+
+  const nameInput = document.getElementById('name');
+
+  const phoneInput = document.getElementById('phone');
+
+  const govInput = document.getElementById('gov');
+
+  const cityInput = document.getElementById('city');
+
+  const addressInput = document.getElementById('address');
+
+  const notesInput = document.getElementById('notes');
+
+  const priceBox = document.getElementById('price');
+
+  const submitBtn = document.getElementById('submitBtn');
+
+
+  /* =========================
+     المتغيرات
+  ========================= */
+
+  let designs = [];
+
+  let currentUser = null;
+
+
+  /* =========================
+     تسجيل الخروج
+  ========================= */
+
+  logoutBtn.addEventListener('click', async function () {
+
+    try {
+      await zoma.signOut();
+    } catch (err) {
+      console.error('Logout Error:', err);
+    }
+
+  });
+
+
+  /* =========================
+     تحديث السعر
+  ========================= */
+
+  function updatePrice() {
+
+    const selectedId = designSelect.value;
+
+    const selectedDesign = designs.find(function (item) {
+      return String(item.id) === String(selectedId);
+    });
+
+
+    if (!selectedDesign) {
+      priceBox.textContent = 'السعر: —';
+      return;
+    }
+
+
+    priceBox.textContent =
+      'السعر: ' +
+      zoma.money(selectedDesign.price);
+  }
+
+
+  designSelect.addEventListener(
+    'change',
+    updatePrice
+  );
+
+
+  /* =========================
+     تحميل بيانات العميل
+  ========================= */
+
+  async function loadCustomer() {
+
+    const result = await sb
+      .from('customers')
+      .select('*')
+      .eq('id', currentUser.id)
+      .single();
+
+
+    if (result.error) {
+
+      console.error(
+        'Customer Error:',
+        result.error
+      );
+
+      zoma.toast(
+        'تعذر تحميل بيانات العميل',
+        'error'
+      );
+
+      return false;
+    }
+
+
+    const customer = result.data;
+
+
+    if (!customer) {
+
+      zoma.toast(
+        'بيانات العميل غير موجودة',
+        'error'
+      );
+
+      return false;
+    }
+
+
+    nameInput.value =
+      customer.full_name || '';
+
+    phoneInput.value =
+      customer.phone || '';
+
+
+    return true;
+  }
+
+
+  /* =========================
+     تحميل التصميمات
+  ========================= */
+
+  async function loadDesigns() {
+
+    const result = await sb
+      .from('designs')
+      .select('*')
+      .eq('is_available', true)
+      .order('created_at', {
+        ascending: true
+      });
+
+
+    if (result.error) {
+
+      console.error(
+        'Designs Error:',
+        result.error
+      );
+
+      designSelect.innerHTML =
+        '<option value="">تعذر تحميل التصميمات</option>';
+
+      zoma.toast(
+        'تعذر تحميل التصميمات',
+        'error'
+      );
+
+      return false;
+    }
+
+
+    designs = result.data || [];
+
+
+    if (!designs.length) {
+
+      designSelect.innerHTML =
+        '<option value="">لا توجد تصميمات متاحة حاليًا</option>';
+
+      priceBox.textContent =
+        'السعر: —';
+
+      return true;
+    }
+
+
+    designSelect.innerHTML =
+      '<option value="">اختر التصميم</option>' +
+
+      designs.map(function (design) {
+
+        return `
+          <option value="${design.id}">
+            ${zoma.escape(design.name)}
+            — ${zoma.money(design.price)}
+          </option>
+        `;
+
+      }).join('');
+
+
+    updatePrice();
+
+    return true;
+  }
+
+
+  /* =========================
+     إنشاء رقم الطلب
+  ========================= */
+
+  function generateOrderNumber() {
+
+    if (
+      zoma &&
+      typeof zoma.orderNo === 'function'
+    ) {
+      return zoma.orderNo();
+    }
+
+
+    /*
+     * احتياطي في حالة عدم وجود
+     * الدالة في app.js
+     */
+
+    const now = Date.now();
+
+    const random =
+      Math.floor(
+        1000 + Math.random() * 9000
+      );
+
+    return 'ZOMA-' + now + '-' + random;
+  }
+
+
+  /* =========================
+     إرسال الطلب
+  ========================= */
+
+  orderForm.addEventListener(
+    'submit',
+    async function (e) {
+
+      e.preventDefault();
+
+
+      if (!currentUser) {
+
+        zoma.toast(
+          'يجب تسجيل الدخول أولًا',
+          'error'
+        );
+
+        window.location.href =
+          'login.html';
+
+        return;
+      }
+
+
+      const selectedDesignId =
+        designSelect.value;
+
+
+      const selectedDesign =
+        designs.find(function (item) {
+
+          return String(item.id) ===
+            String(selectedDesignId);
+
+        });
+
+
+      if (!selectedDesign) {
+
+        zoma.toast(
+          'من فضلك اختر تصميم البطاقة',
+          'error'
+        );
+
+        return;
+      }
+
+
+      if (
+        !nameInput.value.trim() ||
+        !phoneInput.value.trim() ||
+        !govInput.value.trim() ||
+        !cityInput.value.trim() ||
+        !addressInput.value.trim()
+      ) {
+
+        zoma.toast(
+          'من فضلك أكمل بيانات الطلب',
+          'error'
+        );
+
+        return;
+      }
+
+
+      submitBtn.disabled = true;
+
+      submitBtn.textContent =
+        'جاري إرسال الطلب...';
+
+
+      try {
+
+        const orderNumber =
+          generateOrderNumber();
+
+
+        const orderPayload = {
+
+          customer_id:
+            currentUser.id,
+
+          design_id:
+            selectedDesign.id,
+
+          order_number:
+            orderNumber,
+
+          total_price:
+            selectedDesign.price,
+
+          customer_name:
+            nameInput.value.trim(),
+
+          phone:
+            phoneInput.value.trim(),
+
+          shipping_governorate:
+            govInput.value.trim(),
+
+          shipping_city:
+            cityInput.value.trim(),
+
+          shipping_address:
+            addressInput.value.trim(),
+
+          customer_notes:
+            notesInput.value.trim(),
+
+          status:
+            'pending'
+
+        };
+
+
+        /* =========================
+           إنشاء الطلب
+        ========================= */
+
+        const result = await sb
+          .from('orders')
+          .insert(orderPayload)
+          .select()
+          .single();
+
+
+        if (result.error) {
+
+          console.error(
+            'Create Order Error:',
+            result.error
+          );
+
+          zoma.toast(
+            result.error.message ||
+            'تعذر إرسال الطلب',
+            'error'
+          );
+
+          return;
+        }
+
+
+        const createdOrder =
+          result.data;
+
+
+        /* =========================
+           تسجيل العملية
+        ========================= */
+
+        if (
+          typeof zoma.log === 'function'
+        ) {
+
+          try {
+
+            await zoma.log(
+              'create_order',
+              'order',
+              createdOrder.id,
+              {
+                order_number:
+                  orderNumber
+              }
+            );
+
+          } catch (logError) {
+
+            console.warn(
+              'Log Error:',
+              logError
+            );
+
+          }
+
+        }
+
+
+        /* =========================
+           نجاح الطلب
+        ========================= */
+
+        zoma.toast(
+          'تم إرسال الطلب بنجاح',
+          'success'
+        );
+
+
+        setTimeout(function () {
+
+          window.location.href =
+            'dashboard.html';
+
+        }, 500);
+
+
+      } catch (err) {
+
+        console.error(
+          'Unexpected Order Error:',
+          err
+        );
+
+        zoma.toast(
+          err.message ||
+          'حدث خطأ غير متوقع',
+          'error'
+        );
+
+      } finally {
+
+        submitBtn.disabled = false;
+
+        submitBtn.textContent =
+          'إرسال الطلب';
+
+      }
+
+    }
+  );
+
+
+  /* =========================
+     تشغيل الصفحة
+  ========================= */
+
+  async function boot() {
+
+    try {
+
+      currentUser =
+        await zoma.currentUser();
+
+
+      if (!currentUser) {
+
+        window.location.href =
+          'login.html';
+
+        return;
+      }
+
+
+      const customerLoaded =
+        await loadCustomer();
+
+
+      if (!customerLoaded) {
+        return;
+      }
+
+
+      await loadDesigns();
+
+    } catch (err) {
+
+      console.error(
+        'Order Boot Error:',
+        err
+      );
+
+      zoma.toast(
+        err.message ||
+        'حدث خطأ أثناء تحميل الصفحة',
+        'error'
+      );
+
+    }
+
+  }
+
+
+  boot();
+
+})();
+</script>
+
+</body>
+</html>
