@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -9,6 +10,8 @@
   <link rel="stylesheet" href="../assets/css/style.css">
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+
   <script src="../assets/js/config.js"></script>
   <script src="../assets/js/app.js"></script>
 </head>
@@ -17,7 +20,10 @@
 
 <div class="app-shell">
 
-  <!-- Sidebar -->
+  <!-- =========================
+       SIDEBAR
+  ========================== -->
+
   <aside class="sidebar">
 
     <a class="brand" href="../index.html">
@@ -27,35 +33,35 @@
 
     <div class="side-links">
 
-      <button class="side-link active" data-view="home">
+      <button class="side-link active" data-view="home" type="button">
         الرئيسية
       </button>
 
-      <button class="side-link" data-view="orders">
+      <button class="side-link" data-view="orders" type="button">
         الطلبات
       </button>
 
-      <button class="side-link" data-view="customers">
+      <button class="side-link" data-view="customers" type="button">
         العملاء
       </button>
 
-      <button class="side-link" data-view="cards">
+      <button class="side-link" data-view="cards" type="button">
         البطاقات
       </button>
 
-      <button class="side-link" data-view="designs">
+      <button class="side-link" data-view="designs" type="button">
         التصميمات
       </button>
 
-      <button class="side-link" data-view="messages">
+      <button class="side-link" data-view="messages" type="button">
         الرسائل
       </button>
 
-      <button class="side-link" data-view="admins">
+      <button class="side-link" data-view="admins" type="button">
         المشرفون
       </button>
 
-      <button class="side-link" data-view="settings">
+      <button class="side-link" data-view="settings" type="button">
         البيانات
       </button>
 
@@ -64,7 +70,10 @@
   </aside>
 
 
-  <!-- Main -->
+  <!-- =========================
+       MAIN
+  ========================== -->
+
   <main class="main">
 
     <div class="dash-top">
@@ -74,14 +83,17 @@
         <p class="muted" id="adminName"></p>
       </div>
 
-      <button class="btn" id="logout">
+      <button class="btn" id="logout" type="button">
         خروج
       </button>
 
     </div>
 
 
-    <!-- Home -->
+    <!-- =========================
+         HOME
+    ========================== -->
+
     <section class="view active" id="home">
 
       <div class="stats">
@@ -115,19 +127,35 @@
 
         <div class="actions">
 
-          <button class="btn primary" data-jump="orders">
+          <button
+            class="btn primary"
+            data-jump="orders"
+            type="button"
+          >
             إدارة الطلبات
           </button>
 
-          <button class="btn" data-jump="customers">
+          <button
+            class="btn"
+            data-jump="customers"
+            type="button"
+          >
             العملاء
           </button>
 
-          <button class="btn" data-jump="cards">
+          <button
+            class="btn"
+            data-jump="cards"
+            type="button"
+          >
             البطاقات
           </button>
 
-          <button class="btn" data-jump="designs">
+          <button
+            class="btn"
+            data-jump="designs"
+            type="button"
+          >
             التصميمات
           </button>
 
@@ -138,7 +166,10 @@
     </section>
 
 
-    <!-- Orders -->
+    <!-- =========================
+         ORDERS
+    ========================== -->
+
     <section class="view" id="orders">
 
       <div class="panel order-card">
@@ -149,10 +180,12 @@
 
           <input
             id="orderSearch"
-            placeholder="بحث برقم الطلب أو الهاتف"
+            type="search"
+            placeholder="بحث برقم الطلب أو الهاتف أو اسم العميل"
           >
 
         </div>
+
 
         <div class="table-wrap">
 
@@ -181,7 +214,10 @@
     </section>
 
 
-    <!-- Customers -->
+    <!-- =========================
+         CUSTOMERS
+    ========================== -->
+
     <section class="view" id="customers">
 
       <div class="panel order-card">
@@ -192,10 +228,12 @@
 
           <input
             id="customerSearch"
+            type="search"
             placeholder="بحث بالاسم أو الهاتف"
           >
 
         </div>
+
 
         <div class="table-wrap">
 
@@ -222,7 +260,10 @@
     </section>
 
 
-    <!-- Cards -->
+    <!-- =========================
+         CARDS
+    ========================== -->
+
     <section class="view" id="cards">
 
       <div class="panel order-card">
@@ -231,26 +272,34 @@
 
           <h2>البطاقات</h2>
 
-          <button class="btn primary" id="newCard">
+          <button
+            class="btn primary"
+            id="newCard"
+            type="button"
+          >
             إصدار بطاقة بديلة/جديدة
           </button>
 
         </div>
+
 
         <div class="table-wrap">
 
           <table class="table">
 
             <thead>
+
               <tr>
                 <th>Card ID</th>
                 <th>العميل</th>
                 <th>الطلب</th>
                 <th>الحالة</th>
-                <th>الرابط الدائم</th>
+                <th>الرابط</th>
+                <th>QR</th>
                 <th>NFC</th>
                 <th>إجراء</th>
               </tr>
+
             </thead>
 
             <tbody id="cardsBody"></tbody>
@@ -264,7 +313,10 @@
     </section>
 
 
-    <!-- Designs -->
+    <!-- =========================
+         DESIGNS
+    ========================== -->
+
     <section class="view" id="designs">
 
       <div class="panel order-card">
@@ -273,11 +325,16 @@
 
           <h2>التصميمات</h2>
 
-          <button class="btn primary" id="addDesign">
+          <button
+            class="btn primary"
+            id="addDesign"
+            type="button"
+          >
             إضافة تصميم
           </button>
 
         </div>
+
 
         <div id="designsGrid" class="designs"></div>
 
@@ -286,7 +343,10 @@
     </section>
 
 
-    <!-- Messages -->
+    <!-- =========================
+         MESSAGES
+    ========================== -->
+
     <section class="view" id="messages">
 
       <div class="panel order-card">
@@ -298,6 +358,7 @@
           <table class="table">
 
             <thead>
+
               <tr>
                 <th>التاريخ</th>
                 <th>الموضوع</th>
@@ -305,6 +366,7 @@
                 <th>الحالة</th>
                 <th>إجراء</th>
               </tr>
+
             </thead>
 
             <tbody id="messagesBody"></tbody>
@@ -318,7 +380,10 @@
     </section>
 
 
-    <!-- Admins -->
+    <!-- =========================
+         ADMINS
+    ========================== -->
+
     <section class="view" id="admins">
 
       <div class="panel order-card">
@@ -328,16 +393,18 @@
           <h2>المشرفون والصلاحيات</h2>
 
           <span class="muted">
-            إنشاء مستخدم Auth أولاً ثم إضافته هنا.
+            إنشاء مستخدم Auth أولًا ثم إضافته هنا.
           </span>
 
         </div>
+
 
         <div class="table-wrap">
 
           <table class="table">
 
             <thead>
+
               <tr>
                 <th>اسم المستخدم</th>
                 <th>الاسم</th>
@@ -345,6 +412,7 @@
                 <th>الصلاحيات</th>
                 <th>حفظ</th>
               </tr>
+
             </thead>
 
             <tbody id="adminsBody"></tbody>
@@ -358,7 +426,10 @@
     </section>
 
 
-    <!-- Settings -->
+    <!-- =========================
+         SETTINGS
+    ========================== -->
+
     <section class="view" id="settings">
 
       <div class="panel order-card">
@@ -371,7 +442,11 @@
           ولا يمس حسابات المشرفين والتصميمات والعملاء.
         </p>
 
-        <button class="btn danger" id="resetData">
+        <button
+          class="btn danger"
+          id="resetData"
+          type="button"
+        >
           حذف بيانات السنة الحالية
         </button>
 
@@ -384,7 +459,10 @@
 </div>
 
 
-<!-- Modal -->
+<!-- =========================
+     MODAL
+========================= -->
+
 <div id="modal" class="modal-backdrop">
 
   <div class="panel modal">
@@ -395,7 +473,11 @@
         تفاصيل
       </h2>
 
-      <button class="btn" id="closeModalBtn">
+      <button
+        class="btn"
+        id="closeModalBtn"
+        type="button"
+      >
         إغلاق
       </button>
 
@@ -408,538 +490,1560 @@
 </div>
 
 
-<!-- Toast -->
+<!-- =========================
+     TOAST
+========================= -->
+
 <div id="toast" class="toast"></div>
 
 
 <script>
-/* =========================================================
-   ZOMA ADMIN DASHBOARD
-   بدون $
-   وبدون الاعتماد على ID كمتغيرات تلقائية
-========================================================= */
+(function () {
+
+  'use strict';
 
 
-/* =========================
-   DOM REFERENCES
-========================= */
+  /* =========================================================
+     DOM
+  ========================================================= */
 
-const titleEl = document.getElementById('title');
-const adminNameEl = document.getElementById('adminName');
-const logoutBtn = document.getElementById('logout');
+  const titleEl =
+    document.getElementById('title');
 
-const sOrdersEl = document.getElementById('sOrders');
-const sCustomersEl = document.getElementById('sCustomers');
-const sActiveEl = document.getElementById('sActive');
-const sVisitsEl = document.getElementById('sVisits');
+  const adminNameEl =
+    document.getElementById('adminName');
 
-const orderSearchEl = document.getElementById('orderSearch');
-const customerSearchEl = document.getElementById('customerSearch');
+  const logoutBtn =
+    document.getElementById('logout');
 
-const ordersBodyEl = document.getElementById('ordersBody');
-const customersBodyEl = document.getElementById('customersBody');
-const cardsBodyEl = document.getElementById('cardsBody');
-const designsGridEl = document.getElementById('designsGrid');
-const messagesBodyEl = document.getElementById('messagesBody');
-const adminsBodyEl = document.getElementById('adminsBody');
+  const sOrdersEl =
+    document.getElementById('sOrders');
 
-const newCardBtn = document.getElementById('newCard');
-const addDesignBtn = document.getElementById('addDesign');
-const resetDataBtn = document.getElementById('resetData');
+  const sCustomersEl =
+    document.getElementById('sCustomers');
 
-const modalEl = document.getElementById('modal');
-const modalTitleEl = document.getElementById('modalTitle');
-const modalBodyEl = document.getElementById('modalBody');
-const closeModalBtn = document.getElementById('closeModalBtn');
+  const sActiveEl =
+    document.getElementById('sActive');
 
-const views = Array.from(document.querySelectorAll('.view'));
-const sideLinks = Array.from(document.querySelectorAll('.side-link'));
-const jumpButtons = Array.from(document.querySelectorAll('[data-jump]'));
+  const sVisitsEl =
+    document.getElementById('sVisits');
 
+  const orderSearchEl =
+    document.getElementById('orderSearch');
 
-/* =========================
-   DATA
-========================= */
+  const customerSearchEl =
+    document.getElementById('customerSearch');
 
-let admin = null;
+  const ordersBodyEl =
+    document.getElementById('ordersBody');
 
-let orders = [];
-let customers = [];
-let cards = [];
-let designs = [];
-let messages = [];
-let admins = [];
+  const customersBodyEl =
+    document.getElementById('customersBody');
 
+  const cardsBodyEl =
+    document.getElementById('cardsBody');
 
-/* =========================
-   MODAL
-========================= */
+  const designsGridEl =
+    document.getElementById('designsGrid');
 
-function closeModal() {
-  modalEl.classList.remove('show');
-}
+  const messagesBodyEl =
+    document.getElementById('messagesBody');
 
-window.closeModal = closeModal;
+  const adminsBodyEl =
+    document.getElementById('adminsBody');
 
-closeModalBtn.addEventListener('click', closeModal);
+  const newCardBtn =
+    document.getElementById('newCard');
 
+  const addDesignBtn =
+    document.getElementById('addDesign');
 
-/* =========================
-   NAVIGATION
-========================= */
+  const resetDataBtn =
+    document.getElementById('resetData');
 
-function show(viewName) {
+  const modalEl =
+    document.getElementById('modal');
 
-  views.forEach(function(view) {
-    view.classList.remove('active');
-  });
+  const modalTitleEl =
+    document.getElementById('modalTitle');
 
-  const targetView = document.getElementById(viewName);
+  const modalBodyEl =
+    document.getElementById('modalBody');
 
-  if (!targetView) {
-    return;
-  }
+  const closeModalBtn =
+    document.getElementById('closeModalBtn');
 
-  targetView.classList.add('active');
-
-  sideLinks.forEach(function(link) {
-    link.classList.toggle(
-      'active',
-      link.dataset.view === viewName
+  const views =
+    Array.from(
+      document.querySelectorAll('.view')
     );
-  });
 
-  const titles = {
-    home: 'لوحة التحكم',
-    orders: 'إدارة الطلبات',
-    customers: 'العملاء',
-    cards: 'البطاقات',
-    designs: 'التصميمات',
-    messages: 'الرسائل',
-    admins: 'المشرفون',
-    settings: 'إدارة البيانات'
-  };
+  const sideLinks =
+    Array.from(
+      document.querySelectorAll('.side-link')
+    );
 
-  titleEl.textContent =
-    titles[viewName] || 'لوحة التحكم';
-}
-
-window.show = show;
+  const jumpButtons =
+    Array.from(
+      document.querySelectorAll('[data-jump]')
+    );
 
 
-sideLinks.forEach(function(link) {
+  /* =========================================================
+     DATA
+  ========================================================= */
 
-  link.addEventListener('click', function() {
-    show(link.dataset.view);
-  });
+  let admin = null;
 
-});
+  let orders = [];
 
+  let customers = [];
 
-jumpButtons.forEach(function(button) {
+  let cards = [];
 
-  button.addEventListener('click', function() {
-    show(button.dataset.jump);
-  });
+  let designs = [];
 
-});
+  let messages = [];
 
-
-/* =========================
-   LOGOUT
-========================= */
-
-logoutBtn.addEventListener('click', function() {
-
-  if (
-    window.zoma &&
-    typeof window.zoma.signOut === 'function'
-  ) {
-    window.zoma.signOut();
-  }
-
-});
+  let admins = [];
 
 
-/* =========================
-   LOAD DATA
-========================= */
+  /* =========================================================
+     HELPERS
+  ========================================================= */
 
-async function load() {
-
-  try {
-
-    if (
-      !window.zoma ||
-      typeof window.zoma.requireAdmin !== 'function'
-    ) {
-      console.error('ZOMA app.js غير محمل بشكل صحيح.');
-      return;
-    }
-
-    admin = await window.zoma.requireAdmin();
-
-    if (!admin) {
-      return;
-    }
-
-    adminNameEl.textContent =
-      (admin.full_name || '') +
-      ' — ' +
-      (admin.role || '');
-
-
-    const results = await Promise.all([
-
-      sb
-        .from('orders')
-        .select(
-          '*,customers(full_name,phone),designs(name),cards(id,card_id,status,public_url)'
-        )
-        .order('created_at', {
-          ascending: false
-        }),
-
-      sb
-        .from('customers')
-        .select('*')
-        .order('created_at', {
-          ascending: false
-        }),
-
-      sb
-        .from('cards')
-        .select(
-          '*,customers(full_name,phone),orders(order_number)'
-        )
-        .order('created_at', {
-          ascending: false
-        }),
-
-      sb
-        .from('designs')
-        .select('*')
-        .order('created_at', {
-          ascending: false
-        }),
-
-      sb
-        .from('messages')
-        .select('*')
-        .order('created_at', {
-          ascending: false
-        }),
-
-      sb
-        .from('admins')
-        .select('*')
-        .order('created_at'),
-
-      sb
-        .from('analytics')
-        .select('id', {
-          count: 'exact',
-          head: true
-        })
-
-    ]);
-
-
-    const [
-      ordersResult,
-      customersResult,
-      cardsResult,
-      designsResult,
-      messagesResult,
-      adminsResult,
-      analyticsResult
-    ] = results;
-
-
-    if (ordersResult.error) {
-      console.error(
-        'Orders error:',
-        ordersResult.error
-      );
-    }
-
-    if (customersResult.error) {
-      console.error(
-        'Customers error:',
-        customersResult.error
-      );
-    }
-
-    if (cardsResult.error) {
-      console.error(
-        'Cards error:',
-        cardsResult.error
-      );
-    }
-
-    if (designsResult.error) {
-      console.error(
-        'Designs error:',
-        designsResult.error
-      );
-    }
-
-    if (messagesResult.error) {
-      console.error(
-        'Messages error:',
-        messagesResult.error
-      );
-    }
-
-    if (adminsResult.error) {
-      console.error(
-        'Admins error:',
-        adminsResult.error
-      );
-    }
-
-    if (analyticsResult.error) {
-      console.error(
-        'Analytics error:',
-        analyticsResult.error
-      );
-    }
-
-
-    orders = ordersResult.data || [];
-    customers = customersResult.data || [];
-    cards = cardsResult.data || [];
-    designs = designsResult.data || [];
-    messages = messagesResult.data || [];
-    admins = adminsResult.data || [];
-
-
-    sOrdersEl.textContent = orders.length;
-    sCustomersEl.textContent = customers.length;
-
-    sActiveEl.textContent =
-      cards.filter(function(card) {
-        return card.status === 'active';
-      }).length;
-
-    sVisitsEl.textContent =
-      analyticsResult.count || 0;
-
-
-    renderOrders();
-    renderCustomers();
-    renderCards();
-    renderDesigns();
-    renderMessages();
-    renderAdmins();
-
-  } catch (error) {
-
-    console.error('Dashboard load error:', error);
+  function toast(message, type) {
 
     if (
       window.zoma &&
       typeof window.zoma.toast === 'function'
     ) {
+
       window.zoma.toast(
-        'حدث خطأ أثناء تحميل لوحة التحكم',
-        'error'
+        message,
+        type
+      );
+
+      return;
+    }
+
+    console.log(
+      '[' + (type || 'info') + ']',
+      message
+    );
+  }
+
+
+  function escapeHtml(value) {
+
+    if (
+      window.zoma &&
+      typeof window.zoma.escape === 'function'
+    ) {
+
+      return window.zoma.escape(
+        value == null ? '' : String(value)
+      );
+
+    }
+
+    const div =
+      document.createElement('div');
+
+    div.textContent =
+      value == null ? '' : String(value);
+
+    return div.innerHTML;
+  }
+
+
+  function money(value) {
+
+    if (
+      window.zoma &&
+      typeof window.zoma.money === 'function'
+    ) {
+
+      return window.zoma.money(value);
+    }
+
+    const number =
+      Number(value || 0);
+
+    return number.toLocaleString(
+      'ar-EG'
+    ) + ' جنيه';
+  }
+
+
+  function statusLabel(status) {
+
+    if (
+      window.zoma &&
+      typeof window.zoma.statusLabel === 'function'
+    ) {
+
+      return window.zoma.statusLabel(status);
+    }
+
+    const labels = {
+
+      pending: 'قيد المراجعة',
+
+      confirmed: 'تم التأكيد',
+
+      preparing: 'جاري التجهيز',
+
+      ready: 'جاهز',
+
+      shipped: 'تم الشحن',
+
+      delivered: 'تم التسليم',
+
+      rejected: 'مرفوض',
+
+      active: 'نشطة',
+
+      suspended: 'موقوفة',
+
+      unactivated: 'غير مفعلة'
+
+    };
+
+    return labels[status] || status || '—';
+  }
+
+
+  function statusClass(status) {
+
+    if (
+      window.zoma &&
+      typeof window.zoma.statusClass === 'function'
+    ) {
+
+      return window.zoma.statusClass(status);
+    }
+
+    return status || '';
+  }
+
+
+  function generateCardId() {
+
+    if (
+      window.zoma &&
+      typeof window.zoma.cardId === 'function'
+    ) {
+
+      return window.zoma.cardId();
+    }
+
+    return (
+      'ZM-' +
+      Date.now().toString(36).toUpperCase() +
+      '-' +
+      Math.random()
+        .toString(36)
+        .slice(2, 7)
+        .toUpperCase()
+    );
+  }
+
+
+  function generatePublicUrl(cardId) {
+
+    if (
+      window.zoma &&
+      typeof window.zoma.publicUrl === 'function'
+    ) {
+
+      return window.zoma.publicUrl(cardId);
+    }
+
+    return (
+      window.location.origin +
+      '/card.html?id=' +
+      encodeURIComponent(cardId)
+    );
+  }
+
+
+  function generateOrderNumber() {
+
+    if (
+      window.zoma &&
+      typeof window.zoma.orderNo === 'function'
+    ) {
+
+      return window.zoma.orderNo();
+    }
+
+    return (
+      'ZOMA-' +
+      Date.now()
+    );
+  }
+
+
+  function logAction(
+    action,
+    entity,
+    entityId,
+    metadata
+  ) {
+
+    if (
+      window.zoma &&
+      typeof window.zoma.log === 'function'
+    ) {
+
+      return window.zoma.log(
+        action,
+        entity,
+        entityId,
+        metadata || {}
       );
     }
 
+    return Promise.resolve();
   }
 
-}
+
+  /* =========================================================
+     MODAL
+  ========================================================= */
+
+  function closeModal() {
+
+    modalEl.classList.remove('show');
+  }
+
+  window.closeModal =
+    closeModal;
+
+  closeModalBtn.addEventListener(
+    'click',
+    closeModal
+  );
 
 
-/* =========================
-   ORDERS
-========================= */
+  /* =========================================================
+     NAVIGATION
+  ========================================================= */
 
-function renderOrders() {
+  function show(viewName) {
 
-  const query =
-    (orderSearchEl.value || '').toLowerCase().trim();
+    views.forEach(function (view) {
 
-
-  const filtered =
-    orders.filter(function(order) {
-
-      return JSON.stringify(order)
-        .toLowerCase()
-        .includes(query);
+      view.classList.remove('active');
 
     });
 
 
-  ordersBodyEl.innerHTML =
-    filtered.map(function(order) {
-
-      const card =
-        Array.isArray(order.cards)
-          ? order.cards[0]
-          : null;
+    const targetView =
+      document.getElementById(viewName);
 
 
-      const customerName =
-        order.customers?.full_name ||
-        order.customer_name ||
-        '—';
+    if (!targetView) {
+      return;
+    }
 
 
-      const phone =
-        order.phone ||
-        order.customers?.phone ||
-        '';
+    targetView.classList.add('active');
 
 
-      const designName =
-        order.designs?.name ||
-        '—';
+    sideLinks.forEach(function (link) {
+
+      link.classList.toggle(
+        'active',
+        link.dataset.view === viewName
+      );
+
+    });
 
 
-      const statuses = [
-        'pending',
-        'confirmed',
-        'preparing',
-        'ready',
-        'shipped',
-        'delivered',
-        'rejected'
-      ];
+    const titles = {
+
+      home: 'لوحة التحكم',
+
+      orders: 'إدارة الطلبات',
+
+      customers: 'العملاء',
+
+      cards: 'البطاقات',
+
+      designs: 'التصميمات',
+
+      messages: 'الرسائل',
+
+      admins: 'المشرفون',
+
+      settings: 'إدارة البيانات'
+
+    };
 
 
-      const statusOptions =
-        statuses.map(function(status) {
+    titleEl.textContent =
+      titles[viewName] ||
+      'لوحة التحكم';
 
-          const selected =
-            order.status === status
-              ? 'selected'
-              : '';
+  }
+
+
+  window.show =
+    show;
+
+
+  sideLinks.forEach(function (link) {
+
+    link.addEventListener(
+      'click',
+      function () {
+
+        show(
+          link.dataset.view
+        );
+
+      }
+    );
+
+  });
+
+
+  jumpButtons.forEach(function (button) {
+
+    button.addEventListener(
+      'click',
+      function () {
+
+        show(
+          button.dataset.jump
+        );
+
+      }
+    );
+
+  });
+
+
+  /* =========================================================
+     LOGOUT
+  ========================================================= */
+
+  logoutBtn.addEventListener(
+    'click',
+    async function () {
+
+      try {
+
+        if (
+          window.zoma &&
+          typeof window.zoma.signOut === 'function'
+        ) {
+
+          await window.zoma.signOut();
+
+        }
+
+      } catch (error) {
+
+        console.error(
+          'Logout Error:',
+          error
+        );
+
+      }
+
+    }
+  );
+
+
+  /* =========================================================
+     LOAD
+  ========================================================= */
+
+  async function load() {
+
+    try {
+
+      if (
+        !window.zoma ||
+        typeof window.zoma.requireAdmin !== 'function'
+      ) {
+
+        console.error(
+          'app.js غير محمل بشكل صحيح.'
+        );
+
+        return;
+      }
+
+
+      admin =
+        await window.zoma.requireAdmin();
+
+
+      if (!admin) {
+        return;
+      }
+
+
+      adminNameEl.textContent =
+        (
+          admin.full_name ||
+          ''
+        ) +
+        (
+          admin.role
+            ? ' — ' + admin.role
+            : ''
+        );
+
+
+      const results =
+        await Promise.all([
+
+          sb
+            .from('orders')
+            .select(
+              '*,customers(full_name,phone),designs(name,image_url,preview_url,image),cards(id,card_id,status,public_url)'
+            )
+            .order(
+              'created_at',
+              {
+                ascending: false
+              }
+            ),
+
+          sb
+            .from('customers')
+            .select('*')
+            .order(
+              'created_at',
+              {
+                ascending: false
+              }
+            ),
+
+          sb
+            .from('cards')
+            .select(
+              '*,customers(full_name,phone),orders(order_number),profiles(*)'
+            )
+            .order(
+              'created_at',
+              {
+                ascending: false
+              }
+            ),
+
+          sb
+            .from('designs')
+            .select('*')
+            .order(
+              'created_at',
+              {
+                ascending: false
+              }
+            ),
+
+          sb
+            .from('messages')
+            .select('*')
+            .order(
+              'created_at',
+              {
+                ascending: false
+              }
+            ),
+
+          sb
+            .from('admins')
+            .select('*')
+            .order(
+              'created_at'
+            ),
+
+          sb
+            .from('analytics')
+            .select(
+              'id',
+              {
+                count: 'exact',
+                head: true
+              }
+            )
+
+        ]);
+
+
+      const ordersResult =
+        results[0];
+
+      const customersResult =
+        results[1];
+
+      const cardsResult =
+        results[2];
+
+      const designsResult =
+        results[3];
+
+      const messagesResult =
+        results[4];
+
+      const adminsResult =
+        results[5];
+
+      const analyticsResult =
+        results[6];
+
+
+      if (ordersResult.error) {
+
+        console.error(
+          'Orders:',
+          ordersResult.error
+        );
+
+      }
+
+
+      if (customersResult.error) {
+
+        console.error(
+          'Customers:',
+          customersResult.error
+        );
+
+      }
+
+
+      if (cardsResult.error) {
+
+        console.error(
+          'Cards:',
+          cardsResult.error
+        );
+
+      }
+
+
+      if (designsResult.error) {
+
+        console.error(
+          'Designs:',
+          designsResult.error
+        );
+
+      }
+
+
+      if (messagesResult.error) {
+
+        console.error(
+          'Messages:',
+          messagesResult.error
+        );
+
+      }
+
+
+      if (adminsResult.error) {
+
+        console.error(
+          'Admins:',
+          adminsResult.error
+        );
+
+      }
+
+
+      if (analyticsResult.error) {
+
+        console.error(
+          'Analytics:',
+          analyticsResult.error
+        );
+
+      }
+
+
+      orders =
+        ordersResult.data || [];
+
+      customers =
+        customersResult.data || [];
+
+      cards =
+        cardsResult.data || [];
+
+      designs =
+        designsResult.data || [];
+
+      messages =
+        messagesResult.data || [];
+
+      admins =
+        adminsResult.data || [];
+
+
+      sOrdersEl.textContent =
+        orders.length;
+
+      sCustomersEl.textContent =
+        customers.length;
+
+      sActiveEl.textContent =
+        cards.filter(
+          function (card) {
+
+            return (
+              card.status === 'active'
+            );
+
+          }
+        ).length;
+
+      sVisitsEl.textContent =
+        analyticsResult.count || 0;
+
+
+      renderOrders();
+
+      renderCustomers();
+
+      renderCards();
+
+      renderDesigns();
+
+      renderMessages();
+
+      renderAdmins();
+
+
+    } catch (error) {
+
+      console.error(
+        'Dashboard Load Error:',
+        error
+      );
+
+      toast(
+        'حدث خطأ أثناء تحميل لوحة التحكم',
+        'error'
+      );
+
+    }
+
+  }
+
+
+  /* =========================================================
+     ORDER CARD FINDER
+  ========================================================= */
+
+  function getOrderCard(order) {
+
+    if (!order) {
+      return null;
+    }
+
+
+    if (
+      Array.isArray(order.cards)
+    ) {
+
+      return order.cards[0] || null;
+    }
+
+
+    return null;
+  }
+
+
+  /* =========================================================
+     RENDER ORDERS
+  ========================================================= */
+
+  function renderOrders() {
+
+    const query =
+      (
+        orderSearchEl.value ||
+        ''
+      )
+        .toLowerCase()
+        .trim();
+
+
+    const filtered =
+      orders.filter(
+        function (order) {
+
+          const customerName =
+            order.customers?.full_name ||
+            order.customer_name ||
+            '';
+
+          const phone =
+            order.phone ||
+            order.customers?.phone ||
+            '';
+
+          const orderNumber =
+            order.order_number ||
+            '';
+
+
+          return (
+            String(orderNumber)
+              .toLowerCase()
+              .includes(query) ||
+
+            String(customerName)
+              .toLowerCase()
+              .includes(query) ||
+
+            String(phone)
+              .toLowerCase()
+              .includes(query)
+          );
+
+        }
+      );
+
+
+    ordersBodyEl.innerHTML =
+      filtered.map(
+        function (order) {
+
+          const card =
+            getOrderCard(order);
+
+
+          const customerName =
+            order.customers?.full_name ||
+            order.customer_name ||
+            '—';
+
+
+          const phone =
+            order.phone ||
+            order.customers?.phone ||
+            '';
+
+
+          const designName =
+            order.designs?.name ||
+            '—';
+
+
+          const statuses = [
+
+            'pending',
+
+            'confirmed',
+
+            'preparing',
+
+            'ready',
+
+            'shipped',
+
+            'delivered',
+
+            'rejected'
+
+          ];
+
+
+          const statusOptions =
+            statuses.map(
+              function (status) {
+
+                return `
+                  <option
+                    value="${escapeHtml(status)}"
+                    ${
+                      order.status === status
+                        ? 'selected'
+                        : ''
+                    }
+                  >
+                    ${escapeHtml(
+                      statusLabel(status)
+                    )}
+                  </option>
+                `;
+
+              }
+            ).join('');
+
 
           return `
-            <option value="${status}" ${selected}>
-              ${window.zoma.statusLabel(status)}
-            </option>
+
+            <tr>
+
+              <td>
+                ${escapeHtml(
+                  order.order_number ||
+                  '—'
+                )}
+              </td>
+
+
+              <td>
+
+                ${escapeHtml(
+                  customerName
+                )}
+
+                <br>
+
+                <span class="muted">
+                  ${escapeHtml(phone)}
+                </span>
+
+              </td>
+
+
+              <td>
+                ${escapeHtml(
+                  designName
+                )}
+              </td>
+
+
+              <td>
+                ${money(
+                  order.total_price
+                )}
+              </td>
+
+
+              <td>
+
+                <select
+                  data-order-status-id="${escapeHtml(
+                    order.id
+                  )}"
+                  class="order-status-select"
+                >
+
+                  ${statusOptions}
+
+                </select>
+
+              </td>
+
+
+              <td>
+
+                ${
+                  card
+
+                    ? `
+                      <span class="chip">
+                        ${escapeHtml(
+                          card.card_id
+                        )}
+                      </span>
+                    `
+
+                    : `
+                      <span class="muted">
+                        لم تُنشأ بعد
+                      </span>
+                    `
+                }
+
+              </td>
+
+
+              <td>
+
+                <div class="actions">
+
+                  <button
+                    class="btn"
+                    type="button"
+                    data-order-details="${escapeHtml(
+                      order.id
+                    )}"
+                  >
+                    تفاصيل
+                  </button>
+
+
+                  ${
+                    card
+
+                      ? `
+                        <button
+                          class="btn primary"
+                          type="button"
+                          data-card-preview="${escapeHtml(
+                            card.id
+                          )}"
+                        >
+                          البطاقة
+                        </button>
+                      `
+
+                      : `
+                        <button
+                          class="btn success"
+                          type="button"
+                          data-issue-card="${escapeHtml(
+                            order.id
+                          )}"
+                        >
+                          إنشاء بطاقة
+                        </button>
+                      `
+                  }
+
+                </div>
+
+              </td>
+
+            </tr>
+
           `;
 
-        }).join('');
+        }
+      ).join('') || `
 
-
-      return `
         <tr>
 
-          <td>
-            ${window.zoma.escape(order.order_number || '—')}
-          </td>
-
-          <td>
-            ${window.zoma.escape(customerName)}
-            <br>
-            <span class="muted">
-              ${window.zoma.escape(phone)}
-            </span>
-          </td>
-
-          <td>
-            ${window.zoma.escape(designName)}
-          </td>
-
-          <td>
-            ${window.zoma.money(order.total_price)}
-          </td>
-
-          <td>
-
-            <select
-              onchange="setOrderStatus('${order.id}',this.value)"
-            >
-              ${statusOptions}
-            </select>
-
-          </td>
-
-          <td>
-
-            ${
-              card
-                ? `<span class="chip">
-                    ${window.zoma.escape(card.card_id)}
-                   </span>`
-                : '—'
-            }
-
-          </td>
-
-          <td>
-
-            <div class="actions">
-
-              <button
-                class="btn"
-                onclick="orderDetails('${order.id}')"
-              >
-                تفاصيل
-              </button>
-
-              ${
-                card
-
-                  ? `
-                    <button
-                      class="btn primary"
-                      onclick="nfc('${card.id}','${order.id}')"
-                    >
-                      📲 إدراج NFC
-                    </button>
-                  `
-
-                  : `
-                    <button
-                      class="btn success"
-                      onclick="issueCard('${order.id}')"
-                    >
-                      إنشاء بطاقة
-                    </button>
-                  `
-              }
-
-            </div>
-
+          <td
+            colspan="7"
+            class="empty"
+          >
+            لا توجد طلبات.
           </td>
 
         </tr>
+
       `;
 
-    }).join('') ||
 
-    `
-      <tr>
-        <td colspan="7" class="empty">
-          لا توجد طلبات.
-        </td>
-      </tr>
+    bindOrderButtons();
+
+  }
+
+
+  /* =========================================================
+     BIND ORDER BUTTONS
+  ========================================================= */
+
+  function bindOrderButtons() {
+
+    document
+      .querySelectorAll(
+        '[data-order-status-id]'
+      )
+      .forEach(
+        function (element) {
+
+          element.addEventListener(
+            'change',
+            function () {
+
+              setOrderStatus(
+                element.dataset.orderStatusId,
+                element.value
+              );
+
+            }
+          );
+
+        }
+      );
+
+
+    document
+      .querySelectorAll(
+        '[data-order-details]'
+      )
+      .forEach(
+        function (button) {
+
+          button.addEventListener(
+            'click',
+            function () {
+
+              orderDetails(
+                button.dataset.orderDetails
+              );
+
+            }
+          );
+
+        }
+      );
+
+
+    document
+      .querySelectorAll(
+        '[data-issue-card]'
+      )
+      .forEach(
+        function (button) {
+
+          button.addEventListener(
+            'click',
+            function () {
+
+              issueCard(
+                button.dataset.issueCard
+              );
+
+            }
+          );
+
+        }
+      );
+
+
+    document
+      .querySelectorAll(
+        '[data-card-preview]'
+      )
+      .forEach(
+        function (button) {
+
+          button.addEventListener(
+            'click',
+            function () {
+
+              showCard(
+                button.dataset.cardPreview
+              );
+
+            }
+          );
+
+        }
+      );
+
+  }
+
+
+  /* =========================================================
+     SET ORDER STATUS
+  ========================================================= */
+
+  async function setOrderStatus(
+    id,
+    status
+  ) {
+
+    try {
+
+      const order =
+        orders.find(
+          function (item) {
+            return item.id === id;
+          }
+        );
+
+
+      if (!order) {
+
+        toast(
+          'الطلب غير موجود',
+          'error'
+        );
+
+        return;
+      }
+
+
+      const result =
+        await sb
+          .from('orders')
+          .update({
+            status: status
+          })
+          .eq(
+            'id',
+            id
+          );
+
+
+      if (result.error) {
+
+        console.error(
+          result.error
+        );
+
+        toast(
+          result.error.message,
+          'error'
+        );
+
+        await load();
+
+        return;
+      }
+
+
+      /*
+       * مهم:
+       * عند التأكيد يتم إنشاء البطاقة تلقائيًا.
+       */
+
+      if (
+        status === 'confirmed'
+      ) {
+
+        const existingCard =
+          cards.find(
+            function (card) {
+
+              return (
+                card.order_id === id
+              );
+
+            }
+          );
+
+
+        if (!existingCard) {
+
+          const cardResult =
+            await createCardForOrder(
+              order
+            );
+
+
+          if (!cardResult.success) {
+
+            console.error(
+              cardResult.error
+            );
+
+            toast(
+              'تم تأكيد الطلب، لكن تعذر إنشاء البطاقة: ' +
+              cardResult.error,
+              'error'
+            );
+
+            await load();
+
+            return;
+          }
+
+        }
+
+      }
+
+
+      try {
+
+        await logAction(
+          'update_order_status',
+          'order',
+          id,
+          {
+            status: status
+          }
+        );
+
+      } catch (logError) {
+
+        console.warn(
+          'Log error:',
+          logError
+        );
+
+      }
+
+
+      toast(
+        status === 'confirmed'
+          ? 'تم تأكيد الطلب وإنشاء البطاقة'
+          : 'تم تحديث حالة الطلب',
+        'success'
+      );
+
+
+      await load();
+
+
+    } catch (error) {
+
+      console.error(
+        'Set Order Status Error:',
+        error
+      );
+
+      toast(
+        error.message ||
+        'حدث خطأ أثناء تحديث الحالة',
+        'error'
+      );
+
+      await load();
+
+    }
+
+  }
+
+
+  window.setOrderStatus =
+    setOrderStatus;
+
+
+  /* =========================================================
+     ORDER DETAILS
+  ========================================================= */
+
+  function orderDetails(id) {
+
+    const order =
+      orders.find(
+        function (item) {
+          return item.id === id;
+        }
+      );
+
+
+    if (!order) {
+      return;
+    }
+
+
+    modalTitleEl.textContent =
+      'تفاصيل ' +
+      (
+        order.order_number ||
+        ''
+      );
+
+
+    const design =
+      order.designs || {};
+
+
+    const designImage =
+      design.image_url ||
+      design.preview_url ||
+      design.image ||
+      '';
+
+
+    modalBodyEl.innerHTML = `
+
+      <div class="form">
+
+
+        ${
+          designImage
+
+            ? `
+              <div class="notice-box">
+
+                <div class="muted">
+                  معاينة التصميم
+                </div>
+
+                <img
+                  src="${escapeHtml(
+                    designImage
+                  )}"
+                  alt="تصميم البطاقة"
+                  style="
+                    width:100%;
+                    max-height:320px;
+                    object-fit:contain;
+                    border-radius:14px;
+                    margin-top:10px;
+                  "
+                >
+
+              </div>
+            `
+
+            : ''
+        }
+
+
+        <div class="notice-box">
+
+          <b>الطلب:</b>
+          ${escapeHtml(
+            order.order_number ||
+            ''
+          )}
+
+          <br>
+
+          <b>العميل:</b>
+          ${escapeHtml(
+            order.customer_name ||
+            order.customers?.full_name ||
+            ''
+          )}
+
+          <br>
+
+          <b>الهاتف:</b>
+          ${escapeHtml(
+            order.phone ||
+            order.customers?.phone ||
+            ''
+          )}
+
+          <br>
+
+          <b>التصميم:</b>
+          ${escapeHtml(
+            design.name ||
+            ''
+          )}
+
+          <br>
+
+          <b>السعر:</b>
+          ${money(
+            order.total_price
+          )}
+
+          <br>
+
+          <b>المحافظة:</b>
+          ${escapeHtml(
+            order.shipping_governorate ||
+            ''
+          )}
+
+          <br>
+
+          <b>المدينة:</b>
+          ${escapeHtml(
+            order.shipping_city ||
+            ''
+          )}
+
+          <br>
+
+          <b>العنوان:</b>
+          ${escapeHtml(
+            order.shipping_address ||
+            ''
+          )}
+
+        </div>
+
+
+        <div class="field">
+
+          <label>
+            ملاحظات العميل
+          </label>
+
+          <textarea
+            rows="4"
+            readonly
+          >${escapeHtml(
+            order.customer_notes ||
+            ''
+          )}</textarea>
+
+        </div>
+
+
+        <div class="field">
+
+          <label>
+            ملاحظات الإدارة / سبب الرفض
+          </label>
+
+          <textarea
+            id="adminNotes"
+            rows="4"
+          >${escapeHtml(
+            order.admin_notes ||
+            ''
+          )}</textarea>
+
+        </div>
+
+
+        <button
+          class="btn primary"
+          type="button"
+          id="saveOrderNotesBtn"
+        >
+          حفظ الملاحظات
+        </button>
+
+      </div>
+
     `;
 
-}
+
+    modalEl.classList.add('show');
 
 
-window.setOrderStatus = async function(id, status) {
+    const saveNotesBtn =
+      document.getElementById(
+        'saveOrderNotesBtn'
+      );
 
-  try {
+
+    saveNotesBtn.addEventListener(
+      'click',
+      function () {
+
+        saveNotes(id);
+
+      }
+    );
+
+  }
+
+
+  window.orderDetails =
+    orderDetails;
+
+
+  /* =========================================================
+     SAVE NOTES
+  ========================================================= */
+
+  async function saveNotes(id) {
+
+    const notesEl =
+      document.getElementById(
+        'adminNotes'
+      );
+
+
+    if (!notesEl) {
+      return;
+    }
+
 
     const result =
       await sb
         .from('orders')
         .update({
-          status: status
+          admin_notes:
+            notesEl.value
         })
-        .eq('id', id);
+        .eq(
+          'id',
+          id
+        );
 
 
     if (result.error) {
 
-      window.zoma.toast(
+      toast(
         result.error.message,
         'error'
       );
@@ -948,1295 +2052,979 @@ window.setOrderStatus = async function(id, status) {
     }
 
 
-    await window.zoma.log(
-      'update_order_status',
-      'order',
-      id,
-      {
-        status: status
-      }
-    );
-
-
-    window.zoma.toast(
-      'تم تحديث الحالة',
+    toast(
+      'تم حفظ الملاحظات',
       'success'
     );
 
 
+    closeModal();
+
     await load();
 
-  } catch (error) {
-
-    console.error(error);
-
-    window.zoma.toast(
-      'حدث خطأ أثناء تحديث الحالة',
-      'error'
-    );
-
-  }
-
-};
-
-
-/* =========================
-   ORDER DETAILS
-========================= */
-
-window.orderDetails = function(id) {
-
-  const order =
-    orders.find(function(item) {
-      return item.id === id;
-    });
-
-
-  if (!order) {
-    return;
   }
 
 
-  modalTitleEl.textContent =
-    'تفاصيل ' +
-    (order.order_number || '');
+  window.saveNotes =
+    saveNotes;
 
 
-  modalBodyEl.innerHTML = `
+  /* =========================================================
+     CREATE CARD FOR ORDER
+  ========================================================= */
 
-    <div class="form">
+  async function createCardForOrder(
+    order
+  ) {
 
-      <div class="notice-box">
+    try {
 
-        <b>العميل:</b>
-        ${window.zoma.escape(
-          order.customer_name ||
-          order.customers?.full_name ||
-          ''
-        )}
+      if (!order) {
 
-        <br>
+        return {
+          success: false,
+          error: 'الطلب غير موجود'
+        };
 
-        <b>الهاتف:</b>
-        ${window.zoma.escape(
-          order.phone ||
-          order.customers?.phone ||
-          ''
-        )}
-
-        <br>
-
-        <b>العنوان:</b>
-        ${window.zoma.escape(
-          order.shipping_governorate || ''
-        )}
-        /
-        ${window.zoma.escape(
-          order.shipping_city || ''
-        )}
-        /
-        ${window.zoma.escape(
-          order.shipping_address || ''
-        )}
-
-      </div>
+      }
 
 
-      <div class="field">
+      /* =========================
+         Check existing card
+      ========================= */
 
-        <label>
-          ملاحظات الإدارة / سبب الرفض
-        </label>
-
-        <textarea
-          id="adminNotes"
-          rows="4"
-        >${window.zoma.escape(
-          order.admin_notes || ''
-        )}</textarea>
-
-      </div>
-
-
-      <button
-        class="btn primary"
-        onclick="saveNotes('${id}')"
-      >
-        حفظ الملاحظات
-      </button>
-
-    </div>
-
-  `;
+      const existingResult =
+        await sb
+          .from('cards')
+          .select(
+            'id,card_id,status,public_url'
+          )
+          .eq(
+            'order_id',
+            order.id
+          )
+          .maybeSingle();
 
 
-  modalEl.classList.add('show');
+      if (existingResult.error) {
 
-};
+        return {
+          success: false,
+          error:
+            existingResult.error.message
+        };
+
+      }
 
 
-window.saveNotes = async function(id) {
+      if (
+        existingResult.data
+      ) {
 
-  const notesEl =
-    document.getElementById('adminNotes');
+        return {
+          success: true,
+          card:
+            existingResult.data
+        };
+
+      }
 
 
-  if (!notesEl) {
-    return;
+      /* =========================
+         Card ID + public URL
+      ========================= */
+
+      const cardId =
+        generateCardId();
+
+
+      const publicUrl =
+        generatePublicUrl(
+          cardId
+        );
+
+
+      /* =========================
+         Create Card
+      ========================= */
+
+      const cardResult =
+        await sb
+          .from('cards')
+          .insert({
+
+            customer_id:
+              order.customer_id,
+
+            order_id:
+              order.id,
+
+            card_id:
+              cardId,
+
+            public_url:
+              publicUrl,
+
+            status:
+              'unactivated'
+
+          })
+          .select()
+          .single();
+
+
+      if (cardResult.error) {
+
+        return {
+          success: false,
+          error:
+            cardResult.error.message
+        };
+
+      }
+
+
+      /* =========================
+         Create / Update Profile
+      ========================= */
+
+      const customerName =
+        order.customer_name ||
+        order.customers?.full_name ||
+        '';
+
+
+      const profileResult =
+        await sb
+          .from('profiles')
+          .upsert(
+            {
+              card_id:
+                cardResult.data.id,
+
+              full_name:
+                customerName
+
+            },
+            {
+              onConflict:
+                'card_id'
+            }
+          );
+
+
+      if (
+        profileResult.error
+      ) {
+
+        console.warn(
+          'Profile Upsert Error:',
+          profileResult.error
+        );
+
+      }
+
+
+      /* =========================
+         Log
+      ========================= */
+
+      try {
+
+        await logAction(
+          'issue_card',
+          'card',
+          cardResult.data.id,
+          {
+            card_id:
+              cardId,
+
+            order_id:
+              order.id
+          }
+        );
+
+      } catch (logError) {
+
+        console.warn(
+          'Card log error:',
+          logError
+        );
+
+      }
+
+
+      return {
+        success: true,
+        card:
+          cardResult.data
+      };
+
+
+    } catch (error) {
+
+      return {
+        success: false,
+        error:
+          error.message ||
+          'حدث خطأ أثناء إنشاء البطاقة'
+      };
+
+    }
+
   }
 
 
-  const result =
-    await sb
-      .from('orders')
-      .update({
-        admin_notes: notesEl.value
-      })
-      .eq('id', id);
+  /* =========================================================
+     ISSUE CARD MANUALLY
+  ========================================================= */
+
+  async function issueCard(
+    orderId
+  ) {
+
+    const order =
+      orders.find(
+        function (item) {
+          return item.id === orderId;
+        }
+      );
 
 
-  if (result.error) {
+    if (!order) {
 
-    window.zoma.toast(
-      result.error.message,
-      'error'
-    );
-
-    return;
-  }
-
-
-  window.zoma.toast(
-    'تم الحفظ',
-    'success'
-  );
-
-
-  closeModal();
-
-  await load();
-
-};
-
-
-/* =========================
-   ISSUE CARD
-========================= */
-
-async function issueCard(orderId) {
-
-  const order =
-    orders.find(function(item) {
-      return item.id === orderId;
-    });
-
-
-  if (!order) {
-    return;
-  }
-
-
-  const existing =
-    cards.find(function(card) {
-      return card.order_id === orderId;
-    });
-
-
-  if (existing) {
-
-    window.zoma.toast(
-      'البطاقة موجودة بالفعل',
-      'error'
-    );
-
-    return;
-  }
-
-
-  try {
-
-    const cardId =
-      window.zoma.cardId();
-
-
-    const publicUrl =
-      window.zoma.publicUrl(cardId);
-
-
-    const cardResult =
-      await sb
-        .from('cards')
-        .insert({
-
-          customer_id: order.customer_id,
-
-          order_id: order.id,
-
-          card_id: cardId,
-
-          public_url: publicUrl,
-
-          status: 'unactivated'
-
-        })
-        .select()
-        .single();
-
-
-    if (cardResult.error) {
-
-      window.zoma.toast(
-        cardResult.error.message,
+      toast(
+        'الطلب غير موجود',
         'error'
       );
 
       return;
     }
+
+
+    try {
+
+      const result =
+        await createCardForOrder(
+          order
+        );
+
+
+      if (!result.success) {
+
+        toast(
+          result.error,
+          'error'
+        );
+
+        return;
+      }
+
+
+      toast(
+        'تم إصدار البطاقة: ' +
+        result.card.card_id,
+        'success'
+      );
+
+
+      await load();
+
+
+    } catch (error) {
+
+      console.error(
+        error
+      );
+
+      toast(
+        error.message ||
+        'حدث خطأ أثناء إصدار البطاقة',
+        'error'
+      );
+
+    }
+
+  }
+
+
+  window.issueCard =
+    issueCard;
+
+
+  /* =========================================================
+     SHOW CARD
+  ========================================================= */
+
+  function showCard(id) {
+
+    const card =
+      cards.find(
+        function (item) {
+          return item.id === id;
+        }
+      );
+
+
+    if (!card) {
+      return;
+    }
+
+
+    modalTitleEl.textContent =
+      'البطاقة ' +
+      (
+        card.card_id ||
+        ''
+      );
 
 
     const customerName =
-      order.customer_name ||
-      order.customers?.full_name ||
-      '';
+      card.customers?.full_name ||
+      '—';
 
 
-    const profileResult =
-      await sb
-        .from('profiles')
-        .insert({
+    modalBodyEl.innerHTML = `
 
-          card_id: cardResult.data.id,
+      <div class="form">
 
-          full_name: customerName
+        <div class="notice-box">
 
-        });
+          <b>Card ID:</b>
+          ${escapeHtml(
+            card.card_id || ''
+          )}
 
+          <br>
 
-    if (profileResult.error) {
+          <b>العميل:</b>
+          ${escapeHtml(
+            customerName
+          )}
 
-      console.error(
-        'Profile error:',
-        profileResult.error
-      );
+          <br>
 
-    }
+          <b>الحالة:</b>
+          ${escapeHtml(
+            statusLabel(
+              card.status
+            )
+          )}
 
+        </div>
 
-    await window.zoma.log(
-      'issue_card',
-      'card',
-      cardResult.data.id,
-      {
-        card_id: cardId
-      }
-    );
 
+        <div class="notice-box">
 
-    window.zoma.toast(
-      'تم إصدار البطاقة: ' + cardId,
-      'success'
-    );
+          <b>الرابط العام:</b>
 
-
-    await load();
-
-  } catch (error) {
-
-    console.error(error);
-
-    window.zoma.toast(
-      error.message || 'حدث خطأ',
-      'error'
-    );
-
-  }
-
-}
-
-
-window.issueCard = issueCard;
-
-
-/* =========================
-   NFC
-========================= */
-
-async function nfc(cardDbId, orderId) {
-
-  const card =
-    cards.find(function(item) {
-      return item.id === cardDbId;
-    });
-
-
-  if (!card) {
-    return;
-  }
-
-
-  try {
-
-    window.zoma.toast(
-      'قرّب بطاقة ZOMA من الهاتف…'
-    );
-
-
-    await window.zoma.writeNfc(
-      card,
-      orderId
-    );
-
-
-    window.zoma.toast(
-      'تم إدراج رابط NFC بنجاح',
-      'success'
-    );
-
-  } catch (error) {
-
-    console.error(error);
-
-    window.zoma.toast(
-      error.message || 'فشل إدراج NFC',
-      'error'
-    );
-
-  }
-
-}
-
-
-window.nfc = nfc;
-
-
-/* =========================
-   CUSTOMERS
-========================= */
-
-function renderCustomers() {
-
-  const query =
-    (customerSearchEl.value || '')
-      .toLowerCase()
-      .trim();
-
-
-  const filtered =
-    customers.filter(function(customer) {
-
-      return JSON.stringify(customer)
-        .toLowerCase()
-        .includes(query);
-
-    });
-
-
-  customersBodyEl.innerHTML =
-    filtered.map(function(customer) {
-
-      const cardCount =
-        cards.filter(function(card) {
-          return card.customer_id === customer.id;
-        }).length;
-
-
-      return `
-
-        <tr>
-
-          <td>
-            ${window.zoma.escape(
-              customer.full_name || ''
-            )}
-          </td>
-
-          <td>
-            ${window.zoma.escape(
-              customer.phone || ''
-            )}
-          </td>
-
-          <td>
-
-            <span class="status ${
-              customer.status === 'active'
-                ? 'success'
-                : 'danger'
-            }">
-
-              ${window.zoma.statusLabel(
-                customer.status
-              )}
-
-            </span>
-
-          </td>
-
-          <td>
-            ${cardCount}
-          </td>
-
-          <td>
-
-            <div class="actions">
-
-              <button
-                class="btn"
-                onclick="editCustomer('${customer.id}')"
-              >
-                تعديل
-              </button>
-
-              <button
-                class="btn danger"
-                onclick="deleteCustomer('${customer.id}')"
-              >
-                حذف
-              </button>
-
-            </div>
-
-          </td>
-
-        </tr>
-
-      `;
-
-    }).join('') ||
-
-    `
-      <tr>
-        <td colspan="5" class="empty">
-          لا يوجد عملاء.
-        </td>
-      </tr>
-    `;
-
-}
-
-
-/* =========================
-   EDIT CUSTOMER
-========================= */
-
-window.editCustomer = function(id) {
-
-  const customer =
-    customers.find(function(item) {
-      return item.id === id;
-    });
-
-
-  if (!customer) {
-    return;
-  }
-
-
-  modalTitleEl.textContent =
-    'تعديل العميل';
-
-
-  modalBodyEl.innerHTML = `
-
-    <form
-      class="form"
-      id="editCustomerForm"
-    >
-
-      <div class="field">
-
-        <label>الاسم</label>
-
-        <input
-          id="ecName"
-          value="${window.zoma.escape(
-            customer.full_name || ''
-          )}"
-          required
-        >
-
-      </div>
-
-
-      <div class="field">
-
-        <label>الهاتف</label>
-
-        <input
-          id="ecPhone"
-          value="${window.zoma.escape(
-            customer.phone || ''
-          )}"
-        >
-
-      </div>
-
-
-      <div class="field">
-
-        <label>الحالة</label>
-
-        <select id="ecStatus">
-
-          <option
-            value="active"
-            ${
-              customer.status === 'active'
-                ? 'selected'
-                : ''
-            }
+          <div
+            style="
+              word-break:break-all;
+              margin-top:8px
+            "
           >
-            نشط
-          </option>
-
-          <option
-            value="suspended"
-            ${
-              customer.status === 'suspended'
-                ? 'selected'
-                : ''
-            }
-          >
-            موقوف
-          </option>
-
-        </select>
-
-      </div>
-
-
-      <button
-        class="btn primary"
-        type="submit"
-      >
-        حفظ
-      </button>
-
-    </form>
-
-  `;
-
-
-  modalEl.classList.add('show');
-
-
-  const form =
-    document.getElementById(
-      'editCustomerForm'
-    );
-
-
-  form.addEventListener(
-    'submit',
-    function(event) {
-      saveCustomer(
-        event,
-        id
-      );
-    }
-  );
-
-};
-
-
-window.saveCustomer = async function(event, id) {
-
-  event.preventDefault();
-
-
-  const nameEl =
-    document.getElementById('ecName');
-
-  const phoneEl =
-    document.getElementById('ecPhone');
-
-  const statusEl =
-    document.getElementById('ecStatus');
-
-
-  const result =
-    await sb
-      .from('customers')
-      .update({
-
-        full_name: nameEl.value,
-
-        phone: phoneEl.value,
-
-        status: statusEl.value
-
-      })
-      .eq('id', id);
-
-
-  if (result.error) {
-
-    window.zoma.toast(
-      result.error.message,
-      'error'
-    );
-
-    return;
-  }
-
-
-  window.zoma.toast(
-    'تم الحفظ',
-    'success'
-  );
-
-
-  closeModal();
-
-  await load();
-
-};
-
-
-window.deleteCustomer = async function(id) {
-
-  if (!confirm('حذف العميل؟')) {
-    return;
-  }
-
-
-  const result =
-    await sb
-      .from('customers')
-      .delete()
-      .eq('id', id);
-
-
-  if (result.error) {
-
-    window.zoma.toast(
-      result.error.message,
-      'error'
-    );
-
-    return;
-  }
-
-
-  window.zoma.toast(
-    'تم الحذف',
-    'success'
-  );
-
-
-  await load();
-
-};
-
-
-/* =========================
-   CARDS
-========================= */
-
-function renderCards() {
-
-  cardsBodyEl.innerHTML =
-
-    cards.map(function(card) {
-
-      const customerName =
-        card.customers?.full_name ||
-        '—';
-
-
-      const orderNumber =
-        card.orders?.order_number ||
-        '—';
-
-
-      return `
-
-        <tr>
-
-          <td>
-            ${window.zoma.escape(
-              card.card_id || ''
+            ${escapeHtml(
+              card.public_url ||
+              ''
             )}
-          </td>
-
-          <td>
-            ${window.zoma.escape(
-              customerName
-            )}
-          </td>
-
-          <td>
-            ${window.zoma.escape(
-              orderNumber
-            )}
-          </td>
-
-          <td>
-
-            <span class="status ${
-              window.zoma.statusClass(
-                card.status
-              )
-            }">
-
-              ${window.zoma.statusLabel(
-                card.status
-              )}
-
-            </span>
-
-          </td>
-
-
-          <td>
-
-            <button
-              class="btn"
-              onclick="copyCardUrl('${card.id}')"
-            >
-              نسخ الرابط
-            </button>
-
-          </td>
-
-
-          <td>
-
-            <button
-              class="btn primary"
-              onclick="nfc('${card.id}','${card.order_id || ''}')"
-            >
-              📲 إدراج NFC
-            </button>
-
-          </td>
-
-
-          <td>
-
-            <div class="actions">
-
-              <button
-                class="btn"
-                onclick="toggleCard('${card.id}')"
-              >
-                ${
-                  card.status === 'suspended'
-                    ? 'تفعيل'
-                    : 'إيقاف'
-                }
-              </button>
-
-              <button
-                class="btn"
-                onclick="replaceCard('${card.id}')"
-              >
-                بديل
-              </button>
-
-            </div>
-
-          </td>
-
-        </tr>
-
-      `;
-
-    }).join('') ||
-
-    `
-      <tr>
-        <td colspan="7" class="empty">
-          لا توجد بطاقات.
-        </td>
-      </tr>
-    `;
-
-}
-
-
-/* =========================
-   COPY CARD URL
-========================= */
-
-window.copyCardUrl = async function(id) {
-
-  const card =
-    cards.find(function(item) {
-      return item.id === id;
-    });
-
-
-  if (!card || !card.public_url) {
-    return;
-  }
-
-
-  try {
-
-    await navigator.clipboard.writeText(
-      card.public_url
-    );
-
-
-    window.zoma.toast(
-      'تم النسخ',
-      'success'
-    );
-
-  } catch (error) {
-
-    console.error(error);
-
-    window.zoma.toast(
-      'تعذر نسخ الرابط',
-      'error'
-    );
-
-  }
-
-};
-
-
-/* =========================
-   TOGGLE CARD
-========================= */
-
-window.toggleCard = async function(id) {
-
-  const card =
-    cards.find(function(item) {
-      return item.id === id;
-    });
-
-
-  if (!card) {
-    return;
-  }
-
-
-  const newStatus =
-    card.status === 'suspended'
-      ? 'active'
-      : 'suspended';
-
-
-  const result =
-    await sb
-      .from('cards')
-      .update({
-        status: newStatus
-      })
-      .eq('id', id);
-
-
-  if (result.error) {
-
-    window.zoma.toast(
-      result.error.message,
-      'error'
-    );
-
-    return;
-  }
-
-
-  window.zoma.toast(
-    'تم تحديث حالة البطاقة',
-    'success'
-  );
-
-
-  await load();
-
-};
-
-
-/* =========================
-   REPLACE CARD
-========================= */
-
-window.replaceCard = async function(id) {
-
-  const oldCard =
-    cards.find(function(item) {
-      return item.id === id;
-    });
-
-
-  if (!oldCard) {
-    return;
-  }
-
-
-  if (
-    !confirm(
-      'إيقاف البطاقة الحالية وإصدار بطاقة بديلة؟'
-    )
-  ) {
-    return;
-  }
-
-
-  try {
-
-    const oldResult =
-      await sb
-        .from('cards')
-        .update({
-          status: 'suspended'
-        })
-        .eq('id', id);
-
-
-    if (oldResult.error) {
-
-      window.zoma.toast(
-        oldResult.error.message,
-        'error'
-      );
-
-      return;
-    }
-
-
-    const newCardId =
-      window.zoma.cardId();
-
-
-    const newPublicUrl =
-      window.zoma.publicUrl(
-        newCardId
-      );
-
-
-    const newResult =
-      await sb
-        .from('cards')
-        .insert({
-
-          customer_id:
-            oldCard.customer_id,
-
-          order_id:
-            oldCard.order_id,
-
-          card_id:
-            newCardId,
-
-          public_url:
-            newPublicUrl,
-
-          status:
-            'unactivated'
-
-        })
-        .select()
-        .single();
-
-
-    if (newResult.error) {
-
-      window.zoma.toast(
-        newResult.error.message,
-        'error'
-      );
-
-      return;
-    }
-
-
-    const profileResult =
-      await sb
-        .from('profiles')
-        .insert({
-
-          card_id:
-            newResult.data.id
-
-        });
-
-
-    if (profileResult.error) {
-
-      console.error(
-        'Profile error:',
-        profileResult.error
-      );
-
-    }
-
-
-    await window.zoma.log(
-      'replace_card',
-      'card',
-      newResult.data.id,
-      {
-        old_card_id:
-          oldCard.card_id,
-
-        new_card_id:
-          newCardId
-      }
-    );
-
-
-    window.zoma.toast(
-      'تم إصدار البطاقة البديلة ' +
-      newCardId,
-      'success'
-    );
-
-
-    await load();
-
-  } catch (error) {
-
-    console.error(error);
-
-    window.zoma.toast(
-      error.message ||
-      'حدث خطأ أثناء إصدار البطاقة',
-      'error'
-    );
-
-  }
-
-};
-
-
-/* =========================
-   NEW CARD BUTTON
-========================= */
-
-newCardBtn.addEventListener(
-  'click',
-  async function() {
-
-    /*
-      أولًا نحاول إيجاد طلب ليس لديه بطاقة.
-      لو وجدناه نصدر له بطاقة.
-      لو لم يوجد، نستخدم أول بطاقة كبديل.
-    */
-
-    const orderWithoutCard =
-      orders.find(function(order) {
-
-        return !cards.some(function(card) {
-
-          return card.order_id === order.id;
-
-        });
-
-      });
-
-
-    if (orderWithoutCard) {
-
-      await issueCard(
-        orderWithoutCard.id
-      );
-
-      return;
-    }
-
-
-    if (cards.length > 0) {
-
-      await window.replaceCard(
-        cards[0].id
-      );
-
-      return;
-    }
-
-
-    window.zoma.toast(
-      'لا يوجد طلب لإصدار بطاقة له',
-      'error'
-    );
-
-  }
-);
-
-
-/* =========================
-   DESIGNS
-========================= */
-
-function renderDesigns() {
-
-  designsGridEl.innerHTML =
-
-    designs.map(function(design) {
-
-      return `
-
-        <div class="panel design">
-
-          <div class="design-preview">
-            ${window.zoma.escape(
-              design.name || ''
-            )}
-          </div>
-
-          <h3>
-            ${window.zoma.escape(
-              design.name || ''
-            )}
-          </h3>
-
-          <p>
-            ${window.zoma.money(
-              design.price
-            )}
-          </p>
-
-          <div class="actions">
-
-            <button
-              class="btn"
-              onclick="toggleDesign('${design.id}')"
-            >
-              ${
-                design.is_available
-                  ? 'إيقاف'
-                  : 'تفعيل'
-              }
-            </button>
-
-            <button
-              class="btn danger"
-              onclick="deleteDesign('${design.id}')"
-            >
-              حذف
-            </button>
-
           </div>
 
         </div>
 
-      `;
 
-    }).join('') ||
+        <div
+          style="
+            display:flex;
+            justify-content:center;
+            margin:16px 0
+          "
+        >
 
-    `
-      <div class="empty">
-        لا توجد تصميمات.
+          <canvas
+            id="modalQrCanvas"
+            width="280"
+            height="280"
+            style="
+              max-width:100%;
+              background:#fff;
+              border-radius:12px;
+            "
+          ></canvas>
+
+        </div>
+
+
+        <div class="actions">
+
+          <button
+            class="btn"
+            type="button"
+            id="modalCopyUrl"
+          >
+            نسخ الرابط
+          </button>
+
+
+          <button
+            class="btn"
+            type="button"
+            id="modalDownloadQr"
+          >
+            تنزيل QR
+          </button>
+
+
+          <a
+            class="btn primary"
+            target="_blank"
+            rel="noopener noreferrer"
+            href="${escapeHtml(
+              card.public_url ||
+              '#'
+            )}"
+          >
+            فتح البطاقة
+          </a>
+
+        </div>
+
       </div>
+
     `;
 
-}
+
+    modalEl.classList.add('show');
 
 
-/* =========================
-   TOGGLE DESIGN
-========================= */
-
-window.toggleDesign = async function(id) {
-
-  const design =
-    designs.find(function(item) {
-      return item.id === id;
-    });
-
-
-  if (!design) {
-    return;
-  }
-
-
-  const result =
-    await sb
-      .from('designs')
-      .update({
-        is_available:
-          !design.is_available
-      })
-      .eq('id', id);
-
-
-  if (result.error) {
-
-    window.zoma.toast(
-      result.error.message,
-      'error'
+    drawQr(
+      card.public_url,
+      'modalQrCanvas'
     );
 
-    return;
-  }
+
+    const copyBtn =
+      document.getElementById(
+        'modalCopyUrl'
+      );
 
 
-  await load();
+    copyBtn.addEventListener(
+      'click',
+      function () {
 
-};
+        copyText(
+          card.public_url
+        );
 
-
-/* =========================
-   DELETE DESIGN
-========================= */
-
-window.deleteDesign = async function(id) {
-
-  if (!confirm('حذف التصميم؟')) {
-    return;
-  }
-
-
-  const result =
-    await sb
-      .from('designs')
-      .delete()
-      .eq('id', id);
-
-
-  if (result.error) {
-
-    window.zoma.toast(
-      result.error.message,
-      'error'
+      }
     );
 
-    return;
+
+    const downloadBtn =
+      document.getElementById(
+        'modalDownloadQr'
+      );
+
+
+    downloadBtn.addEventListener(
+      'click',
+      function () {
+
+        downloadQr(
+          card.card_id,
+          card.public_url
+        );
+
+      }
+    );
+
   }
 
 
-  window.zoma.toast(
-    'تم حذف التصميم',
-    'success'
-  );
+  window.showCard =
+    showCard;
 
 
-  await load();
+  /* =========================================================
+     DRAW QR
+  ========================================================= */
 
-};
+  function drawQr(
+    url,
+    canvasId
+  ) {
+
+    const canvas =
+      document.getElementById(
+        canvasId
+      );
 
 
-/* =========================
-   ADD DESIGN
-========================= */
+    if (!canvas) {
+      return;
+    }
 
-addDesignBtn.addEventListener(
-  'click',
-  function() {
+
+    if (
+      typeof QRCode ===
+      'undefined'
+    ) {
+
+      const ctx =
+        canvas.getContext(
+          '2d'
+        );
+
+      ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+      );
+
+      ctx.font =
+        '16px Arial';
+
+      ctx.textAlign =
+        'center';
+
+      ctx.fillText(
+        'تعذر تحميل مولد QR',
+        canvas.width / 2,
+        canvas.height / 2
+      );
+
+      return;
+    }
+
+
+    QRCode.toCanvas(
+      canvas,
+      url || '',
+      {
+        width: 280,
+        margin: 2,
+        errorCorrectionLevel: 'H'
+      },
+      function (error) {
+
+        if (error) {
+
+          console.error(
+            'QR Error:',
+            error
+          );
+
+        }
+
+      }
+    );
+
+  }
+
+
+  /* =========================================================
+     DOWNLOAD QR
+  ========================================================= */
+
+  function downloadQr(
+    cardId,
+    url
+  ) {
+
+    if (
+      typeof QRCode ===
+      'undefined'
+    ) {
+
+      toast(
+        'مولد QR غير جاهز',
+        'error'
+      );
+
+      return;
+    }
+
+
+    QRCode.toDataURL(
+      url || '',
+      {
+        width: 1200,
+        margin: 3,
+        errorCorrectionLevel: 'H'
+      },
+      function (
+        error,
+        dataUrl
+      ) {
+
+        if (error) {
+
+          console.error(
+            error
+          );
+
+          toast(
+            'تعذر إنشاء QR',
+            'error'
+          );
+
+          return;
+        }
+
+
+        const link =
+          document.createElement(
+            'a'
+          );
+
+
+        link.href =
+          dataUrl;
+
+
+        link.download =
+          (
+            cardId ||
+            'ZOMA-QR'
+          ) +
+          '-QR.png';
+
+
+        document.body.appendChild(
+          link
+        );
+
+
+        link.click();
+
+
+        link.remove();
+
+
+        toast(
+          'تم تنزيل QR بجودة عالية',
+          'success'
+        );
+
+      }
+    );
+
+  }
+
+
+  window.downloadQr =
+    downloadQr;
+
+
+  /* =========================================================
+     COPY TEXT
+  ========================================================= */
+
+  async function copyText(
+    text
+  ) {
+
+    try {
+
+      if (
+        navigator.clipboard &&
+        navigator.clipboard.writeText
+      ) {
+
+        await navigator.clipboard.writeText(
+          text
+        );
+
+      } else {
+
+        const temp =
+          document.createElement(
+            'textarea'
+          );
+
+        temp.value =
+          text || '';
+
+        document.body.appendChild(
+          temp
+        );
+
+        temp.select();
+
+        document.execCommand(
+          'copy'
+        );
+
+        temp.remove();
+
+      }
+
+
+      toast(
+        'تم نسخ الرابط',
+        'success'
+      );
+
+
+    } catch (error) {
+
+      console.error(
+        error
+      );
+
+      toast(
+        'تعذر نسخ الرابط',
+        'error'
+      );
+
+    }
+
+  }
+
+
+  /* =========================================================
+     RENDER CUSTOMERS
+  ========================================================= */
+
+  function renderCustomers() {
+
+    const query =
+      (
+        customerSearchEl.value ||
+        ''
+      )
+        .toLowerCase()
+        .trim();
+
+
+    const filtered =
+      customers.filter(
+        function (customer) {
+
+          const text =
+            (
+              customer.full_name ||
+              ''
+            ) +
+            ' ' +
+            (
+              customer.phone ||
+              ''
+            );
+
+
+          return text
+            .toLowerCase()
+            .includes(query);
+
+        }
+      );
+
+
+    customersBodyEl.innerHTML =
+      filtered.map(
+        function (customer) {
+
+          const cardCount =
+            cards.filter(
+              function (card) {
+
+                return (
+                  card.customer_id ===
+                  customer.id
+                );
+
+              }
+            ).length;
+
+
+          const active =
+            (
+              customer.status ||
+              'active'
+            ) ===
+            'active';
+
+
+          return `
+
+            <tr>
+
+              <td>
+                ${escapeHtml(
+                  customer.full_name ||
+                  ''
+                )}
+              </td>
+
+              <td>
+                ${escapeHtml(
+                  customer.phone ||
+                  ''
+                )}
+              </td>
+
+              <td>
+
+                <span
+                  class="status ${
+                    active
+                      ? 'success'
+                      : 'danger'
+                  }"
+                >
+                  ${escapeHtml(
+                    statusLabel(
+                      customer.status
+                    )
+                  )}
+                </span>
+
+              </td>
+
+              <td>
+                ${cardCount}
+              </td>
+
+              <td>
+
+                <div class="actions">
+
+                  <button
+                    class="btn"
+                    type="button"
+                    data-edit-customer="${escapeHtml(
+                      customer.id
+                    )}"
+                  >
+                    تعديل
+                  </button>
+
+                  <button
+                    class="btn danger"
+                    type="button"
+                    data-delete-customer="${escapeHtml(
+                      customer.id
+                    )}"
+                  >
+                    حذف
+                  </button>
+
+                </div>
+
+              </td>
+
+            </tr>
+
+          `;
+
+        }
+      ).join('') || `
+
+        <tr>
+
+          <td
+            colspan="5"
+            class="empty"
+          >
+            لا يوجد عملاء.
+          </td>
+
+        </tr>
+
+      `;
+
+
+    document
+      .querySelectorAll(
+        '[data-edit-customer]'
+      )
+      .forEach(
+        function (button) {
+
+          button.addEventListener(
+            'click',
+            function () {
+
+              editCustomer(
+                button.dataset.editCustomer
+              );
+
+            }
+          );
+
+        }
+      );
+
+
+    document
+      .querySelectorAll(
+        '[data-delete-customer]'
+      )
+      .forEach(
+        function (button) {
+
+          button.addEventListener(
+            'click',
+            function () {
+
+              deleteCustomer(
+                button.dataset.deleteCustomer
+              );
+
+            }
+          );
+
+        }
+      );
+
+  }
+
+
+  /* =========================================================
+     EDIT CUSTOMER
+  ========================================================= */
+
+  function editCustomer(id) {
+
+    const customer =
+      customers.find(
+        function (item) {
+          return item.id === id;
+        }
+      );
+
+
+    if (!customer) {
+      return;
+    }
+
 
     modalTitleEl.textContent =
-      'إضافة تصميم';
+      'تعديل العميل';
 
 
     modalBodyEl.innerHTML = `
 
       <form
         class="form"
-        id="createDesignForm"
+        id="editCustomerForm"
       >
 
         <div class="field">
 
-          <label>الاسم</label>
+          <label for="ecName">
+            الاسم
+          </label>
 
           <input
-            id="dn"
+            id="ecName"
+            value="${escapeHtml(
+              customer.full_name ||
+              ''
+            )}"
             required
           >
 
@@ -2245,14 +3033,54 @@ addDesignBtn.addEventListener(
 
         <div class="field">
 
-          <label>السعر</label>
+          <label for="ecPhone">
+            الهاتف
+          </label>
 
           <input
-            id="dp"
-            type="number"
-            min="0"
-            required
+            id="ecPhone"
+            value="${escapeHtml(
+              customer.phone ||
+              ''
+            )}"
           >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="ecStatus">
+            الحالة
+          </label>
+
+          <select
+            id="ecStatus"
+          >
+
+            <option
+              value="active"
+              ${
+                customer.status === 'active'
+                  ? 'selected'
+                  : ''
+              }
+            >
+              نشط
+            </option>
+
+            <option
+              value="suspended"
+              ${
+                customer.status === 'suspended'
+                  ? 'selected'
+                  : ''
+              }
+            >
+              موقوف
+            </option>
+
+          </select>
 
         </div>
 
@@ -2261,7 +3089,7 @@ addDesignBtn.addEventListener(
           class="btn primary"
           type="submit"
         >
-          إضافة
+          حفظ
         </button>
 
       </form>
@@ -2274,665 +3102,743 @@ addDesignBtn.addEventListener(
 
     const form =
       document.getElementById(
-        'createDesignForm'
+        'editCustomerForm'
       );
 
 
     form.addEventListener(
       'submit',
-      createDesign
-    );
-
-  }
-);
-
-
-/* =========================
-   CREATE DESIGN
-========================= */
-
-window.createDesign = async function(event) {
-
-  event.preventDefault();
-
-
-  const nameEl =
-    document.getElementById('dn');
-
-  const priceEl =
-    document.getElementById('dp');
-
-
-  const result =
-    await sb
-      .from('designs')
-      .insert({
-
-        design_code:
-          'DES-' +
-          Math.random()
-            .toString(36)
-            .slice(2, 7)
-            .toUpperCase(),
-
-        name:
-          nameEl.value.trim(),
-
-        price:
-          Number(priceEl.value),
-
-        is_available:
-          true,
-
-        nfc_available:
-          true,
-
-        qr_available:
-          false
-
-      });
-
-
-  if (result.error) {
-
-    window.zoma.toast(
-      result.error.message,
-      'error'
-    );
-
-    return;
-  }
-
-
-  window.zoma.toast(
-    'تمت إضافة التصميم',
-    'success'
-  );
-
-
-  closeModal();
-
-  await load();
-
-};
-
-
-/* =========================
-   MESSAGES
-========================= */
-
-function renderMessages() {
-
-  messagesBodyEl.innerHTML =
-
-    messages.map(function(message) {
-
-      return `
-
-        <tr>
-
-          <td>
-            ${
-              message.created_at
-                ? new Date(
-                    message.created_at
-                  ).toLocaleString(
-                    'ar-EG'
-                  )
-                : '—'
-            }
-          </td>
-
-          <td>
-            ${window.zoma.escape(
-              message.subject || '—'
-            )}
-          </td>
-
-          <td>
-            ${window.zoma.escape(
-              message.body || ''
-            )}
-          </td>
-
-          <td>
-            ${window.zoma.escape(
-              message.status || 'open'
-            )}
-          </td>
-
-          <td>
-
-            <button
-              class="btn success"
-              onclick="closeMessage('${message.id}')"
-            >
-              تم الحل
-            </button>
-
-          </td>
-
-        </tr>
-
-      `;
-
-    }).join('') ||
-
-    `
-      <tr>
-        <td colspan="5" class="empty">
-          لا توجد رسائل.
-        </td>
-      </tr>
-    `;
-
-}
-
-
-/* =========================
-   CLOSE MESSAGE
-========================= */
-
-window.closeMessage = async function(id) {
-
-  const result =
-    await sb
-      .from('messages')
-      .update({
-        status: 'closed'
-      })
-      .eq('id', id);
-
-
-  if (result.error) {
-
-    window.zoma.toast(
-      result.error.message,
-      'error'
-    );
-
-    return;
-  }
-
-
-  await load();
-
-};
-
-
-/* =========================
-   ADMINS
-========================= */
-
-function renderAdmins() {
-
-  adminsBodyEl.innerHTML =
-
-    admins.map(function(adminItem) {
-
-      const roleId =
-        'role_' +
-        String(adminItem.id)
-          .replace(/[^a-zA-Z0-9_-]/g, '');
-
-
-      return `
-
-        <tr>
-
-          <td>
-            ${window.zoma.escape(
-              adminItem.username || ''
-            )}
-          </td>
-
-          <td>
-            ${window.zoma.escape(
-              adminItem.full_name || ''
-            )}
-          </td>
-
-          <td>
-
-            <select id="${roleId}">
-
-              <option
-                value="owner"
-                ${
-                  adminItem.role === 'owner'
-                    ? 'selected'
-                    : ''
-                }
-              >
-                owner
-              </option>
-
-              <option
-                value="manager"
-                ${
-                  adminItem.role === 'manager'
-                    ? 'selected'
-                    : ''
-                }
-              >
-                manager
-              </option>
-
-              <option
-                value="support"
-                ${
-                  adminItem.role === 'support'
-                    ? 'selected'
-                    : ''
-                }
-              >
-                support
-              </option>
-
-            </select>
-
-          </td>
-
-          <td>
-
-            <button
-              class="btn"
-              onclick="permissions('${adminItem.id}')"
-            >
-              صلاحيات
-            </button>
-
-          </td>
-
-          <td>
-
-            <button
-              class="btn"
-              onclick="saveRole('${adminItem.id}','${roleId}')"
-            >
-              حفظ
-            </button>
-
-          </td>
-
-        </tr>
-
-      `;
-
-    }).join('') ||
-
-    `
-      <tr>
-        <td colspan="5" class="empty">
-          لا يوجد مشرفون.
-        </td>
-      </tr>
-    `;
-
-}
-
-
-/* =========================
-   SAVE ROLE
-========================= */
-
-window.saveRole = async function(
-  adminId,
-  roleElementId
-) {
-
-  const roleElement =
-    document.getElementById(
-      roleElementId
-    );
-
-
-  if (!roleElement) {
-    return;
-  }
-
-
-  await window.roleChange(
-    adminId,
-    roleElement.value
-  );
-
-};
-
-
-/* =========================
-   ROLE CHANGE
-========================= */
-
-window.roleChange = async function(
-  id,
-  role
-) {
-
-  const result =
-    await sb
-      .from('admins')
-      .update({
-        role: role
-      })
-      .eq('id', id);
-
-
-  if (result.error) {
-
-    window.zoma.toast(
-      result.error.message,
-      'error'
-    );
-
-    return;
-  }
-
-
-  window.zoma.toast(
-    'تم تحديث الدور',
-    'success'
-  );
-
-
-  await load();
-
-};
-
-
-/* =========================
-   PERMISSIONS
-========================= */
-
-window.permissions = async function(id) {
-
-  const adminItem =
-    admins.find(function(item) {
-      return item.id === id;
-    });
-
-
-  if (!adminItem) {
-    return;
-  }
-
-
-  const sections = [
-    'orders',
-    'customers',
-    'cards',
-    'designs',
-    'messages',
-    'settings'
-  ];
-
-
-  const result =
-    await sb
-      .from('admin_permissions')
-      .select('*')
-      .eq('admin_id', id);
-
-
-  if (result.error) {
-
-    window.zoma.toast(
-      result.error.message,
-      'error'
-    );
-
-    return;
-  }
-
-
-  const permissionMap =
-    Object.fromEntries(
-      (result.data || []).map(
-        function(item) {
-
-          return [
-            item.section,
-            item
-          ];
-
-        }
-      )
-    );
-
-
-  modalTitleEl.textContent =
-    'صلاحيات ' +
-    (adminItem.username || '');
-
-
-  modalBodyEl.innerHTML = `
-
-    <form
-      id="permForm"
-      class="form"
-    >
-
-      ${sections.map(
-        function(section) {
-
-          const permission =
-            permissionMap[section] || {};
-
-
-          return `
-
-            <div class="notice-box">
-
-              <b>
-                ${section}
-              </b>
-
-
-              <label>
-
-                <input
-                  type="checkbox"
-                  data-sec="${section}"
-                  data-k="view"
-                  ${
-                    permission.can_view
-                      ? 'checked'
-                      : ''
-                  }
-                >
-
-                عرض
-
-              </label>
-
-
-              <label>
-
-                <input
-                  type="checkbox"
-                  data-sec="${section}"
-                  data-k="edit"
-                  ${
-                    permission.can_edit
-                      ? 'checked'
-                      : ''
-                  }
-                >
-
-                تعديل
-
-              </label>
-
-            </div>
-
-          `;
-
-        }
-      ).join('')}
-
-
-      <button
-        class="btn primary"
-        type="submit"
-      >
-        حفظ الصلاحيات
-      </button>
-
-    </form>
-
-  `;
-
-
-  modalEl.classList.add('show');
-
-
-  const permissionForm =
-    document.getElementById(
-      'permForm'
-    );
-
-
-  permissionForm.addEventListener(
-    'submit',
-    async function(event) {
-
-      event.preventDefault();
-
-
-      const deleteResult =
-        await sb
-          .from('admin_permissions')
-          .delete()
-          .eq('admin_id', id);
-
-
-      if (deleteResult.error) {
-
-        window.zoma.toast(
-          deleteResult.error.message,
-          'error'
+      function (event) {
+
+        saveCustomer(
+          event,
+          id
         );
 
-        return;
       }
+    );
+
+  }
 
 
-      const rows =
-        sections.map(
-          function(section) {
-
-            const viewCheckbox =
-              document.querySelector(
-                `[data-sec="${section}"][data-k="view"]`
-              );
+  window.editCustomer =
+    editCustomer;
 
 
-            const editCheckbox =
-              document.querySelector(
-                `[data-sec="${section}"][data-k="edit"]`
-              );
+  /* =========================================================
+     SAVE CUSTOMER
+  ========================================================= */
+
+  async function saveCustomer(
+    event,
+    id
+  ) {
+
+    event.preventDefault();
 
 
-            return {
+    const nameEl =
+      document.getElementById(
+        'ecName'
+      );
 
-              admin_id:
-                id,
+    const phoneEl =
+      document.getElementById(
+        'ecPhone'
+      );
 
-              section:
-                section,
-
-              can_view:
-                viewCheckbox
-                  ? viewCheckbox.checked
-                  : false,
-
-              can_edit:
-                editCheckbox
-                  ? editCheckbox.checked
-                  : false
-
-            };
-
-          }
-        );
-
-
-      const insertResult =
-        await sb
-          .from('admin_permissions')
-          .insert(rows);
-
-
-      if (insertResult.error) {
-
-        window.zoma.toast(
-          insertResult.error.message,
-          'error'
-        );
-
-        return;
-      }
-
-
-      window.zoma.toast(
-        'تم حفظ الصلاحيات',
-        'success'
+    const statusEl =
+      document.getElementById(
+        'ecStatus'
       );
 
 
-      closeModal();
+    const result =
+      await sb
+        .from('customers')
+        .update({
 
-    }
-  );
+          full_name:
+            nameEl.value.trim(),
 
-};
+          phone:
+            phoneEl.value.trim(),
+
+          status:
+            statusEl.value
+
+        })
+        .eq(
+          'id',
+          id
+        );
 
 
-/* =========================
-   RESET DATA
-========================= */
+    if (result.error) {
 
-resetDataBtn.addEventListener(
-  'click',
-  async function() {
+      toast(
+        result.error.message,
+        'error'
+      );
 
-    if (!admin) {
       return;
     }
 
 
-    if (admin.role !== 'owner') {
+    toast(
+      'تم حفظ بيانات العميل',
+      'success'
+    );
 
-      window.zoma.toast(
-        'هذا الإجراء للمالك فقط',
+
+    closeModal();
+
+    await load();
+
+  }
+
+
+  window.saveCustomer =
+    saveCustomer;
+
+
+  /* =========================================================
+     DELETE CUSTOMER
+  ========================================================= */
+
+  async function deleteCustomer(id) {
+
+    if (
+      !confirm(
+        'هل تريد حذف العميل؟'
+      )
+    ) {
+
+      return;
+    }
+
+
+    const result =
+      await sb
+        .from('customers')
+        .delete()
+        .eq(
+          'id',
+          id
+        );
+
+
+    if (result.error) {
+
+      toast(
+        result.error.message,
         'error'
       );
 
+      return;
+    }
+
+
+    toast(
+      'تم حذف العميل',
+      'success'
+    );
+
+
+    await load();
+
+  }
+
+
+  window.deleteCustomer =
+    deleteCustomer;
+
+
+  /* =========================================================
+     RENDER CARDS
+  ========================================================= */
+
+  function renderCards() {
+
+    cardsBodyEl.innerHTML =
+      cards.map(
+        function (card) {
+
+          const customerName =
+            card.customers?.full_name ||
+            '—';
+
+
+          const orderNumber =
+            card.orders?.order_number ||
+            '—';
+
+
+          const safeId =
+            String(card.id);
+
+
+          return `
+
+            <tr>
+
+              <td>
+                ${escapeHtml(
+                  card.card_id ||
+                  ''
+                )}
+              </td>
+
+
+              <td>
+                ${escapeHtml(
+                  customerName
+                )}
+              </td>
+
+
+              <td>
+                ${escapeHtml(
+                  orderNumber
+                )}
+              </td>
+
+
+              <td>
+
+                <span
+                  class="status ${
+                    statusClass(
+                      card.status
+                    )
+                  }"
+                >
+                  ${escapeHtml(
+                    statusLabel(
+                      card.status
+                    )
+                  )}
+                </span>
+
+              </td>
+
+
+              <td>
+
+                <div
+                  class="actions"
+                >
+
+                  <button
+                    class="btn"
+                    type="button"
+                    data-copy-card="${escapeHtml(
+                      safeId
+                    )}"
+                  >
+                    نسخ
+                  </button>
+
+                  <button
+                    class="btn primary"
+                    type="button"
+                    data-open-card="${escapeHtml(
+                      safeId
+                    )}"
+                  >
+                    فتح
+                  </button>
+
+                </div>
+
+              </td>
+
+
+              <td>
+
+                <div
+                  class="actions"
+                >
+
+                  <button
+                    class="btn"
+                    type="button"
+                    data-show-qr="${escapeHtml(
+                      safeId
+                    )}"
+                  >
+                    معاينة
+                  </button>
+
+                  <button
+                    class="btn"
+                    type="button"
+                    data-download-qr="${escapeHtml(
+                      safeId
+                    )}"
+                  >
+                    تنزيل
+                  </button>
+
+                </div>
+
+              </td>
+
+
+              <td>
+
+                <button
+                  class="btn primary"
+                  type="button"
+                  data-nfc-card="${escapeHtml(
+                    safeId
+                  )}"
+                >
+                  📲 إدراج NFC
+                </button>
+
+              </td>
+
+
+              <td>
+
+                <div class="actions">
+
+                  <button
+                    class="btn"
+                    type="button"
+                    data-toggle-card="${escapeHtml(
+                      safeId
+                    )}"
+                  >
+                    ${
+                      card.status === 'suspended'
+                        ? 'تفعيل'
+                        : 'إيقاف'
+                    }
+                  </button>
+
+
+                  <button
+                    class="btn"
+                    type="button"
+                    data-replace-card="${escapeHtml(
+                      safeId
+                    )}"
+                  >
+                    بديل
+                  </button>
+
+                </div>
+
+              </td>
+
+            </tr>
+
+          `;
+
+        }
+      ).join('') || `
+
+        <tr>
+
+          <td
+            colspan="8"
+            class="empty"
+          >
+            لا توجد بطاقات.
+          </td>
+
+        </tr>
+
+      `;
+
+
+    bindCardButtons();
+
+  }
+
+
+  /* =========================================================
+     BIND CARD BUTTONS
+  ========================================================= */
+
+  function bindCardButtons() {
+
+    document
+      .querySelectorAll(
+        '[data-copy-card]'
+      )
+      .forEach(
+        function (button) {
+
+          button.addEventListener(
+            'click',
+            function () {
+
+              copyCardUrl(
+                button.dataset.copyCard
+              );
+
+            }
+          );
+
+        }
+      );
+
+
+    document
+      .querySelectorAll(
+        '[data-open-card]'
+      )
+      .forEach(
+        function (button) {
+
+          button.addEventListener(
+            'click',
+            function () {
+
+              openCard(
+                button.dataset.openCard
+              );
+
+            }
+          );
+
+        }
+      );
+
+
+    document
+      .querySelectorAll(
+        '[data-show-qr]'
+      )
+      .forEach(
+        function (button) {
+
+          button.addEventListener(
+            'click',
+            function () {
+
+              showCard(
+                button.dataset.showQr
+              );
+
+            }
+          );
+
+        }
+      );
+
+
+    document
+      .querySelectorAll(
+        '[data-download-qr]'
+      )
+      .forEach(
+        function (button) {
+
+          button.addEventListener(
+            'click',
+            function () {
+
+              const card =
+                cards.find(
+                  function (item) {
+                    return (
+                      item.id ===
+                      button.dataset.downloadQr
+                    );
+                  }
+                );
+
+
+              if (!card) {
+                return;
+              }
+
+
+              downloadQr(
+                card.card_id,
+                card.public_url
+              );
+
+            }
+          );
+
+        }
+      );
+
+
+    document
+      .querySelectorAll(
+        '[data-nfc-card]'
+      )
+      .forEach(
+        function (button) {
+
+          button.addEventListener(
+            'click',
+            function () {
+
+              const card =
+                cards.find(
+                  function (item) {
+                    return (
+                      item.id ===
+                      button.dataset.nfcCard
+                    );
+                  }
+                );
+
+
+              if (!card) {
+                return;
+              }
+
+
+              nfc(
+                card.id,
+                card.order_id || ''
+              );
+
+            }
+          );
+
+        }
+      );
+
+
+    document
+      .querySelectorAll(
+        '[data-toggle-card]'
+      )
+      .forEach(
+        function (button) {
+
+          button.addEventListener(
+            'click',
+            function () {
+
+              toggleCard(
+                button.dataset.toggleCard
+              );
+
+            }
+          );
+
+        }
+      );
+
+
+    document
+      .querySelectorAll(
+        '[data-replace-card]'
+      )
+      .forEach(
+        function (button) {
+
+          button.addEventListener(
+            'click',
+            function () {
+
+              replaceCard(
+                button.dataset.replaceCard
+              );
+
+            }
+          );
+
+        }
+      );
+
+  }
+
+
+  /* =========================================================
+     COPY CARD URL
+  ========================================================= */
+
+  async function copyCardUrl(id) {
+
+    const card =
+      cards.find(
+        function (item) {
+          return item.id === id;
+        }
+      );
+
+
+    if (
+      !card ||
+      !card.public_url
+    ) {
+
+      toast(
+        'رابط البطاقة غير موجود',
+        'error'
+      );
+
+      return;
+    }
+
+
+    await copyText(
+      card.public_url
+    );
+
+  }
+
+
+  window.copyCardUrl =
+    copyCardUrl;
+
+
+  /* =========================================================
+     OPEN CARD
+  ========================================================= */
+
+  function openCard(id) {
+
+    const card =
+      cards.find(
+        function (item) {
+          return item.id === id;
+        }
+      );
+
+
+    if (
+      !card ||
+      !card.public_url
+    ) {
+      return;
+    }
+
+
+    window.open(
+      card.public_url,
+      '_blank',
+      'noopener'
+    );
+
+  }
+
+
+  /* =========================================================
+     TOGGLE CARD
+  ========================================================= */
+
+  async function toggleCard(id) {
+
+    const card =
+      cards.find(
+        function (item) {
+          return item.id === id;
+        }
+      );
+
+
+    if (!card) {
+      return;
+    }
+
+
+    const newStatus =
+      card.status === 'suspended'
+        ? 'active'
+        : 'suspended';
+
+
+    const result =
+      await sb
+        .from('cards')
+        .update({
+          status:
+            newStatus
+        })
+        .eq(
+          'id',
+          id
+        );
+
+
+    if (result.error) {
+
+      toast(
+        result.error.message,
+        'error'
+      );
+
+      return;
+    }
+
+
+    toast(
+      'تم تحديث حالة البطاقة',
+      'success'
+    );
+
+
+    await load();
+
+  }
+
+
+  window.toggleCard =
+    toggleCard;
+
+
+  /* =========================================================
+     REPLACE CARD
+  ========================================================= */
+
+  async function replaceCard(
+    id
+  ) {
+
+    const oldCard =
+      cards.find(
+        function (item) {
+          return item.id === id;
+        }
+      );
+
+
+    if (!oldCard) {
       return;
     }
 
 
     if (
       !confirm(
-        'سيتم حذف بيانات التشغيل. هل أنت متأكد؟'
+        'إيقاف البطاقة الحالية وإصدار بطاقة بديلة؟'
       )
     ) {
+
       return;
     }
 
 
     try {
 
-      const result =
-        await sb.rpc(
-          'zoma_reset_year_data'
-        );
+      const oldResult =
+        await sb
+          .from('cards')
+          .update({
+            status:
+              'suspended'
+          })
+          .eq(
+            'id',
+            id
+          );
 
 
-      if (result.error) {
+      if (oldResult.error) {
 
-        window.zoma.toast(
-          result.error.message,
+        toast(
+          oldResult.error.message,
           'error'
         );
 
@@ -2940,51 +3846,1604 @@ resetDataBtn.addEventListener(
       }
 
 
-      window.zoma.toast(
-        'تم حذف بيانات السنة',
+      const newCardId =
+        generateCardId();
+
+
+      const newPublicUrl =
+        generatePublicUrl(
+          newCardId
+        );
+
+
+      const newResult =
+        await sb
+          .from('cards')
+          .insert({
+
+            customer_id:
+              oldCard.customer_id,
+
+            order_id:
+              oldCard.order_id,
+
+            card_id:
+              newCardId,
+
+            public_url:
+              newPublicUrl,
+
+            status:
+              'unactivated'
+
+          })
+          .select()
+          .single();
+
+
+      if (newResult.error) {
+
+        toast(
+          newResult.error.message,
+          'error'
+        );
+
+        return;
+      }
+
+
+      await sb
+        .from('profiles')
+        .upsert(
+          {
+            card_id:
+              newResult.data.id
+          },
+          {
+            onConflict:
+              'card_id'
+          }
+        );
+
+
+      try {
+
+        await logAction(
+          'replace_card',
+          'card',
+          newResult.data.id,
+          {
+
+            old_card_id:
+              oldCard.card_id,
+
+            new_card_id:
+              newCardId
+
+          }
+        );
+
+      } catch (logError) {
+
+        console.warn(
+          logError
+        );
+
+      }
+
+
+      toast(
+        'تم إصدار البطاقة البديلة ' +
+        newCardId,
         'success'
       );
 
 
       await load();
 
+
     } catch (error) {
 
-      console.error(error);
+      console.error(
+        error
+      );
 
-      window.zoma.toast(
-        'حدث خطأ أثناء حذف البيانات',
+      toast(
+        error.message ||
+        'حدث خطأ أثناء إصدار البطاقة',
         'error'
       );
 
     }
 
   }
-);
 
 
-/* =========================
-   SEARCH
-========================= */
-
-orderSearchEl.addEventListener(
-  'input',
-  renderOrders
-);
+  window.replaceCard =
+    replaceCard;
 
 
-customerSearchEl.addEventListener(
-  'input',
-  renderCustomers
-);
+  /* =========================================================
+     NFC
+  ========================================================= */
+
+  async function nfc(
+    cardDbId,
+    orderId
+  ) {
+
+    const card =
+      cards.find(
+        function (item) {
+          return item.id === cardDbId;
+        }
+      );
 
 
-/* =========================
-   START
-========================= */
+    if (!card) {
+      return;
+    }
 
-load();
 
+    try {
+
+      toast(
+        'قرّب بطاقة ZOMA من الهاتف…',
+        'info'
+      );
+
+
+      if (
+        !window.zoma ||
+        typeof window.zoma.writeNfc !== 'function'
+      ) {
+
+        throw new Error(
+          'وظيفة NFC غير موجودة في app.js'
+        );
+
+      }
+
+
+      await window.zoma.writeNfc(
+        card,
+        orderId
+      );
+
+
+      toast(
+        'تم إدراج رابط NFC بنجاح',
+        'success'
+      );
+
+
+    } catch (error) {
+
+      console.error(
+        error
+      );
+
+      toast(
+        error.message ||
+        'فشل إدراج NFC',
+        'error'
+      );
+
+    }
+
+  }
+
+
+  window.nfc =
+    nfc;
+
+
+  /* =========================================================
+     NEW CARD
+  ========================================================= */
+
+  newCardBtn.addEventListener(
+    'click',
+    async function () {
+
+      /*
+       * نحاول العثور على طلب ليس له بطاقة
+       */
+
+      const orderWithoutCard =
+        orders.find(
+          function (order) {
+
+            return !cards.some(
+              function (card) {
+
+                return (
+                  card.order_id ===
+                  order.id
+                );
+
+              }
+            );
+
+          }
+        );
+
+
+      if (orderWithoutCard) {
+
+        await issueCard(
+          orderWithoutCard.id
+        );
+
+        return;
+      }
+
+
+      /*
+       * لو لا يوجد طلب بدون بطاقة
+       * نعرض أول بطاقة كخيار بديل.
+       */
+
+      if (cards.length) {
+
+        await replaceCard(
+          cards[0].id
+        );
+
+        return;
+      }
+
+
+      toast(
+        'لا يوجد طلب لإصدار بطاقة له',
+        'error'
+      );
+
+    }
+  );
+
+
+  /* =========================================================
+     RENDER DESIGNS
+  ========================================================= */
+
+  function renderDesigns() {
+
+    designsGridEl.innerHTML =
+      designs.map(
+        function (design) {
+
+          const image =
+            design.image_url ||
+            design.preview_url ||
+            design.image ||
+            '';
+
+
+          return `
+
+            <div class="panel design">
+
+              <div
+                class="design-preview"
+                style="
+                  min-height:220px;
+                  display:flex;
+                  align-items:center;
+                  justify-content:center;
+                  overflow:hidden;
+                  border-radius:14px;
+                "
+              >
+
+                ${
+                  image
+
+                    ? `
+                      <img
+                        src="${escapeHtml(
+                          image
+                        )}"
+                        alt="${escapeHtml(
+                          design.name ||
+                          ''
+                        )}"
+                        style="
+                          width:100%;
+                          height:220px;
+                          object-fit:cover;
+                        "
+                      >
+                    `
+
+                    : `
+                      <div class="muted">
+                        لا توجد معاينة
+                      </div>
+                    `
+                }
+
+              </div>
+
+
+              <h3>
+                ${escapeHtml(
+                  design.name ||
+                  ''
+                )}
+              </h3>
+
+
+              <p>
+                ${money(
+                  design.price
+                )}
+              </p>
+
+
+              <div class="actions">
+
+                <button
+                  class="btn"
+                  type="button"
+                  data-toggle-design="${escapeHtml(
+                    design.id
+                  )}"
+                >
+                  ${
+                    design.is_available
+                      ? 'إيقاف'
+                      : 'تفعيل'
+                  }
+                </button>
+
+
+                <button
+                  class="btn danger"
+                  type="button"
+                  data-delete-design="${escapeHtml(
+                    design.id
+                  )}"
+                >
+                  حذف
+                </button>
+
+              </div>
+
+            </div>
+
+          `;
+
+        }
+      ).join('') || `
+
+        <div class="empty">
+          لا توجد تصميمات.
+        </div>
+
+      `;
+
+
+    document
+      .querySelectorAll(
+        '[data-toggle-design]'
+      )
+      .forEach(
+        function (button) {
+
+          button.addEventListener(
+            'click',
+            function () {
+
+              toggleDesign(
+                button.dataset.toggleDesign
+              );
+
+            }
+          );
+
+        }
+      );
+
+
+    document
+      .querySelectorAll(
+        '[data-delete-design]'
+      )
+      .forEach(
+        function (button) {
+
+          button.addEventListener(
+            'click',
+            function () {
+
+              deleteDesign(
+                button.dataset.deleteDesign
+              );
+
+            }
+          );
+
+        }
+      );
+
+  }
+
+
+  /* =========================================================
+     TOGGLE DESIGN
+  ========================================================= */
+
+  async function toggleDesign(
+    id
+  ) {
+
+    const design =
+      designs.find(
+        function (item) {
+          return item.id === id;
+        }
+      );
+
+
+    if (!design) {
+      return;
+    }
+
+
+    const result =
+      await sb
+        .from('designs')
+        .update({
+          is_available:
+            !design.is_available
+        })
+        .eq(
+          'id',
+          id
+        );
+
+
+    if (result.error) {
+
+      toast(
+        result.error.message,
+        'error'
+      );
+
+      return;
+    }
+
+
+    await load();
+
+  }
+
+
+  window.toggleDesign =
+    toggleDesign;
+
+
+  /* =========================================================
+     DELETE DESIGN
+  ========================================================= */
+
+  async function deleteDesign(
+    id
+  ) {
+
+    if (
+      !confirm(
+        'هل تريد حذف التصميم؟'
+      )
+    ) {
+      return;
+    }
+
+
+    const result =
+      await sb
+        .from('designs')
+        .delete()
+        .eq(
+          'id',
+          id
+        );
+
+
+    if (result.error) {
+
+      toast(
+        result.error.message,
+        'error'
+      );
+
+      return;
+    }
+
+
+    toast(
+      'تم حذف التصميم',
+      'success'
+    );
+
+
+    await load();
+
+  }
+
+
+  window.deleteDesign =
+    deleteDesign;
+
+
+  /* =========================================================
+     ADD DESIGN
+  ========================================================= */
+
+  addDesignBtn.addEventListener(
+    'click',
+    function () {
+
+      modalTitleEl.textContent =
+        'إضافة تصميم';
+
+
+      modalBodyEl.innerHTML = `
+
+        <form
+          class="form"
+          id="createDesignForm"
+        >
+
+          <div class="field">
+
+            <label for="dn">
+              الاسم
+            </label>
+
+            <input
+              id="dn"
+              required
+            >
+
+          </div>
+
+
+          <div class="field">
+
+            <label for="dp">
+              السعر
+            </label>
+
+            <input
+              id="dp"
+              type="number"
+              min="0"
+              step="0.01"
+              required
+            >
+
+          </div>
+
+
+          <div class="field">
+
+            <label for="di">
+              رابط صورة التصميم
+            </label>
+
+            <input
+              id="di"
+              type="url"
+              placeholder="https://..."
+            >
+
+          </div>
+
+
+          <div class="notice-box">
+
+            يمكنك ترك رابط الصورة فارغًا،
+            لكن الأفضل إضافة صورة حتى تظهر
+            معاينة التصميم للعميل.
+
+          </div>
+
+
+          <button
+            class="btn primary"
+            type="submit"
+          >
+            إضافة
+          </button>
+
+        </form>
+
+      `;
+
+
+      modalEl.classList.add('show');
+
+
+      const form =
+        document.getElementById(
+          'createDesignForm'
+        );
+
+
+      form.addEventListener(
+        'submit',
+        createDesign
+      );
+
+    }
+  );
+
+
+  /* =========================================================
+     CREATE DESIGN
+  ========================================================= */
+
+  async function createDesign(
+    event
+  ) {
+
+    event.preventDefault();
+
+
+    const nameEl =
+      document.getElementById('dn');
+
+    const priceEl =
+      document.getElementById('dp');
+
+    const imageEl =
+      document.getElementById('di');
+
+
+    const designCode =
+      'DES-' +
+      Math.random()
+        .toString(36)
+        .slice(2, 7)
+        .toUpperCase();
+
+
+    const imageUrl =
+      imageEl.value.trim();
+
+
+    const payload = {
+
+      design_code:
+        designCode,
+
+      name:
+        nameEl.value.trim(),
+
+      price:
+        Number(
+          priceEl.value
+        ),
+
+      is_available:
+        true,
+
+      nfc_available:
+        true,
+
+      qr_available:
+        true
+
+    };
+
+
+    /*
+     * نضع الصورة في image_url
+     * إذا كان العمود موجودًا.
+     */
+
+    if (imageUrl) {
+      payload.image_url =
+        imageUrl;
+    }
+
+
+    let result =
+      await sb
+        .from('designs')
+        .insert(payload);
+
+
+    /*
+     * لو image_url غير موجود في الجدول
+     * نحاول إنشاء التصميم بدون الصورة.
+     */
+
+    if (
+      result.error &&
+      imageUrl &&
+      /image_url|column/i.test(
+        result.error.message || ''
+      )
+    ) {
+
+      delete payload.image_url;
+
+
+      result =
+        await sb
+          .from('designs')
+          .insert(payload);
+
+    }
+
+
+    if (result.error) {
+
+      toast(
+        result.error.message,
+        'error'
+      );
+
+      return;
+    }
+
+
+    toast(
+      'تمت إضافة التصميم',
+      'success'
+    );
+
+
+    closeModal();
+
+    await load();
+
+  }
+
+
+  window.createDesign =
+    createDesign;
+
+
+  /* =========================================================
+     MESSAGES
+  ========================================================= */
+
+  function renderMessages() {
+
+    messagesBodyEl.innerHTML =
+      messages.map(
+        function (message) {
+
+          return `
+
+            <tr>
+
+              <td>
+
+                ${
+                  message.created_at
+                    ? new Date(
+                        message.created_at
+                      ).toLocaleString(
+                        'ar-EG'
+                      )
+                    : '—'
+                }
+
+              </td>
+
+
+              <td>
+                ${escapeHtml(
+                  message.subject ||
+                  '—'
+                )}
+              </td>
+
+
+              <td>
+                ${escapeHtml(
+                  message.body ||
+                  ''
+                )}
+              </td>
+
+
+              <td>
+                ${escapeHtml(
+                  message.status ||
+                  'open'
+                )}
+              </td>
+
+
+              <td>
+
+                <button
+                  class="btn success"
+                  type="button"
+                  data-close-message="${escapeHtml(
+                    message.id
+                  )}"
+                >
+                  تم الحل
+                </button>
+
+              </td>
+
+            </tr>
+
+          `;
+
+        }
+      ).join('') || `
+
+        <tr>
+
+          <td
+            colspan="5"
+            class="empty"
+          >
+            لا توجد رسائل.
+          </td>
+
+        </tr>
+
+      `;
+
+
+    document
+      .querySelectorAll(
+        '[data-close-message]'
+      )
+      .forEach(
+        function (button) {
+
+          button.addEventListener(
+            'click',
+            function () {
+
+              closeMessage(
+                button.dataset.closeMessage
+              );
+
+            }
+          );
+
+        }
+      );
+
+  }
+
+
+  /* =========================================================
+     CLOSE MESSAGE
+  ========================================================= */
+
+  async function closeMessage(
+    id
+  ) {
+
+    const result =
+      await sb
+        .from('messages')
+        .update({
+          status:
+            'closed'
+        })
+        .eq(
+          'id',
+          id
+        );
+
+
+    if (result.error) {
+
+      toast(
+        result.error.message,
+        'error'
+      );
+
+      return;
+    }
+
+
+    await load();
+
+  }
+
+
+  window.closeMessage =
+    closeMessage;
+
+
+  /* =========================================================
+     ADMINS
+  ========================================================= */
+
+  function renderAdmins() {
+
+    adminsBodyEl.innerHTML =
+      admins.map(
+        function (adminItem) {
+
+          const roleId =
+            'role_' +
+            String(
+              adminItem.id
+            )
+              .replace(
+                /[^a-zA-Z0-9_-]/g,
+                ''
+              );
+
+
+          return `
+
+            <tr>
+
+              <td>
+                ${escapeHtml(
+                  adminItem.username ||
+                  ''
+                )}
+              </td>
+
+
+              <td>
+                ${escapeHtml(
+                  adminItem.full_name ||
+                  ''
+                )}
+              </td>
+
+
+              <td>
+
+                <select
+                  id="${escapeHtml(
+                    roleId
+                  )}"
+                >
+
+                  <option
+                    value="owner"
+                    ${
+                      adminItem.role ===
+                      'owner'
+                        ? 'selected'
+                        : ''
+                    }
+                  >
+                    owner
+                  </option>
+
+
+                  <option
+                    value="manager"
+                    ${
+                      adminItem.role ===
+                      'manager'
+                        ? 'selected'
+                        : ''
+                    }
+                  >
+                    manager
+                  </option>
+
+
+                  <option
+                    value="support"
+                    ${
+                      adminItem.role ===
+                      'support'
+                        ? 'selected'
+                        : ''
+                    }
+                  >
+                    support
+                  </option>
+
+                </select>
+
+              </td>
+
+
+              <td>
+
+                <button
+                  class="btn"
+                  type="button"
+                  data-permissions="${escapeHtml(
+                    adminItem.id
+                  )}"
+                >
+                  صلاحيات
+                </button>
+
+              </td>
+
+
+              <td>
+
+                <button
+                  class="btn"
+                  type="button"
+                  data-save-role-id="${escapeHtml(
+                    adminItem.id
+                  )}"
+                  data-save-role-element="${escapeHtml(
+                    roleId
+                  )}"
+                >
+                  حفظ
+                </button>
+
+              </td>
+
+            </tr>
+
+          `;
+
+        }
+      ).join('') || `
+
+        <tr>
+
+          <td
+            colspan="5"
+            class="empty"
+          >
+            لا يوجد مشرفون.
+          </td>
+
+        </tr>
+
+      `;
+
+
+    document
+      .querySelectorAll(
+        '[data-save-role-id]'
+      )
+      .forEach(
+        function (button) {
+
+          button.addEventListener(
+            'click',
+            function () {
+
+              saveRole(
+                button.dataset.saveRoleId,
+                button.dataset.saveRoleElement
+              );
+
+            }
+          );
+
+        }
+      );
+
+
+    document
+      .querySelectorAll(
+        '[data-permissions]'
+      )
+      .forEach(
+        function (button) {
+
+          button.addEventListener(
+            'click',
+            function () {
+
+              permissions(
+                button.dataset.permissions
+              );
+
+            }
+          );
+
+        }
+      );
+
+  }
+
+
+  /* =========================================================
+     SAVE ROLE
+  ========================================================= */
+
+  async function saveRole(
+    adminId,
+    roleElementId
+  ) {
+
+    const roleElement =
+      document.getElementById(
+        roleElementId
+      );
+
+
+    if (!roleElement) {
+      return;
+    }
+
+
+    await roleChange(
+      adminId,
+      roleElement.value
+    );
+
+  }
+
+
+  window.saveRole =
+    saveRole;
+
+
+  /* =========================================================
+     ROLE CHANGE
+  ========================================================= */
+
+  async function roleChange(
+    id,
+    role
+  ) {
+
+    const result =
+      await sb
+        .from('admins')
+        .update({
+          role:
+            role
+        })
+        .eq(
+          'id',
+          id
+        );
+
+
+    if (result.error) {
+
+      toast(
+        result.error.message,
+        'error'
+      );
+
+      return;
+    }
+
+
+    toast(
+      'تم تحديث الدور',
+      'success'
+    );
+
+
+    await load();
+
+  }
+
+
+  window.roleChange =
+    roleChange;
+
+
+  /* =========================================================
+     PERMISSIONS
+  ========================================================= */
+
+  async function permissions(
+    id
+  ) {
+
+    const adminItem =
+      admins.find(
+        function (item) {
+          return item.id === id;
+        }
+      );
+
+
+    if (!adminItem) {
+      return;
+    }
+
+
+    const sections = [
+
+      'orders',
+
+      'customers',
+
+      'cards',
+
+      'designs',
+
+      'messages',
+
+      'settings'
+
+    ];
+
+
+    const result =
+      await sb
+        .from('admin_permissions')
+        .select('*')
+        .eq(
+          'admin_id',
+          id
+        );
+
+
+    if (result.error) {
+
+      toast(
+        result.error.message,
+        'error'
+      );
+
+      return;
+    }
+
+
+    const permissionMap =
+      Object.fromEntries(
+        (
+          result.data ||
+          []
+        ).map(
+          function (item) {
+
+            return [
+              item.section,
+              item
+            ];
+
+          }
+        )
+      );
+
+
+    modalTitleEl.textContent =
+      'صلاحيات ' +
+      (
+        adminItem.username ||
+        ''
+      );
+
+
+    modalBodyEl.innerHTML = `
+
+      <form
+        id="permForm"
+        class="form"
+      >
+
+        ${
+
+          sections
+            .map(
+              function (section) {
+
+                const permission =
+                  permissionMap[section] ||
+                  {};
+
+
+                return `
+
+                  <div
+                    class="notice-box"
+                  >
+
+                    <b>
+                      ${escapeHtml(
+                        section
+                      )}
+                    </b>
+
+
+                    <label
+                      style="
+                        display:block;
+                        margin-top:10px
+                      "
+                    >
+
+                      <input
+                        type="checkbox"
+                        data-sec="${escapeHtml(
+                          section
+                        )}"
+                        data-k="view"
+                        ${
+                          permission.can_view
+                            ? 'checked'
+                            : ''
+                        }
+                      >
+
+                      عرض
+
+                    </label>
+
+
+                    <label
+                      style="
+                        display:block;
+                        margin-top:8px
+                      "
+                    >
+
+                      <input
+                        type="checkbox"
+                        data-sec="${escapeHtml(
+                          section
+                        )}"
+                        data-k="edit"
+                        ${
+                          permission.can_edit
+                            ? 'checked'
+                            : ''
+                        }
+                      >
+
+                      تعديل
+
+                    </label>
+
+                  </div>
+
+                `;
+
+              }
+            )
+            .join('')
+
+        }
+
+
+        <button
+          class="btn primary"
+          type="submit"
+        >
+          حفظ الصلاحيات
+        </button>
+
+      </form>
+
+    `;
+
+
+    modalEl.classList.add('show');
+
+
+    const permissionForm =
+      document.getElementById(
+        'permForm'
+      );
+
+
+    permissionForm.addEventListener(
+      'submit',
+      async function (event) {
+
+        event.preventDefault();
+
+
+        const deleteResult =
+          await sb
+            .from('admin_permissions')
+            .delete()
+            .eq(
+              'admin_id',
+              id
+            );
+
+
+        if (deleteResult.error) {
+
+          toast(
+            deleteResult.error.message,
+            'error'
+          );
+
+          return;
+        }
+
+
+        const rows =
+          sections.map(
+            function (section) {
+
+              const viewCheckbox =
+                document.querySelector(
+                  '[data-sec="' +
+                  section +
+                  '"][data-k="view"]'
+                );
+
+
+              const editCheckbox =
+                document.querySelector(
+                  '[data-sec="' +
+                  section +
+                  '"][data-k="edit"]'
+                );
+
+
+              return {
+
+                admin_id:
+                  id,
+
+                section:
+                  section,
+
+                can_view:
+                  viewCheckbox
+                    ? viewCheckbox.checked
+                    : false,
+
+                can_edit:
+                  editCheckbox
+                    ? editCheckbox.checked
+                    : false
+
+              };
+
+            }
+          );
+
+
+        const insertResult =
+          await sb
+            .from('admin_permissions')
+            .insert(
+              rows
+            );
+
+
+        if (insertResult.error) {
+
+          toast(
+            insertResult.error.message,
+            'error'
+          );
+
+          return;
+        }
+
+
+        toast(
+          'تم حفظ الصلاحيات',
+          'success'
+        );
+
+
+        closeModal();
+
+      }
+    );
+
+  }
+
+
+  window.permissions =
+    permissions;
+
+
+  /* =========================================================
+     RESET DATA
+  ========================================================= */
+
+  resetDataBtn.addEventListener(
+    'click',
+    async function () {
+
+      if (!admin) {
+        return;
+      }
+
+
+      if (
+        admin.role !==
+        'owner'
+      ) {
+
+        toast(
+          'هذا الإجراء للمالك فقط',
+          'error'
+        );
+
+        return;
+      }
+
+
+      if (
+        !confirm(
+          'سيتم حذف بيانات التشغيل. هل أنت متأكد؟'
+        )
+      ) {
+
+        return;
+      }
+
+
+      try {
+
+        const result =
+          await sb.rpc(
+            'zoma_reset_year_data'
+          );
+
+
+        if (result.error) {
+
+          toast(
+            result.error.message,
+            'error'
+          );
+
+          return;
+        }
+
+
+        toast(
+          'تم حذف بيانات السنة',
+          'success'
+        );
+
+
+        await load();
+
+
+      } catch (error) {
+
+        console.error(
+          error
+        );
+
+        toast(
+          'حدث خطأ أثناء حذف البيانات',
+          'error'
+        );
+
+      }
+
+    }
+  );
+
+
+  /* =========================================================
+     SEARCH
+  ========================================================= */
+
+  orderSearchEl.addEventListener(
+    'input',
+    renderOrders
+  );
+
+
+  customerSearchEl.addEventListener(
+    'input',
+    renderCustomers
+  );
+
+
+  /* =========================================================
+     START
+  ========================================================= */
+
+  load();
+
+})();
 </script>
 
 </body>
