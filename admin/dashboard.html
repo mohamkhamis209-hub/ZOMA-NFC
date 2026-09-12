@@ -1,7 +1,5 @@
-```html
 <!doctype html>
 <html lang="ar" dir="rtl">
-
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -15,13 +13,11 @@
   <script src="../assets/js/app.js"></script>
 </head>
 
-
 <body>
 
 <div class="app-shell">
 
-  <!-- ================= SIDEBAR ================= -->
-
+  <!-- Sidebar -->
   <aside class="sidebar">
 
     <a class="brand" href="../index.html">
@@ -68,148 +64,70 @@
   </aside>
 
 
-  <!-- ================= MAIN ================= -->
-
+  <!-- Main -->
   <main class="main">
 
     <div class="dash-top">
 
       <div>
-
-        <h1 id="title">
-          لوحة التحكم
-        </h1>
-
-        <p
-          class="muted"
-          id="adminName"
-        ></p>
-
+        <h1 id="title">لوحة التحكم</h1>
+        <p class="muted" id="adminName"></p>
       </div>
 
-
-      <button
-        class="btn"
-        id="logout"
-        type="button"
-      >
+      <button class="btn" id="logout">
         خروج
       </button>
 
     </div>
 
 
-    <!-- ================= HOME ================= -->
-
-    <section
-      class="view active"
-      id="home"
-    >
+    <!-- Home -->
+    <section class="view active" id="home">
 
       <div class="stats">
 
         <div class="panel stat">
-
-          <div class="muted">
-            الطلبات
-          </div>
-
-          <div
-            class="num"
-            id="sOrders"
-          >
-            0
-          </div>
-
+          <div class="muted">الطلبات</div>
+          <div class="num" id="sOrders">0</div>
         </div>
 
-
         <div class="panel stat">
-
-          <div class="muted">
-            العملاء
-          </div>
-
-          <div
-            class="num"
-            id="sCustomers"
-          >
-            0
-          </div>
-
+          <div class="muted">العملاء</div>
+          <div class="num" id="sCustomers">0</div>
         </div>
 
-
         <div class="panel stat">
-
-          <div class="muted">
-            البطاقات النشطة
-          </div>
-
-          <div
-            class="num"
-            id="sActive"
-          >
-            0
-          </div>
-
+          <div class="muted">البطاقات النشطة</div>
+          <div class="num" id="sActive">0</div>
         </div>
 
-
         <div class="panel stat">
-
-          <div class="muted">
-            الزيارات
-          </div>
-
-          <div
-            class="num"
-            id="sVisits"
-          >
-            0
-          </div>
-
+          <div class="muted">الزيارات</div>
+          <div class="num" id="sVisits">0</div>
         </div>
 
       </div>
 
 
-      <div
-        class="panel order-card"
-        style="margin-top:16px"
-      >
+      <div class="panel order-card" style="margin-top:16px">
 
-        <h2>
-          روابط سريعة
-        </h2>
+        <h2>روابط سريعة</h2>
 
         <div class="actions">
 
-          <button
-            class="btn primary"
-            data-jump="orders"
-          >
+          <button class="btn primary" data-jump="orders">
             إدارة الطلبات
           </button>
 
-          <button
-            class="btn"
-            data-jump="customers"
-          >
+          <button class="btn" data-jump="customers">
             العملاء
           </button>
 
-          <button
-            class="btn"
-            data-jump="cards"
-          >
+          <button class="btn" data-jump="cards">
             البطاقات
           </button>
 
-          <button
-            class="btn"
-            data-jump="designs"
-          >
+          <button class="btn" data-jump="designs">
             التصميمات
           </button>
 
@@ -220,20 +138,14 @@
     </section>
 
 
-    <!-- ================= ORDERS ================= -->
-
-    <section
-      class="view"
-      id="orders"
-    >
+    <!-- Orders -->
+    <section class="view" id="orders">
 
       <div class="panel order-card">
 
         <div class="toolbar">
 
-          <h2>
-            الطلبات
-          </h2>
+          <h2>الطلبات</h2>
 
           <input
             id="orderSearch"
@@ -242,13 +154,11 @@
 
         </div>
 
-
         <div class="table-wrap">
 
           <table class="table">
 
             <thead>
-
               <tr>
                 <th>الطلب</th>
                 <th>العميل</th>
@@ -258,7 +168,6 @@
                 <th>البطاقة</th>
                 <th>إجراء</th>
               </tr>
-
             </thead>
 
             <tbody id="ordersBody"></tbody>
@@ -272,20 +181,14 @@
     </section>
 
 
-    <!-- ================= CUSTOMERS ================= -->
-
-    <section
-      class="view"
-      id="customers"
-    >
+    <!-- Customers -->
+    <section class="view" id="customers">
 
       <div class="panel order-card">
 
         <div class="toolbar">
 
-          <h2>
-            العملاء
-          </h2>
+          <h2>العملاء</h2>
 
           <input
             id="customerSearch"
@@ -294,13 +197,11 @@
 
         </div>
 
-
         <div class="table-wrap">
 
           <table class="table">
 
             <thead>
-
               <tr>
                 <th>الاسم</th>
                 <th>الهاتف</th>
@@ -308,7 +209,6 @@
                 <th>البطاقات</th>
                 <th>إجراء</th>
               </tr>
-
             </thead>
 
             <tbody id="customersBody"></tbody>
@@ -322,38 +222,26 @@
     </section>
 
 
-    <!-- ================= CARDS ================= -->
-
-    <section
-      class="view"
-      id="cards"
-    >
+    <!-- Cards -->
+    <section class="view" id="cards">
 
       <div class="panel order-card">
 
         <div class="toolbar">
 
-          <h2>
-            البطاقات
-          </h2>
+          <h2>البطاقات</h2>
 
-          <button
-            class="btn primary"
-            id="newCard"
-            type="button"
-          >
+          <button class="btn primary" id="newCard">
             إصدار بطاقة بديلة/جديدة
           </button>
 
         </div>
-
 
         <div class="table-wrap">
 
           <table class="table">
 
             <thead>
-
               <tr>
                 <th>Card ID</th>
                 <th>العميل</th>
@@ -363,7 +251,6 @@
                 <th>NFC</th>
                 <th>إجراء</th>
               </tr>
-
             </thead>
 
             <tbody id="cardsBody"></tbody>
@@ -377,62 +264,40 @@
     </section>
 
 
-    <!-- ================= DESIGNS ================= -->
-
-    <section
-      class="view"
-      id="designs"
-    >
+    <!-- Designs -->
+    <section class="view" id="designs">
 
       <div class="panel order-card">
 
         <div class="toolbar">
 
-          <h2>
-            التصميمات
-          </h2>
+          <h2>التصميمات</h2>
 
-          <button
-            class="btn primary"
-            id="addDesign"
-            type="button"
-          >
+          <button class="btn primary" id="addDesign">
             إضافة تصميم
           </button>
 
         </div>
 
-
-        <div
-          id="designsGrid"
-          class="designs"
-        ></div>
+        <div id="designsGrid" class="designs"></div>
 
       </div>
 
     </section>
 
 
-    <!-- ================= MESSAGES ================= -->
-
-    <section
-      class="view"
-      id="messages"
-    >
+    <!-- Messages -->
+    <section class="view" id="messages">
 
       <div class="panel order-card">
 
-        <h2>
-          رسائل العملاء
-        </h2>
-
+        <h2>رسائل العملاء</h2>
 
         <div class="table-wrap">
 
           <table class="table">
 
             <thead>
-
               <tr>
                 <th>التاريخ</th>
                 <th>الموضوع</th>
@@ -440,9 +305,7 @@
                 <th>الحالة</th>
                 <th>إجراء</th>
               </tr>
-
             </thead>
-
 
             <tbody id="messagesBody"></tbody>
 
@@ -455,20 +318,14 @@
     </section>
 
 
-    <!-- ================= ADMINS ================= -->
-
-    <section
-      class="view"
-      id="admins"
-    >
+    <!-- Admins -->
+    <section class="view" id="admins">
 
       <div class="panel order-card">
 
         <div class="toolbar">
 
-          <h2>
-            المشرفون والصلاحيات
-          </h2>
+          <h2>المشرفون والصلاحيات</h2>
 
           <span class="muted">
             إنشاء مستخدم Auth أولاً ثم إضافته هنا.
@@ -476,13 +333,11 @@
 
         </div>
 
-
         <div class="table-wrap">
 
           <table class="table">
 
             <thead>
-
               <tr>
                 <th>اسم المستخدم</th>
                 <th>الاسم</th>
@@ -490,9 +345,7 @@
                 <th>الصلاحيات</th>
                 <th>حفظ</th>
               </tr>
-
             </thead>
-
 
             <tbody id="adminsBody"></tbody>
 
@@ -505,30 +358,20 @@
     </section>
 
 
-    <!-- ================= SETTINGS ================= -->
-
-    <section
-      class="view"
-      id="settings"
-    >
+    <!-- Settings -->
+    <section class="view" id="settings">
 
       <div class="panel order-card">
 
-        <h2>
-          إدارة البيانات
-        </h2>
-
+        <h2>إدارة البيانات</h2>
 
         <p class="muted">
-          هذا الإجراء يمسح الطلبات والبطاقات والملفات التحليلية والرسائل والإشعارات وسجلات النشاط، ولا يمس حسابات المشرفين والتصميمات والعملاء.
+          هذا الإجراء يمسح الطلبات والبطاقات والملفات التحليلية
+          والرسائل والإشعارات وسجلات النشاط،
+          ولا يمس حسابات المشرفين والتصميمات والعملاء.
         </p>
 
-
-        <button
-          class="btn danger"
-          id="resetData"
-          type="button"
-        >
+        <button class="btn danger" id="resetData">
           حذف بيانات السنة الحالية
         </button>
 
@@ -541,12 +384,8 @@
 </div>
 
 
-<!-- ================= MODAL ================= -->
-
-<div
-  id="modal"
-  class="modal-backdrop"
->
+<!-- Modal -->
+<div id="modal" class="modal-backdrop">
 
   <div class="panel modal">
 
@@ -556,17 +395,11 @@
         تفاصيل
       </h2>
 
-
-      <button
-        class="btn"
-        id="closeModalBtn"
-        type="button"
-      >
+      <button class="btn" id="closeModalBtn">
         إغلاق
       </button>
 
     </div>
-
 
     <div id="modalBody"></div>
 
@@ -575,583 +408,364 @@
 </div>
 
 
-<!-- ================= TOAST ================= -->
-
-<div
-  id="toast"
-  class="toast"
-></div>
+<!-- Toast -->
+<div id="toast" class="toast"></div>
 
 
 <script>
-
-"use strict";
-
-
 /* =========================================================
-   VARIABLES
+   ZOMA ADMIN DASHBOARD
+   بدون $
+   وبدون الاعتماد على ID كمتغيرات تلقائية
 ========================================================= */
+
+
+/* =========================
+   DOM REFERENCES
+========================= */
+
+const titleEl = document.getElementById('title');
+const adminNameEl = document.getElementById('adminName');
+const logoutBtn = document.getElementById('logout');
+
+const sOrdersEl = document.getElementById('sOrders');
+const sCustomersEl = document.getElementById('sCustomers');
+const sActiveEl = document.getElementById('sActive');
+const sVisitsEl = document.getElementById('sVisits');
+
+const orderSearchEl = document.getElementById('orderSearch');
+const customerSearchEl = document.getElementById('customerSearch');
+
+const ordersBodyEl = document.getElementById('ordersBody');
+const customersBodyEl = document.getElementById('customersBody');
+const cardsBodyEl = document.getElementById('cardsBody');
+const designsGridEl = document.getElementById('designsGrid');
+const messagesBodyEl = document.getElementById('messagesBody');
+const adminsBodyEl = document.getElementById('adminsBody');
+
+const newCardBtn = document.getElementById('newCard');
+const addDesignBtn = document.getElementById('addDesign');
+const resetDataBtn = document.getElementById('resetData');
+
+const modalEl = document.getElementById('modal');
+const modalTitleEl = document.getElementById('modalTitle');
+const modalBodyEl = document.getElementById('modalBody');
+const closeModalBtn = document.getElementById('closeModalBtn');
+
+const views = Array.from(document.querySelectorAll('.view'));
+const sideLinks = Array.from(document.querySelectorAll('.side-link'));
+const jumpButtons = Array.from(document.querySelectorAll('[data-jump]'));
+
+
+/* =========================
+   DATA
+========================= */
 
 let admin = null;
 
 let orders = [];
-
 let customers = [];
-
 let cards = [];
-
 let designs = [];
-
 let messages = [];
-
 let admins = [];
 
 
-/* =========================================================
-   DOM ELEMENTS
-========================================================= */
-
-const views =
-  Array.from(
-    document.querySelectorAll(".view")
-  );
-
-
-const titleEl =
-  document.getElementById("title");
-
-
-const adminNameEl =
-  document.getElementById("adminName");
-
-
-const logoutBtn =
-  document.getElementById("logout");
-
-
-const modalEl =
-  document.getElementById("modal");
-
-
-const modalTitleEl =
-  document.getElementById("modalTitle");
-
-
-const modalBodyEl =
-  document.getElementById("modalBody");
-
-
-const closeModalBtn =
-  document.getElementById("closeModalBtn");
-
-
-const orderSearchEl =
-  document.getElementById("orderSearch");
-
-
-const customerSearchEl =
-  document.getElementById("customerSearch");
-
-
-const ordersBodyEl =
-  document.getElementById("ordersBody");
-
-
-const customersBodyEl =
-  document.getElementById("customersBody");
-
-
-const cardsBodyEl =
-  document.getElementById("cardsBody");
-
-
-const designsGridEl =
-  document.getElementById("designsGrid");
-
-
-const messagesBodyEl =
-  document.getElementById("messagesBody");
-
-
-const adminsBodyEl =
-  document.getElementById("adminsBody");
-
-
-const newCardBtn =
-  document.getElementById("newCard");
-
-
-const addDesignBtn =
-  document.getElementById("addDesign");
-
-
-const resetDataBtn =
-  document.getElementById("resetData");
-
-
-const sOrdersEl =
-  document.getElementById("sOrders");
-
-
-const sCustomersEl =
-  document.getElementById("sCustomers");
-
-
-const sActiveEl =
-  document.getElementById("sActive");
-
-
-const sVisitsEl =
-  document.getElementById("sVisits");
-
-
-/* =========================================================
-   VIEW TITLES
-========================================================= */
-
-const viewTitles = {
-
-  home: "لوحة التحكم",
-
-  orders: "إدارة الطلبات",
-
-  customers: "العملاء",
-
-  cards: "البطاقات",
-
-  designs: "التصميمات",
-
-  messages: "الرسائل",
-
-  admins: "المشرفون",
-
-  settings: "إدارة البيانات"
-
-};
-
-
-/* =========================================================
+/* =========================
    MODAL
-========================================================= */
+========================= */
 
 function closeModal() {
-
-  modalEl.classList.remove("show");
-
+  modalEl.classList.remove('show');
 }
 
+window.closeModal = closeModal;
 
-window.closeModal =
-  closeModal;
-
-
-closeModalBtn.addEventListener(
-  "click",
-  closeModal
-);
+closeModalBtn.addEventListener('click', closeModal);
 
 
-/* =========================================================
-   SHOW VIEW
-========================================================= */
+/* =========================
+   NAVIGATION
+========================= */
 
 function show(viewName) {
 
-  views.forEach(view => {
-
-    view.classList.remove("active");
-
+  views.forEach(function(view) {
+    view.classList.remove('active');
   });
 
+  const targetView = document.getElementById(viewName);
 
-  const target =
-    document.getElementById(viewName);
-
-
-  if (!target) {
-
+  if (!targetView) {
     return;
-
   }
 
+  targetView.classList.add('active');
 
-  target.classList.add("active");
+  sideLinks.forEach(function(link) {
+    link.classList.toggle(
+      'active',
+      link.dataset.view === viewName
+    );
+  });
 
-
-  document
-    .querySelectorAll(".side-link")
-    .forEach(button => {
-
-      button.classList.toggle(
-        "active",
-        button.dataset.view === viewName
-      );
-
-    });
-
+  const titles = {
+    home: 'لوحة التحكم',
+    orders: 'إدارة الطلبات',
+    customers: 'العملاء',
+    cards: 'البطاقات',
+    designs: 'التصميمات',
+    messages: 'الرسائل',
+    admins: 'المشرفون',
+    settings: 'إدارة البيانات'
+  };
 
   titleEl.textContent =
-    viewTitles[viewName] ||
-    "لوحة التحكم";
-
+    titles[viewName] || 'لوحة التحكم';
 }
 
-
-window.show =
-  show;
+window.show = show;
 
 
-/* =========================================================
-   SIDEBAR NAVIGATION
-========================================================= */
+sideLinks.forEach(function(link) {
 
-document
-  .querySelectorAll(".side-link")
-  .forEach(button => {
-
-    button.addEventListener(
-      "click",
-      () => {
-
-        show(button.dataset.view);
-
-      }
-    );
-
+  link.addEventListener('click', function() {
+    show(link.dataset.view);
   });
 
+});
 
-/* =========================================================
-   QUICK LINKS
-========================================================= */
 
-document
-  .querySelectorAll("[data-jump]")
-  .forEach(button => {
+jumpButtons.forEach(function(button) {
 
-    button.addEventListener(
-      "click",
-      () => {
-
-        show(button.dataset.jump);
-
-      }
-    );
-
+  button.addEventListener('click', function() {
+    show(button.dataset.jump);
   });
 
+});
 
-/* =========================================================
+
+/* =========================
    LOGOUT
-========================================================= */
+========================= */
 
-logoutBtn.addEventListener(
-  "click",
-  async () => {
+logoutBtn.addEventListener('click', function() {
 
-    try {
-
-      await zoma.signOut();
-
-    } catch (error) {
-
-      console.error(
-        "Logout error:",
-        error
-      );
-
-
-      zoma.toast(
-        error.message ||
-        "حدث خطأ أثناء تسجيل الخروج",
-        "error"
-      );
-
-    }
-
+  if (
+    window.zoma &&
+    typeof window.zoma.signOut === 'function'
+  ) {
+    window.zoma.signOut();
   }
-);
+
+});
 
 
-/* =========================================================
+/* =========================
    LOAD DATA
-========================================================= */
+========================= */
 
 async function load() {
 
   try {
 
-    admin =
-      await zoma.requireAdmin();
-
-
-    if (!admin) {
-
+    if (
+      !window.zoma ||
+      typeof window.zoma.requireAdmin !== 'function'
+    ) {
+      console.error('ZOMA app.js غير محمل بشكل صحيح.');
       return;
-
     }
 
+    admin = await window.zoma.requireAdmin();
+
+    if (!admin) {
+      return;
+    }
 
     adminNameEl.textContent =
-      `${admin.full_name || ""} — ${admin.role || ""}`;
+      (admin.full_name || '') +
+      ' — ' +
+      (admin.role || '');
 
 
-    const [
-
-      ordersResult,
-
-      customersResult,
-
-      cardsResult,
-
-      designsResult,
-
-      messagesResult,
-
-      adminsResult,
-
-      analyticsResult
-
-    ] = await Promise.all([
+    const results = await Promise.all([
 
       sb
-        .from("orders")
+        .from('orders')
         .select(
-          "*,customers(full_name,phone),designs(name),cards(id,card_id,status,public_url)"
+          '*,customers(full_name,phone),designs(name),cards(id,card_id,status,public_url)'
         )
-        .order(
-          "created_at",
-          {
-            ascending: false
-          }
-        ),
+        .order('created_at', {
+          ascending: false
+        }),
 
       sb
-        .from("customers")
-        .select("*")
-        .order(
-          "created_at",
-          {
-            ascending: false
-          }
-        ),
+        .from('customers')
+        .select('*')
+        .order('created_at', {
+          ascending: false
+        }),
 
       sb
-        .from("cards")
+        .from('cards')
         .select(
-          "*,customers(full_name,phone),orders(order_number)"
+          '*,customers(full_name,phone),orders(order_number)'
         )
-        .order(
-          "created_at",
-          {
-            ascending: false
-          }
-        ),
+        .order('created_at', {
+          ascending: false
+        }),
 
       sb
-        .from("designs")
-        .select("*")
-        .order(
-          "created_at",
-          {
-            ascending: false
-          }
-        ),
+        .from('designs')
+        .select('*')
+        .order('created_at', {
+          ascending: false
+        }),
 
       sb
-        .from("messages")
-        .select("*")
-        .order(
-          "created_at",
-          {
-            ascending: false
-          }
-        ),
+        .from('messages')
+        .select('*')
+        .order('created_at', {
+          ascending: false
+        }),
 
       sb
-        .from("admins")
-        .select("*")
-        .order("created_at"),
+        .from('admins')
+        .select('*')
+        .order('created_at'),
 
       sb
-        .from("analytics")
-        .select(
-          "id",
-          {
-            count: "exact",
-            head: true
-          }
-        )
+        .from('analytics')
+        .select('id', {
+          count: 'exact',
+          head: true
+        })
 
     ]);
 
 
-    /* -----------------------------------------------------
-       Error checking
-    ----------------------------------------------------- */
+    const [
+      ordersResult,
+      customersResult,
+      cardsResult,
+      designsResult,
+      messagesResult,
+      adminsResult,
+      analyticsResult
+    ] = results;
+
 
     if (ordersResult.error) {
       console.error(
-        "Orders error:",
+        'Orders error:',
         ordersResult.error
       );
     }
 
-
     if (customersResult.error) {
       console.error(
-        "Customers error:",
+        'Customers error:',
         customersResult.error
       );
     }
 
-
     if (cardsResult.error) {
       console.error(
-        "Cards error:",
+        'Cards error:',
         cardsResult.error
       );
     }
 
-
     if (designsResult.error) {
       console.error(
-        "Designs error:",
+        'Designs error:',
         designsResult.error
       );
     }
 
-
     if (messagesResult.error) {
       console.error(
-        "Messages error:",
+        'Messages error:',
         messagesResult.error
       );
     }
 
-
     if (adminsResult.error) {
       console.error(
-        "Admins error:",
+        'Admins error:',
         adminsResult.error
       );
     }
 
-
     if (analyticsResult.error) {
       console.error(
-        "Analytics error:",
+        'Analytics error:',
         analyticsResult.error
       );
     }
 
 
-    /* -----------------------------------------------------
-       Assign data
-    ----------------------------------------------------- */
-
-    orders =
-      ordersResult.data || [];
-
-
-    customers =
-      customersResult.data || [];
+    orders = ordersResult.data || [];
+    customers = customersResult.data || [];
+    cards = cardsResult.data || [];
+    designs = designsResult.data || [];
+    messages = messagesResult.data || [];
+    admins = adminsResult.data || [];
 
 
-    cards =
-      cardsResult.data || [];
-
-
-    designs =
-      designsResult.data || [];
-
-
-    messages =
-      messagesResult.data || [];
-
-
-    admins =
-      adminsResult.data || [];
-
-
-    /* -----------------------------------------------------
-       Statistics
-    ----------------------------------------------------- */
-
-    sOrdersEl.textContent =
-      orders.length;
-
-
-    sCustomersEl.textContent =
-      customers.length;
-
+    sOrdersEl.textContent = orders.length;
+    sCustomersEl.textContent = customers.length;
 
     sActiveEl.textContent =
-      cards.filter(
-        card => card.status === "active"
-      ).length;
-
+      cards.filter(function(card) {
+        return card.status === 'active';
+      }).length;
 
     sVisitsEl.textContent =
       analyticsResult.count || 0;
 
 
-    /* -----------------------------------------------------
-       Render
-    ----------------------------------------------------- */
-
     renderOrders();
-
     renderCustomers();
-
     renderCards();
-
     renderDesigns();
-
     renderMessages();
-
     renderAdmins();
-
 
   } catch (error) {
 
-    console.error(
-      "Admin load error:",
-      error
-    );
+    console.error('Dashboard load error:', error);
 
-
-    zoma.toast(
-      error.message ||
-      "حدث خطأ أثناء تحميل لوحة التحكم",
-      "error"
-    );
+    if (
+      window.zoma &&
+      typeof window.zoma.toast === 'function'
+    ) {
+      window.zoma.toast(
+        'حدث خطأ أثناء تحميل لوحة التحكم',
+        'error'
+      );
+    }
 
   }
 
 }
 
 
-/* =========================================================
+/* =========================
    ORDERS
-========================================================= */
+========================= */
 
 function renderOrders() {
 
   const query =
-    (
-      orderSearchEl.value ||
-      ""
-    )
-      .trim()
-      .toLowerCase();
+    (orderSearchEl.value || '').toLowerCase().trim();
 
 
   const filtered =
-    orders.filter(order => {
+    orders.filter(function(order) {
 
-      return JSON
-        .stringify(order)
+      return JSON.stringify(order)
         .toLowerCase()
         .includes(query);
 
@@ -1159,195 +773,149 @@ function renderOrders() {
 
 
   ordersBodyEl.innerHTML =
-    filtered
-      .map(order => {
+    filtered.map(function(order) {
 
-        const card =
-          order.cards?.[0];
-
-
-        const orderId =
-          String(order.id || "")
-            .replace(/'/g, "\\'");
+      const card =
+        Array.isArray(order.cards)
+          ? order.cards[0]
+          : null;
 
 
-        const customerName =
-          zoma.escape(
-            order.customers?.full_name ||
-            order.customer_name ||
-            "—"
-          );
+      const customerName =
+        order.customers?.full_name ||
+        order.customer_name ||
+        '—';
 
 
-        const phone =
-          zoma.escape(
-            order.phone ||
-            order.customers?.phone ||
-            ""
-          );
+      const phone =
+        order.phone ||
+        order.customers?.phone ||
+        '';
 
 
-        const designName =
-          zoma.escape(
-            order.designs?.name ||
-            "—"
-          );
+      const designName =
+        order.designs?.name ||
+        '—';
 
 
-        const orderNumber =
-          zoma.escape(
-            order.order_number ||
-            "—"
-          );
+      const statuses = [
+        'pending',
+        'confirmed',
+        'preparing',
+        'ready',
+        'shipped',
+        'delivered',
+        'rejected'
+      ];
 
 
-        const cardId =
-          card
-            ? zoma.escape(card.card_id || "")
-            : "—";
+      const statusOptions =
+        statuses.map(function(status) {
+
+          const selected =
+            order.status === status
+              ? 'selected'
+              : '';
+
+          return `
+            <option value="${status}" ${selected}>
+              ${window.zoma.statusLabel(status)}
+            </option>
+          `;
+
+        }).join('');
 
 
-        const statusOptions = [
+      return `
+        <tr>
 
-          "pending",
+          <td>
+            ${window.zoma.escape(order.order_number || '—')}
+          </td>
 
-          "confirmed",
+          <td>
+            ${window.zoma.escape(customerName)}
+            <br>
+            <span class="muted">
+              ${window.zoma.escape(phone)}
+            </span>
+          </td>
 
-          "preparing",
+          <td>
+            ${window.zoma.escape(designName)}
+          </td>
 
-          "ready",
+          <td>
+            ${window.zoma.money(order.total_price)}
+          </td>
 
-          "shipped",
+          <td>
 
-          "delivered",
+            <select
+              onchange="setOrderStatus('${order.id}',this.value)"
+            >
+              ${statusOptions}
+            </select>
 
-          "rejected"
+          </td>
 
-        ];
+          <td>
 
+            ${
+              card
+                ? `<span class="chip">
+                    ${window.zoma.escape(card.card_id)}
+                   </span>`
+                : '—'
+            }
 
-        const options =
-          statusOptions
-            .map(status => {
+          </td>
 
-              return `
-                <option
-                  value="${status}"
-                  ${order.status === status ? "selected" : ""}
-                >
-                  ${zoma.statusLabel(status)}
-                </option>
-              `;
+          <td>
 
-            })
-            .join("");
+            <div class="actions">
 
-
-        return `
-
-          <tr>
-
-            <td>
-              ${orderNumber}
-            </td>
-
-
-            <td>
-
-              ${customerName}
-
-              <br>
-
-              <span class="muted">
-                ${phone}
-              </span>
-
-            </td>
-
-
-            <td>
-              ${designName}
-            </td>
-
-
-            <td>
-              ${zoma.money(order.total_price)}
-            </td>
-
-
-            <td>
-
-              <select
-                onchange="setOrderStatus('${orderId}', this.value)"
+              <button
+                class="btn"
+                onclick="orderDetails('${order.id}')"
               >
-                ${options}
-              </select>
-
-            </td>
-
-
-            <td>
+                تفاصيل
+              </button>
 
               ${
                 card
-                  ? `<span class="chip">${cardId}</span>`
-                  : "—"
+
+                  ? `
+                    <button
+                      class="btn primary"
+                      onclick="nfc('${card.id}','${order.id}')"
+                    >
+                      📲 إدراج NFC
+                    </button>
+                  `
+
+                  : `
+                    <button
+                      class="btn success"
+                      onclick="issueCard('${order.id}')"
+                    >
+                      إنشاء بطاقة
+                    </button>
+                  `
               }
 
-            </td>
+            </div>
 
+          </td>
 
-            <td>
+        </tr>
+      `;
 
-              <div class="actions">
-
-                <button
-                  class="btn"
-                  onclick="orderDetails('${orderId}')"
-                >
-                  تفاصيل
-                </button>
-
-
-                ${
-                  card
-
-                    ? `
-                      <button
-                        class="btn primary"
-                        onclick="nfc('${card.id}','${orderId}')"
-                      >
-                        📲 إدراج NFC
-                      </button>
-                    `
-
-                    : `
-                      <button
-                        class="btn success"
-                        onclick="issueCard('${orderId}')"
-                      >
-                        إنشاء بطاقة
-                      </button>
-                    `
-                }
-
-              </div>
-
-            </td>
-
-          </tr>
-
-        `;
-
-      })
-      .join("") ||
+    }).join('') ||
 
     `
       <tr>
-        <td
-          colspan="7"
-          class="empty"
-        >
+        <td colspan="7" class="empty">
           لا توجد طلبات.
         </td>
       </tr>
@@ -1356,343 +924,290 @@ function renderOrders() {
 }
 
 
-/* =========================================================
-   ORDER STATUS
-========================================================= */
+window.setOrderStatus = async function(id, status) {
 
-window.setOrderStatus =
-  async function(id, status) {
+  try {
 
-    try {
-
-      const result =
-        await sb
-          .from("orders")
-          .update({
-            status: status
-          })
-          .eq(
-            "id",
-            id
-          );
-
-
-      if (result.error) {
-
-        throw result.error;
-
-      }
-
-
-      await zoma.log(
-        "update_order_status",
-        "order",
-        id,
-        {
+    const result =
+      await sb
+        .from('orders')
+        .update({
           status: status
-        }
-      );
+        })
+        .eq('id', id);
 
 
-      zoma.toast(
-        "تم تحديث الحالة",
-        "success"
-      );
+    if (result.error) {
 
-
-      await load();
-
-
-    } catch (error) {
-
-      console.error(
-        "Status error:",
-        error
-      );
-
-
-      zoma.toast(
-        error.message ||
-        "تعذر تحديث الحالة",
-        "error"
-      );
-
-    }
-
-  };
-
-
-/* =========================================================
-   ORDER DETAILS
-========================================================= */
-
-window.orderDetails =
-  function(id) {
-
-    const order =
-      orders.find(
-        item => item.id === id
-      );
-
-
-    if (!order) {
-
-      zoma.toast(
-        "الطلب غير موجود",
-        "error"
+      window.zoma.toast(
+        result.error.message,
+        'error'
       );
 
       return;
-
     }
 
 
-    modalTitleEl.textContent =
-      "تفاصيل " +
-      (
-        order.order_number ||
-        ""
-      );
+    await window.zoma.log(
+      'update_order_status',
+      'order',
+      id,
+      {
+        status: status
+      }
+    );
 
 
-    modalBodyEl.innerHTML = `
-
-      <div class="form">
-
-        <div class="notice-box">
-
-          <b>العميل:</b>
-          ${zoma.escape(
-            order.customer_name ||
-            order.customers?.full_name ||
-            ""
-          )}
-
-          <br>
-
-          <b>الهاتف:</b>
-          ${zoma.escape(
-            order.phone ||
-            order.customers?.phone ||
-            ""
-          )}
-
-          <br>
-
-          <b>العنوان:</b>
-          ${zoma.escape(
-            order.shipping_governorate ||
-            ""
-          )}
-          /
-          ${zoma.escape(
-            order.shipping_city ||
-            ""
-          )}
-          /
-          ${zoma.escape(
-            order.shipping_address ||
-            ""
-          )}
-
-        </div>
+    window.zoma.toast(
+      'تم تحديث الحالة',
+      'success'
+    );
 
 
-        <div class="field">
+    await load();
 
-          <label for="adminNotes">
-            ملاحظات الإدارة / سبب الرفض
-          </label>
+  } catch (error) {
 
-          <textarea
-            id="adminNotes"
-            rows="4"
-          >${zoma.escape(
-            order.admin_notes || ""
-          )}</textarea>
+    console.error(error);
 
-        </div>
+    window.zoma.toast(
+      'حدث خطأ أثناء تحديث الحالة',
+      'error'
+    );
+
+  }
+
+};
 
 
-        <button
-          class="btn primary"
-          onclick="saveNotes('${id}')"
-        >
-          حفظ الملاحظات
-        </button>
+/* =========================
+   ORDER DETAILS
+========================= */
+
+window.orderDetails = function(id) {
+
+  const order =
+    orders.find(function(item) {
+      return item.id === id;
+    });
+
+
+  if (!order) {
+    return;
+  }
+
+
+  modalTitleEl.textContent =
+    'تفاصيل ' +
+    (order.order_number || '');
+
+
+  modalBodyEl.innerHTML = `
+
+    <div class="form">
+
+      <div class="notice-box">
+
+        <b>العميل:</b>
+        ${window.zoma.escape(
+          order.customer_name ||
+          order.customers?.full_name ||
+          ''
+        )}
+
+        <br>
+
+        <b>الهاتف:</b>
+        ${window.zoma.escape(
+          order.phone ||
+          order.customers?.phone ||
+          ''
+        )}
+
+        <br>
+
+        <b>العنوان:</b>
+        ${window.zoma.escape(
+          order.shipping_governorate || ''
+        )}
+        /
+        ${window.zoma.escape(
+          order.shipping_city || ''
+        )}
+        /
+        ${window.zoma.escape(
+          order.shipping_address || ''
+        )}
 
       </div>
 
-    `;
+
+      <div class="field">
+
+        <label>
+          ملاحظات الإدارة / سبب الرفض
+        </label>
+
+        <textarea
+          id="adminNotes"
+          rows="4"
+        >${window.zoma.escape(
+          order.admin_notes || ''
+        )}</textarea>
+
+      </div>
 
 
-    modalEl.classList.add("show");
+      <button
+        class="btn primary"
+        onclick="saveNotes('${id}')"
+      >
+        حفظ الملاحظات
+      </button>
 
-  };
+    </div>
 
-
-/* =========================================================
-   SAVE NOTES
-========================================================= */
-
-window.saveNotes =
-  async function(id) {
-
-    const notesEl =
-      document.getElementById(
-        "adminNotes"
-      );
+  `;
 
 
-    if (!notesEl) {
+  modalEl.classList.add('show');
 
-      return;
-
-    }
+};
 
 
-    try {
+window.saveNotes = async function(id) {
 
-      const result =
-        await sb
-          .from("orders")
-          .update({
-            admin_notes:
-              notesEl.value
-          })
-          .eq(
-            "id",
-            id
-          );
+  const notesEl =
+    document.getElementById('adminNotes');
 
 
-      if (result.error) {
-
-        throw result.error;
-
-      }
+  if (!notesEl) {
+    return;
+  }
 
 
-      zoma.toast(
-        "تم الحفظ",
-        "success"
-      );
+  const result =
+    await sb
+      .from('orders')
+      .update({
+        admin_notes: notesEl.value
+      })
+      .eq('id', id);
 
 
-      closeModal();
+  if (result.error) {
 
-      await load();
+    window.zoma.toast(
+      result.error.message,
+      'error'
+    );
 
-
-    } catch (error) {
-
-      zoma.toast(
-        error.message ||
-        "تعذر حفظ الملاحظات",
-        "error"
-      );
-
-    }
-
-  };
+    return;
+  }
 
 
-/* =========================================================
+  window.zoma.toast(
+    'تم الحفظ',
+    'success'
+  );
+
+
+  closeModal();
+
+  await load();
+
+};
+
+
+/* =========================
    ISSUE CARD
-========================================================= */
+========================= */
 
 async function issueCard(orderId) {
 
   const order =
-    orders.find(
-      item => item.id === orderId
-    );
+    orders.find(function(item) {
+      return item.id === orderId;
+    });
 
 
   if (!order) {
-
     return;
-
   }
 
 
   const existing =
-    cards.find(
-      card =>
-        card.order_id === orderId
-    );
+    cards.find(function(card) {
+      return card.order_id === orderId;
+    });
 
 
   if (existing) {
 
-    zoma.toast(
-      "البطاقة موجودة بالفعل",
-      "error"
+    window.zoma.toast(
+      'البطاقة موجودة بالفعل',
+      'error'
     );
 
     return;
-
   }
 
 
   try {
 
     const cardId =
-      zoma.cardId();
+      window.zoma.cardId();
 
 
     const publicUrl =
-      zoma.publicUrl(cardId);
+      window.zoma.publicUrl(cardId);
 
 
-    const result =
+    const cardResult =
       await sb
-        .from("cards")
+        .from('cards')
         .insert({
 
-          customer_id:
-            order.customer_id,
+          customer_id: order.customer_id,
 
-          order_id:
-            order.id,
+          order_id: order.id,
 
-          card_id:
-            cardId,
+          card_id: cardId,
 
-          public_url:
-            publicUrl,
+          public_url: publicUrl,
 
-          status:
-            "unactivated"
+          status: 'unactivated'
 
         })
         .select()
         .single();
 
 
-    if (result.error) {
+    if (cardResult.error) {
 
-      throw result.error;
+      window.zoma.toast(
+        cardResult.error.message,
+        'error'
+      );
 
+      return;
     }
 
 
-    const newCard =
-      result.data;
+    const customerName =
+      order.customer_name ||
+      order.customers?.full_name ||
+      '';
 
 
     const profileResult =
       await sb
-        .from("profiles")
+        .from('profiles')
         .insert({
 
-          card_id:
-            newCard.id,
+          card_id: cardResult.data.id,
 
-          full_name:
-            order.customer_name ||
-            order.customers?.full_name ||
-            ""
+          full_name: customerName
 
         });
 
@@ -1700,45 +1215,38 @@ async function issueCard(orderId) {
     if (profileResult.error) {
 
       console.error(
-        "Profile creation error:",
+        'Profile error:',
         profileResult.error
       );
 
     }
 
 
-    await zoma.log(
-      "issue_card",
-      "card",
-      newCard.id,
+    await window.zoma.log(
+      'issue_card',
+      'card',
+      cardResult.data.id,
       {
         card_id: cardId
       }
     );
 
 
-    zoma.toast(
-      "تم إصدار البطاقة: " +
-      cardId,
-      "success"
+    window.zoma.toast(
+      'تم إصدار البطاقة: ' + cardId,
+      'success'
     );
 
 
     await load();
 
-
   } catch (error) {
 
-    console.error(
-      "Issue card error:",
-      error
-    );
+    console.error(error);
 
-
-    zoma.toast(
-      error.message ||
-      "تعذر إنشاء البطاقة",
-      "error"
+    window.zoma.toast(
+      error.message || 'حدث خطأ',
+      'error'
     );
 
   }
@@ -1746,68 +1254,51 @@ async function issueCard(orderId) {
 }
 
 
-window.issueCard =
-  issueCard;
+window.issueCard = issueCard;
 
 
-/* =========================================================
+/* =========================
    NFC
-========================================================= */
+========================= */
 
-async function nfc(
-  cardDbId,
-  orderId
-) {
+async function nfc(cardDbId, orderId) {
 
   const card =
-    cards.find(
-      item => item.id === cardDbId
-    );
+    cards.find(function(item) {
+      return item.id === cardDbId;
+    });
 
 
   if (!card) {
-
-    zoma.toast(
-      "البطاقة غير موجودة",
-      "error"
-    );
-
     return;
-
   }
 
 
   try {
 
-    zoma.toast(
-      "قرّب بطاقة ZOMA من الهاتف…"
+    window.zoma.toast(
+      'قرّب بطاقة ZOMA من الهاتف…'
     );
 
 
-    await zoma.writeNfc(
+    await window.zoma.writeNfc(
       card,
       orderId
     );
 
 
-    zoma.toast(
-      "تم إدراج رابط NFC بنجاح",
-      "success"
+    window.zoma.toast(
+      'تم إدراج رابط NFC بنجاح',
+      'success'
     );
-
 
   } catch (error) {
 
-    console.error(
-      "NFC error:",
-      error
-    );
+    console.error(error);
 
-
-    zoma.toast(
-      error.message ||
-      "تعذر إدراج NFC",
-      "error"
+    window.zoma.toast(
+      error.message || 'فشل إدراج NFC',
+      'error'
     );
 
   }
@@ -1815,30 +1306,25 @@ async function nfc(
 }
 
 
-window.nfc =
-  nfc;
+window.nfc = nfc;
 
 
-/* =========================================================
+/* =========================
    CUSTOMERS
-========================================================= */
+========================= */
 
 function renderCustomers() {
 
   const query =
-    (
-      customerSearchEl.value ||
-      ""
-    )
-      .trim()
-      .toLowerCase();
+    (customerSearchEl.value || '')
+      .toLowerCase()
+      .trim();
 
 
   const filtered =
-    customers.filter(customer => {
+    customers.filter(function(customer) {
 
-      return JSON
-        .stringify(customer)
+      return JSON.stringify(customer)
         .toLowerCase()
         .includes(query);
 
@@ -1846,114 +1332,81 @@ function renderCustomers() {
 
 
   customersBodyEl.innerHTML =
-    filtered
-      .map(customer => {
+    filtered.map(function(customer) {
 
-        const customerId =
-          String(customer.id || "")
-            .replace(/'/g, "\\'");
-
-
-        const name =
-          zoma.escape(
-            customer.full_name ||
-            "—"
-          );
+      const cardCount =
+        cards.filter(function(card) {
+          return card.customer_id === customer.id;
+        }).length;
 
 
-        const phone =
-          zoma.escape(
-            customer.phone ||
-            ""
-          );
+      return `
 
+        <tr>
 
-        const status =
-          customer.status === "active"
-            ? "success"
-            : "danger";
+          <td>
+            ${window.zoma.escape(
+              customer.full_name || ''
+            )}
+          </td>
 
+          <td>
+            ${window.zoma.escape(
+              customer.phone || ''
+            )}
+          </td>
 
-        const statusText =
-          zoma.statusLabel(
-            customer.status
-          );
+          <td>
 
+            <span class="status ${
+              customer.status === 'active'
+                ? 'success'
+                : 'danger'
+            }">
 
-        const cardCount =
-          cards.filter(
-            card =>
-              card.customer_id ===
-              customer.id
-          ).length;
+              ${window.zoma.statusLabel(
+                customer.status
+              )}
 
+            </span>
 
-        return `
+          </td>
 
-          <tr>
+          <td>
+            ${cardCount}
+          </td>
 
-            <td>
-              ${name}
-            </td>
+          <td>
 
+            <div class="actions">
 
-            <td>
-              ${phone}
-            </td>
-
-
-            <td>
-
-              <span
-                class="status ${status}"
+              <button
+                class="btn"
+                onclick="editCustomer('${customer.id}')"
               >
-                ${statusText}
-              </span>
+                تعديل
+              </button>
 
-            </td>
+              <button
+                class="btn danger"
+                onclick="deleteCustomer('${customer.id}')"
+              >
+                حذف
+              </button>
 
+            </div>
 
-            <td>
-              ${cardCount}
-            </td>
+          </td>
 
+        </tr>
 
-            <td>
+      `;
 
-              <div class="actions">
-
-                <button
-                  class="btn"
-                  onclick="editCustomer('${customerId}')"
-                >
-                  تعديل
-                </button>
-
-
-                <button
-                  class="btn danger"
-                  onclick="deleteCustomer('${customerId}')"
-                >
-                  حذف
-                </button>
-
-              </div>
-
-            </td>
-
-          </tr>
-
-        `;
-
-      })
-      .join("") ||
+    }).join('') ||
 
     `
       <tr>
-        <td
-          colspan="5"
-          class="empty"
-        >
+        <td colspan="5" class="empty">
           لا يوجد عملاء.
         </td>
       </tr>
@@ -1962,800 +1415,710 @@ function renderCustomers() {
 }
 
 
-/* =========================================================
+/* =========================
    EDIT CUSTOMER
-========================================================= */
+========================= */
 
-window.editCustomer =
-  function(id) {
+window.editCustomer = function(id) {
 
-    const customer =
-      customers.find(
-        item => item.id === id
-      );
-
-
-    if (!customer) {
-
-      return;
-
-    }
+  const customer =
+    customers.find(function(item) {
+      return item.id === id;
+    });
 
 
-    modalTitleEl.textContent =
-      "تعديل العميل";
+  if (!customer) {
+    return;
+  }
 
 
-    modalBodyEl.innerHTML = `
-
-      <form
-        id="editCustomerForm"
-        class="form"
-      >
-
-        <div class="field">
-
-          <label for="ecName">
-            الاسم
-          </label>
-
-          <input
-            id="ecName"
-            value="${zoma.escape(
-              customer.full_name || ""
-            )}"
-            required
-          >
-
-        </div>
+  modalTitleEl.textContent =
+    'تعديل العميل';
 
 
-        <div class="field">
+  modalBodyEl.innerHTML = `
 
-          <label for="ecPhone">
-            الهاتف
-          </label>
+    <form
+      class="form"
+      id="editCustomerForm"
+    >
 
-          <input
-            id="ecPhone"
-            value="${zoma.escape(
-              customer.phone || ""
-            )}"
-          >
+      <div class="field">
 
-        </div>
+        <label>الاسم</label>
 
-
-        <div class="field">
-
-          <label for="ecStatus">
-            الحالة
-          </label>
-
-          <select id="ecStatus">
-
-            <option
-              value="active"
-              ${
-                customer.status === "active"
-                  ? "selected"
-                  : ""
-              }
-            >
-              نشط
-            </option>
-
-
-            <option
-              value="suspended"
-              ${
-                customer.status === "suspended"
-                  ? "selected"
-                  : ""
-              }
-            >
-              موقوف
-            </option>
-
-          </select>
-
-        </div>
-
-
-        <button
-          class="btn primary"
-          type="submit"
+        <input
+          id="ecName"
+          value="${window.zoma.escape(
+            customer.full_name || ''
+          )}"
+          required
         >
-          حفظ
-        </button>
 
-      </form>
-
-    `;
+      </div>
 
 
-    modalEl.classList.add("show");
+      <div class="field">
+
+        <label>الهاتف</label>
+
+        <input
+          id="ecPhone"
+          value="${window.zoma.escape(
+            customer.phone || ''
+          )}"
+        >
+
+      </div>
 
 
-    document
-      .getElementById("editCustomerForm")
-      .addEventListener(
-        "submit",
-        event => {
+      <div class="field">
 
-          saveCustomer(
-            event,
-            id
-          );
+        <label>الحالة</label>
 
-        }
+        <select id="ecStatus">
+
+          <option
+            value="active"
+            ${
+              customer.status === 'active'
+                ? 'selected'
+                : ''
+            }
+          >
+            نشط
+          </option>
+
+          <option
+            value="suspended"
+            ${
+              customer.status === 'suspended'
+                ? 'selected'
+                : ''
+            }
+          >
+            موقوف
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <button
+        class="btn primary"
+        type="submit"
+      >
+        حفظ
+      </button>
+
+    </form>
+
+  `;
+
+
+  modalEl.classList.add('show');
+
+
+  const form =
+    document.getElementById(
+      'editCustomerForm'
+    );
+
+
+  form.addEventListener(
+    'submit',
+    function(event) {
+      saveCustomer(
+        event,
+        id
       );
-
-  };
-
-
-/* =========================================================
-   SAVE CUSTOMER
-========================================================= */
-
-window.saveCustomer =
-  async function(event, id) {
-
-    event.preventDefault();
-
-
-    const nameEl =
-      document.getElementById(
-        "ecName"
-      );
-
-
-    const phoneEl =
-      document.getElementById(
-        "ecPhone"
-      );
-
-
-    const statusEl =
-      document.getElementById(
-        "ecStatus"
-      );
-
-
-    try {
-
-      const result =
-        await sb
-          .from("customers")
-          .update({
-
-            full_name:
-              nameEl.value.trim(),
-
-            phone:
-              phoneEl.value.trim(),
-
-            status:
-              statusEl.value
-
-          })
-          .eq(
-            "id",
-            id
-          );
-
-
-      if (result.error) {
-
-        throw result.error;
-
-      }
-
-
-      zoma.toast(
-        "تم الحفظ",
-        "success"
-      );
-
-
-      closeModal();
-
-      await load();
-
-
-    } catch (error) {
-
-      zoma.toast(
-        error.message ||
-        "تعذر حفظ العميل",
-        "error"
-      );
-
     }
+  );
 
-  };
-
-
-/* =========================================================
-   DELETE CUSTOMER
-========================================================= */
-
-window.deleteCustomer =
-  async function(id) {
-
-    if (
-      !confirm(
-        "حذف العميل؟"
-      )
-    ) {
-
-      return;
-
-    }
+};
 
 
-    try {
+window.saveCustomer = async function(event, id) {
 
-      const result =
-        await sb
-          .from("customers")
-          .delete()
-          .eq(
-            "id",
-            id
-          );
+  event.preventDefault();
 
 
-      if (result.error) {
+  const nameEl =
+    document.getElementById('ecName');
 
-        throw result.error;
+  const phoneEl =
+    document.getElementById('ecPhone');
 
-      }
-
-
-      zoma.toast(
-        "تم الحذف",
-        "success"
-      );
+  const statusEl =
+    document.getElementById('ecStatus');
 
 
-      await load();
+  const result =
+    await sb
+      .from('customers')
+      .update({
+
+        full_name: nameEl.value,
+
+        phone: phoneEl.value,
+
+        status: statusEl.value
+
+      })
+      .eq('id', id);
 
 
-    } catch (error) {
+  if (result.error) {
 
-      zoma.toast(
-        error.message ||
-        "تعذر حذف العميل",
-        "error"
-      );
+    window.zoma.toast(
+      result.error.message,
+      'error'
+    );
 
-    }
-
-  };
+    return;
+  }
 
 
-/* =========================================================
+  window.zoma.toast(
+    'تم الحفظ',
+    'success'
+  );
+
+
+  closeModal();
+
+  await load();
+
+};
+
+
+window.deleteCustomer = async function(id) {
+
+  if (!confirm('حذف العميل؟')) {
+    return;
+  }
+
+
+  const result =
+    await sb
+      .from('customers')
+      .delete()
+      .eq('id', id);
+
+
+  if (result.error) {
+
+    window.zoma.toast(
+      result.error.message,
+      'error'
+    );
+
+    return;
+  }
+
+
+  window.zoma.toast(
+    'تم الحذف',
+    'success'
+  );
+
+
+  await load();
+
+};
+
+
+/* =========================
    CARDS
-========================================================= */
+========================= */
 
 function renderCards() {
 
   cardsBodyEl.innerHTML =
-    cards
-      .map(card => {
 
-        const cardId =
-          zoma.escape(
-            card.card_id ||
-            ""
-          );
+    cards.map(function(card) {
+
+      const customerName =
+        card.customers?.full_name ||
+        '—';
 
 
-        const customerName =
-          zoma.escape(
-            card.customers?.full_name ||
-            "—"
-          );
+      const orderNumber =
+        card.orders?.order_number ||
+        '—';
 
 
-        const orderNumber =
-          zoma.escape(
-            card.orders?.order_number ||
-            "—"
-          );
+      return `
+
+        <tr>
+
+          <td>
+            ${window.zoma.escape(
+              card.card_id || ''
+            )}
+          </td>
+
+          <td>
+            ${window.zoma.escape(
+              customerName
+            )}
+          </td>
+
+          <td>
+            ${window.zoma.escape(
+              orderNumber
+            )}
+          </td>
+
+          <td>
+
+            <span class="status ${
+              window.zoma.statusClass(
+                card.status
+              )
+            }">
+
+              ${window.zoma.statusLabel(
+                card.status
+              )}
+
+            </span>
+
+          </td>
 
 
-        const publicUrl =
-          card.public_url ||
-          "";
+          <td>
+
+            <button
+              class="btn"
+              onclick="copyCardUrl('${card.id}')"
+            >
+              نسخ الرابط
+            </button>
+
+          </td>
 
 
-        const safeUrl =
-          encodeURIComponent(
-            publicUrl
-          );
+          <td>
+
+            <button
+              class="btn primary"
+              onclick="nfc('${card.id}','${card.order_id || ''}')"
+            >
+              📲 إدراج NFC
+            </button>
+
+          </td>
 
 
-        return `
+          <td>
 
-          <tr>
-
-            <td>
-              ${cardId}
-            </td>
-
-
-            <td>
-              ${customerName}
-            </td>
-
-
-            <td>
-              ${orderNumber}
-            </td>
-
-
-            <td>
-
-              <span
-                class="status ${zoma.statusClass(card.status)}"
-              >
-                ${zoma.statusLabel(card.status)}
-              </span>
-
-            </td>
-
-
-            <td>
+            <div class="actions">
 
               <button
-                class="btn copy-card"
-                type="button"
-                data-url="${safeUrl}"
+                class="btn"
+                onclick="toggleCard('${card.id}')"
               >
-                نسخ الرابط
+                ${
+                  card.status === 'suspended'
+                    ? 'تفعيل'
+                    : 'إيقاف'
+                }
               </button>
-
-            </td>
-
-
-            <td>
 
               <button
-                class="btn primary"
-                onclick="nfc('${card.id}','${card.order_id || ""}')"
+                class="btn"
+                onclick="replaceCard('${card.id}')"
               >
-                📲 إدراج NFC
+                بديل
               </button>
 
-            </td>
+            </div>
 
+          </td>
 
-            <td>
+        </tr>
 
-              <div class="actions">
+      `;
 
-                <button
-                  class="btn"
-                  onclick="toggleCard('${card.id}')"
-                >
-                  ${
-                    card.status === "suspended"
-                      ? "تفعيل"
-                      : "إيقاف"
-                  }
-                </button>
-
-
-                <button
-                  class="btn"
-                  onclick="replaceCard('${card.id}')"
-                >
-                  بديل
-                </button>
-
-              </div>
-
-            </td>
-
-          </tr>
-
-        `;
-
-      })
-      .join("") ||
+    }).join('') ||
 
     `
       <tr>
-
-        <td
-          colspan="7"
-          class="empty"
-        >
+        <td colspan="7" class="empty">
           لا توجد بطاقات.
         </td>
-
       </tr>
     `;
-
-
-  /* -------------------------------------------------------
-     Copy buttons
-  ------------------------------------------------------- */
-
-  document
-    .querySelectorAll(".copy-card")
-    .forEach(button => {
-
-      button.addEventListener(
-        "click",
-        async () => {
-
-          try {
-
-            const url =
-              decodeURIComponent(
-                button.dataset.url ||
-                ""
-              );
-
-
-            await navigator.clipboard.writeText(
-              url
-            );
-
-
-            zoma.toast(
-              "تم النسخ",
-              "success"
-            );
-
-
-          } catch (error) {
-
-            zoma.toast(
-              "تعذر نسخ الرابط",
-              "error"
-            );
-
-          }
-
-        }
-      );
-
-    });
 
 }
 
 
-/* =========================================================
+/* =========================
+   COPY CARD URL
+========================= */
+
+window.copyCardUrl = async function(id) {
+
+  const card =
+    cards.find(function(item) {
+      return item.id === id;
+    });
+
+
+  if (!card || !card.public_url) {
+    return;
+  }
+
+
+  try {
+
+    await navigator.clipboard.writeText(
+      card.public_url
+    );
+
+
+    window.zoma.toast(
+      'تم النسخ',
+      'success'
+    );
+
+  } catch (error) {
+
+    console.error(error);
+
+    window.zoma.toast(
+      'تعذر نسخ الرابط',
+      'error'
+    );
+
+  }
+
+};
+
+
+/* =========================
    TOGGLE CARD
-========================================================= */
+========================= */
 
-window.toggleCard =
-  async function(id) {
+window.toggleCard = async function(id) {
 
-    const card =
-      cards.find(
-        item => item.id === id
-      );
-
-
-    if (!card) {
-
-      return;
-
-    }
+  const card =
+    cards.find(function(item) {
+      return item.id === id;
+    });
 
 
-    const newStatus =
-      card.status === "suspended"
-        ? "active"
-        : "suspended";
+  if (!card) {
+    return;
+  }
 
 
-    try {
-
-      const result =
-        await sb
-          .from("cards")
-          .update({
-            status:
-              newStatus
-          })
-          .eq(
-            "id",
-            id
-          );
+  const newStatus =
+    card.status === 'suspended'
+      ? 'active'
+      : 'suspended';
 
 
-      if (result.error) {
-
-        throw result.error;
-
-      }
-
-
-      zoma.toast(
-        "تم تحديث حالة البطاقة",
-        "success"
-      );
+  const result =
+    await sb
+      .from('cards')
+      .update({
+        status: newStatus
+      })
+      .eq('id', id);
 
 
-      await load();
+  if (result.error) {
+
+    window.zoma.toast(
+      result.error.message,
+      'error'
+    );
+
+    return;
+  }
 
 
-    } catch (error) {
-
-      zoma.toast(
-        error.message ||
-        "تعذر تحديث البطاقة",
-        "error"
-      );
-
-    }
-
-  };
+  window.zoma.toast(
+    'تم تحديث حالة البطاقة',
+    'success'
+  );
 
 
-/* =========================================================
+  await load();
+
+};
+
+
+/* =========================
    REPLACE CARD
-========================================================= */
+========================= */
 
-window.replaceCard =
-  async function(id) {
+window.replaceCard = async function(id) {
 
-    const oldCard =
-      cards.find(
-        item => item.id === id
+  const oldCard =
+    cards.find(function(item) {
+      return item.id === id;
+    });
+
+
+  if (!oldCard) {
+    return;
+  }
+
+
+  if (
+    !confirm(
+      'إيقاف البطاقة الحالية وإصدار بطاقة بديلة؟'
+    )
+  ) {
+    return;
+  }
+
+
+  try {
+
+    const oldResult =
+      await sb
+        .from('cards')
+        .update({
+          status: 'suspended'
+        })
+        .eq('id', id);
+
+
+    if (oldResult.error) {
+
+      window.zoma.toast(
+        oldResult.error.message,
+        'error'
+      );
+
+      return;
+    }
+
+
+    const newCardId =
+      window.zoma.cardId();
+
+
+    const newPublicUrl =
+      window.zoma.publicUrl(
+        newCardId
       );
 
 
-    if (!oldCard) {
-
-      return;
-
-    }
-
-
-    if (
-      !confirm(
-        "إيقاف البطاقة الحالية وإصدار بطاقة بديلة؟"
-      )
-    ) {
-
-      return;
-
-    }
-
-
-    try {
-
-      /* ---------------------------------------------------
-         Suspend old card
-      --------------------------------------------------- */
-
-      const suspendResult =
-        await sb
-          .from("cards")
-          .update({
-            status:
-              "suspended"
-          })
-          .eq(
-            "id",
-            id
-          );
-
-
-      if (suspendResult.error) {
-
-        throw suspendResult.error;
-
-      }
-
-
-      /* ---------------------------------------------------
-         New card
-      --------------------------------------------------- */
-
-      const newCardId =
-        zoma.cardId();
-
-
-      const newPublicUrl =
-        zoma.publicUrl(
-          newCardId
-        );
-
-
-      const result =
-        await sb
-          .from("cards")
-          .insert({
-
-            customer_id:
-              oldCard.customer_id,
-
-            order_id:
-              oldCard.order_id,
-
-            card_id:
-              newCardId,
-
-            public_url:
-              newPublicUrl,
-
-            status:
-              "unactivated"
-
-          })
-          .select()
-          .single();
-
-
-      if (result.error) {
-
-        throw result.error;
-
-      }
-
-
-      const newCard =
-        result.data;
-
-
+    const newResult =
       await sb
-        .from("profiles")
+        .from('cards')
+        .insert({
+
+          customer_id:
+            oldCard.customer_id,
+
+          order_id:
+            oldCard.order_id,
+
+          card_id:
+            newCardId,
+
+          public_url:
+            newPublicUrl,
+
+          status:
+            'unactivated'
+
+        })
+        .select()
+        .single();
+
+
+    if (newResult.error) {
+
+      window.zoma.toast(
+        newResult.error.message,
+        'error'
+      );
+
+      return;
+    }
+
+
+    const profileResult =
+      await sb
+        .from('profiles')
         .insert({
 
           card_id:
-            newCard.id
+            newResult.data.id
 
         });
 
 
-      await zoma.log(
-        "replace_card",
-        "card",
-        newCard.id,
-        {
-          old_card_id:
-            oldCard.id,
-
-          card_id:
-            newCardId
-        }
-      );
-
-
-      zoma.toast(
-        "تم إصدار البطاقة البديلة " +
-        newCardId,
-        "success"
-      );
-
-
-      await load();
-
-
-    } catch (error) {
+    if (profileResult.error) {
 
       console.error(
-        "Replace card error:",
-        error
-      );
-
-
-      zoma.toast(
-        error.message ||
-        "تعذر إصدار البطاقة البديلة",
-        "error"
+        'Profile error:',
+        profileResult.error
       );
 
     }
 
-  };
+
+    await window.zoma.log(
+      'replace_card',
+      'card',
+      newResult.data.id,
+      {
+        old_card_id:
+          oldCard.card_id,
+
+        new_card_id:
+          newCardId
+      }
+    );
 
 
-/* =========================================================
+    window.zoma.toast(
+      'تم إصدار البطاقة البديلة ' +
+      newCardId,
+      'success'
+    );
+
+
+    await load();
+
+  } catch (error) {
+
+    console.error(error);
+
+    window.zoma.toast(
+      error.message ||
+      'حدث خطأ أثناء إصدار البطاقة',
+      'error'
+    );
+
+  }
+
+};
+
+
+/* =========================
    NEW CARD BUTTON
-========================================================= */
+========================= */
 
 newCardBtn.addEventListener(
-  "click",
-  () => {
+  'click',
+  async function() {
 
-    if (!cards.length) {
+    /*
+      أولًا نحاول إيجاد طلب ليس لديه بطاقة.
+      لو وجدناه نصدر له بطاقة.
+      لو لم يوجد، نستخدم أول بطاقة كبديل.
+    */
 
-      zoma.toast(
-        "لا توجد بطاقة حالية لاستبدالها",
-        "error"
+    const orderWithoutCard =
+      orders.find(function(order) {
+
+        return !cards.some(function(card) {
+
+          return card.order_id === order.id;
+
+        });
+
+      });
+
+
+    if (orderWithoutCard) {
+
+      await issueCard(
+        orderWithoutCard.id
       );
 
       return;
-
     }
 
 
-    replaceCard(
-      cards[0].id
+    if (cards.length > 0) {
+
+      await window.replaceCard(
+        cards[0].id
+      );
+
+      return;
+    }
+
+
+    window.zoma.toast(
+      'لا يوجد طلب لإصدار بطاقة له',
+      'error'
     );
 
   }
 );
 
 
-/* =========================================================
+/* =========================
    DESIGNS
-========================================================= */
+========================= */
 
 function renderDesigns() {
 
   designsGridEl.innerHTML =
-    designs
-      .map(design => {
 
-        const designId =
-          String(design.id || "")
-            .replace(/'/g, "\\'");
+    designs.map(function(design) {
 
+      return `
 
-        return `
+        <div class="panel design">
 
-          <div class="panel design">
+          <div class="design-preview">
+            ${window.zoma.escape(
+              design.name || ''
+            )}
+          </div>
 
-            <div class="design-preview">
-              ${zoma.escape(
-                design.name || ""
-              )}
-            </div>
+          <h3>
+            ${window.zoma.escape(
+              design.name || ''
+            )}
+          </h3>
 
+          <p>
+            ${window.zoma.money(
+              design.price
+            )}
+          </p>
 
-            <h3>
-              ${zoma.escape(
-                design.name || ""
-              )}
-            </h3>
+          <div class="actions">
 
+            <button
+              class="btn"
+              onclick="toggleDesign('${design.id}')"
+            >
+              ${
+                design.is_available
+                  ? 'إيقاف'
+                  : 'تفعيل'
+              }
+            </button>
 
-            <p>
-              ${zoma.money(
-                design.price
-              )}
-            </p>
-
-
-            <div class="actions">
-
-              <button
-                class="btn"
-                onclick="toggleDesign('${designId}')"
-              >
-                ${
-                  design.is_available
-                    ? "إيقاف"
-                    : "تفعيل"
-                }
-              </button>
-
-
-              <button
-                class="btn danger"
-                onclick="deleteDesign('${designId}')"
-              >
-                حذف
-              </button>
-
-            </div>
+            <button
+              class="btn danger"
+              onclick="deleteDesign('${design.id}')"
+            >
+              حذف
+            </button>
 
           </div>
 
-        `;
+        </div>
 
-      })
-      .join("") ||
+      `;
+
+    }).join('') ||
 
     `
       <div class="empty">
@@ -2766,147 +2129,111 @@ function renderDesigns() {
 }
 
 
-/* =========================================================
+/* =========================
    TOGGLE DESIGN
-========================================================= */
+========================= */
 
-window.toggleDesign =
-  async function(id) {
+window.toggleDesign = async function(id) {
 
-    const design =
-      designs.find(
-        item => item.id === id
-      );
-
-
-    if (!design) {
-
-      return;
-
-    }
+  const design =
+    designs.find(function(item) {
+      return item.id === id;
+    });
 
 
-    try {
-
-      const result =
-        await sb
-          .from("designs")
-          .update({
-            is_available:
-              !design.is_available
-          })
-          .eq(
-            "id",
-            id
-          );
+  if (!design) {
+    return;
+  }
 
 
-      if (result.error) {
-
-        throw result.error;
-
-      }
-
-
-      await load();
-
-
-    } catch (error) {
-
-      zoma.toast(
-        error.message ||
-        "تعذر تحديث التصميم",
-        "error"
-      );
-
-    }
-
-  };
+  const result =
+    await sb
+      .from('designs')
+      .update({
+        is_available:
+          !design.is_available
+      })
+      .eq('id', id);
 
 
-/* =========================================================
+  if (result.error) {
+
+    window.zoma.toast(
+      result.error.message,
+      'error'
+    );
+
+    return;
+  }
+
+
+  await load();
+
+};
+
+
+/* =========================
    DELETE DESIGN
-========================================================= */
+========================= */
 
-window.deleteDesign =
-  async function(id) {
+window.deleteDesign = async function(id) {
 
-    if (
-      !confirm(
-        "حذف التصميم؟"
-      )
-    ) {
-
-      return;
-
-    }
+  if (!confirm('حذف التصميم؟')) {
+    return;
+  }
 
 
-    try {
-
-      const result =
-        await sb
-          .from("designs")
-          .delete()
-          .eq(
-            "id",
-            id
-          );
+  const result =
+    await sb
+      .from('designs')
+      .delete()
+      .eq('id', id);
 
 
-      if (result.error) {
+  if (result.error) {
 
-        throw result.error;
+    window.zoma.toast(
+      result.error.message,
+      'error'
+    );
 
-      }
-
-
-      zoma.toast(
-        "تم حذف التصميم",
-        "success"
-      );
+    return;
+  }
 
 
-      await load();
+  window.zoma.toast(
+    'تم حذف التصميم',
+    'success'
+  );
 
 
-    } catch (error) {
+  await load();
 
-      zoma.toast(
-        error.message ||
-        "تعذر حذف التصميم",
-        "error"
-      );
-
-    }
-
-  };
+};
 
 
-/* =========================================================
-   ADD DESIGN MODAL
-========================================================= */
+/* =========================
+   ADD DESIGN
+========================= */
 
 addDesignBtn.addEventListener(
-  "click",
-  () => {
+  'click',
+  function() {
 
     modalTitleEl.textContent =
-      "إضافة تصميم";
+      'إضافة تصميم';
 
 
     modalBodyEl.innerHTML = `
 
       <form
-        id="createDesignForm"
         class="form"
+        id="createDesignForm"
       >
 
         <div class="field">
 
-          <label for="dn">
-            الاسم
-          </label>
+          <label>الاسم</label>
 
           <input
             id="dn"
@@ -2918,9 +2245,7 @@ addDesignBtn.addEventListener(
 
         <div class="field">
 
-          <label for="dp">
-            السعر
-          </label>
+          <label>السعر</label>
 
           <input
             id="dp"
@@ -2944,776 +2269,655 @@ addDesignBtn.addEventListener(
     `;
 
 
-    modalEl.classList.add("show");
+    modalEl.classList.add('show');
 
 
-    document
-      .getElementById("createDesignForm")
-      .addEventListener(
-        "submit",
-        createDesign
+    const form =
+      document.getElementById(
+        'createDesignForm'
       );
+
+
+    form.addEventListener(
+      'submit',
+      createDesign
+    );
 
   }
 );
 
 
-/* =========================================================
+/* =========================
    CREATE DESIGN
-========================================================= */
+========================= */
 
-async function createDesign(event) {
+window.createDesign = async function(event) {
 
   event.preventDefault();
 
 
   const nameEl =
-    document.getElementById("dn");
-
+    document.getElementById('dn');
 
   const priceEl =
-    document.getElementById("dp");
+    document.getElementById('dp');
 
 
-  try {
+  const result =
+    await sb
+      .from('designs')
+      .insert({
 
-    const result =
-      await sb
-        .from("designs")
-        .insert({
+        design_code:
+          'DES-' +
+          Math.random()
+            .toString(36)
+            .slice(2, 7)
+            .toUpperCase(),
 
-          design_code:
-            "DES-" +
-            Math.random()
-              .toString(36)
-              .slice(2, 7)
-              .toUpperCase(),
+        name:
+          nameEl.value.trim(),
 
-          name:
-            nameEl.value.trim(),
+        price:
+          Number(priceEl.value),
 
-          price:
-            Number(
-              priceEl.value
-            ),
+        is_available:
+          true,
 
-          is_available:
-            true,
+        nfc_available:
+          true,
 
-          nfc_available:
-            true,
+        qr_available:
+          false
 
-          qr_available:
-            false
-
-        });
+      });
 
 
-    if (result.error) {
+  if (result.error) {
 
-      throw result.error;
-
-    }
-
-
-    zoma.toast(
-      "تمت إضافة التصميم",
-      "success"
+    window.zoma.toast(
+      result.error.message,
+      'error'
     );
 
-
-    closeModal();
-
-    await load();
-
-
-  } catch (error) {
-
-    zoma.toast(
-      error.message ||
-      "تعذر إضافة التصميم",
-      "error"
-    );
-
+    return;
   }
 
-}
+
+  window.zoma.toast(
+    'تمت إضافة التصميم',
+    'success'
+  );
 
 
-window.createDesign =
-  createDesign;
+  closeModal();
+
+  await load();
+
+};
 
 
-/* =========================================================
+/* =========================
    MESSAGES
-========================================================= */
+========================= */
 
 function renderMessages() {
 
   messagesBodyEl.innerHTML =
-    messages
-      .map(message => {
 
-        const date =
-          message.created_at
-            ? new Date(
-                message.created_at
-              ).toLocaleString(
-                "ar-EG"
-              )
-            : "—";
+    messages.map(function(message) {
 
+      return `
 
-        return `
+        <tr>
 
-          <tr>
+          <td>
+            ${
+              message.created_at
+                ? new Date(
+                    message.created_at
+                  ).toLocaleString(
+                    'ar-EG'
+                  )
+                : '—'
+            }
+          </td>
 
-            <td>
-              ${date}
-            </td>
+          <td>
+            ${window.zoma.escape(
+              message.subject || '—'
+            )}
+          </td>
 
+          <td>
+            ${window.zoma.escape(
+              message.body || ''
+            )}
+          </td>
 
-            <td>
-              ${zoma.escape(
-                message.subject ||
-                "—"
-              )}
-            </td>
+          <td>
+            ${window.zoma.escape(
+              message.status || 'open'
+            )}
+          </td>
 
+          <td>
 
-            <td>
-              ${zoma.escape(
-                message.body ||
-                ""
-              )}
-            </td>
+            <button
+              class="btn success"
+              onclick="closeMessage('${message.id}')"
+            >
+              تم الحل
+            </button>
 
+          </td>
 
-            <td>
-              ${zoma.escape(
-                message.status ||
-                "open"
-              )}
-            </td>
+        </tr>
 
+      `;
 
-            <td>
-
-              <button
-                class="btn success"
-                onclick="closeMessage('${message.id}')"
-              >
-                تم الحل
-              </button>
-
-            </td>
-
-          </tr>
-
-        `;
-
-      })
-      .join("") ||
+    }).join('') ||
 
     `
       <tr>
-
-        <td
-          colspan="5"
-          class="empty"
-        >
+        <td colspan="5" class="empty">
           لا توجد رسائل.
         </td>
-
       </tr>
     `;
 
 }
 
 
-/* =========================================================
+/* =========================
    CLOSE MESSAGE
-========================================================= */
+========================= */
 
-window.closeMessage =
-  async function(id) {
+window.closeMessage = async function(id) {
 
-    try {
-
-      const result =
-        await sb
-          .from("messages")
-          .update({
-            status:
-              "closed"
-          })
-          .eq(
-            "id",
-            id
-          );
+  const result =
+    await sb
+      .from('messages')
+      .update({
+        status: 'closed'
+      })
+      .eq('id', id);
 
 
-      if (result.error) {
+  if (result.error) {
 
-        throw result.error;
+    window.zoma.toast(
+      result.error.message,
+      'error'
+    );
 
-      }
-
-
-      zoma.toast(
-        "تم إغلاق الرسالة",
-        "success"
-      );
+    return;
+  }
 
 
-      await load();
+  await load();
+
+};
 
 
-    } catch (error) {
-
-      zoma.toast(
-        error.message ||
-        "تعذر تحديث الرسالة",
-        "error"
-      );
-
-    }
-
-  };
-
-
-/* =========================================================
+/* =========================
    ADMINS
-========================================================= */
+========================= */
 
 function renderAdmins() {
 
   adminsBodyEl.innerHTML =
-    admins
-      .map(adminItem => {
 
-        const adminId =
-          String(adminItem.id || "")
-            .replace(/'/g, "\\'");
+    admins.map(function(adminItem) {
 
-
-        return `
-
-          <tr>
-
-            <td>
-              ${zoma.escape(
-                adminItem.username ||
-                ""
-              )}
-            </td>
+      const roleId =
+        'role_' +
+        String(adminItem.id)
+          .replace(/[^a-zA-Z0-9_-]/g, '');
 
 
-            <td>
-              ${zoma.escape(
-                adminItem.full_name ||
-                ""
-              )}
-            </td>
+      return `
 
+        <tr>
 
-            <td>
+          <td>
+            ${window.zoma.escape(
+              adminItem.username || ''
+            )}
+          </td>
 
-              <select
-                class="admin-role-select"
-                data-admin-id="${adminId}"
+          <td>
+            ${window.zoma.escape(
+              adminItem.full_name || ''
+            )}
+          </td>
+
+          <td>
+
+            <select id="${roleId}">
+
+              <option
+                value="owner"
+                ${
+                  adminItem.role === 'owner'
+                    ? 'selected'
+                    : ''
+                }
               >
+                owner
+              </option>
 
-                <option
-                  value="owner"
-                  ${
-                    adminItem.role === "owner"
-                      ? "selected"
-                      : ""
-                  }
-                >
-                  owner
-                </option>
-
-
-                <option
-                  value="manager"
-                  ${
-                    adminItem.role === "manager"
-                      ? "selected"
-                      : ""
-                  }
-                >
-                  manager
-                </option>
-
-
-                <option
-                  value="support"
-                  ${
-                    adminItem.role === "support"
-                      ? "selected"
-                      : ""
-                  }
-                >
-                  support
-                </option>
-
-              </select>
-
-            </td>
-
-
-            <td>
-
-              <button
-                class="btn"
-                onclick="permissions('${adminId}')"
+              <option
+                value="manager"
+                ${
+                  adminItem.role === 'manager'
+                    ? 'selected'
+                    : ''
+                }
               >
-                صلاحيات
-              </button>
+                manager
+              </option>
 
-            </td>
-
-
-            <td>
-
-              <button
-                class="btn"
-                onclick="saveAdminRole('${adminId}')"
+              <option
+                value="support"
+                ${
+                  adminItem.role === 'support'
+                    ? 'selected'
+                    : ''
+                }
               >
-                حفظ
-              </button>
+                support
+              </option>
 
-            </td>
+            </select>
 
-          </tr>
+          </td>
 
-        `;
+          <td>
 
-      })
-      .join("") ||
+            <button
+              class="btn"
+              onclick="permissions('${adminItem.id}')"
+            >
+              صلاحيات
+            </button>
+
+          </td>
+
+          <td>
+
+            <button
+              class="btn"
+              onclick="saveRole('${adminItem.id}','${roleId}')"
+            >
+              حفظ
+            </button>
+
+          </td>
+
+        </tr>
+
+      `;
+
+    }).join('') ||
 
     `
       <tr>
-
-        <td
-          colspan="5"
-          class="empty"
-        >
+        <td colspan="5" class="empty">
           لا يوجد مشرفون.
         </td>
-
       </tr>
     `;
 
 }
 
 
-/* =========================================================
-   SAVE ADMIN ROLE
-========================================================= */
+/* =========================
+   SAVE ROLE
+========================= */
 
-window.saveAdminRole =
-  async function(id) {
+window.saveRole = async function(
+  adminId,
+  roleElementId
+) {
 
-    const select =
-      document.querySelector(
-        `.admin-role-select[data-admin-id="${id}"]`
-      );
-
-
-    if (!select) {
-
-      return;
-
-    }
-
-
-    await roleChange(
-      id,
-      select.value
+  const roleElement =
+    document.getElementById(
+      roleElementId
     );
 
-  };
+
+  if (!roleElement) {
+    return;
+  }
 
 
-/* =========================================================
+  await window.roleChange(
+    adminId,
+    roleElement.value
+  );
+
+};
+
+
+/* =========================
    ROLE CHANGE
-========================================================= */
+========================= */
 
-window.roleChange =
-  async function(id, role) {
+window.roleChange = async function(
+  id,
+  role
+) {
 
-    try {
+  const result =
+    await sb
+      .from('admins')
+      .update({
+        role: role
+      })
+      .eq('id', id);
 
-      const result =
-        await sb
-          .from("admins")
-          .update({
-            role:
-              role
-          })
-          .eq(
-            "id",
-            id
-          );
 
+  if (result.error) {
 
-      if (result.error) {
+    window.zoma.toast(
+      result.error.message,
+      'error'
+    );
 
-        throw result.error;
+    return;
+  }
 
-      }
 
+  window.zoma.toast(
+    'تم تحديث الدور',
+    'success'
+  );
 
-      zoma.toast(
-        "تم تحديث الدور",
-        "success"
-      );
 
+  await load();
 
-    } catch (error) {
+};
 
-      zoma.toast(
-        error.message ||
-        "تعذر تحديث الدور",
-        "error"
-      );
 
-    }
+/* =========================
+   PERMISSIONS
+========================= */
 
-  };
+window.permissions = async function(id) {
 
+  const adminItem =
+    admins.find(function(item) {
+      return item.id === id;
+    });
 
-/* =========================================================
-   ADMIN PERMISSIONS
-========================================================= */
 
-window.permissions =
-  async function(id) {
+  if (!adminItem) {
+    return;
+  }
 
-    const adminItem =
-      admins.find(
-        item => item.id === id
-      );
 
+  const sections = [
+    'orders',
+    'customers',
+    'cards',
+    'designs',
+    'messages',
+    'settings'
+  ];
 
-    if (!adminItem) {
 
-      return;
+  const result =
+    await sb
+      .from('admin_permissions')
+      .select('*')
+      .eq('admin_id', id);
 
-    }
 
+  if (result.error) {
 
-    try {
+    window.zoma.toast(
+      result.error.message,
+      'error'
+    );
 
-      const result =
-        await sb
-          .from("admin_permissions")
-          .select("*")
-          .eq(
-            "admin_id",
-            id
-          );
+    return;
+  }
 
 
-      if (result.error) {
+  const permissionMap =
+    Object.fromEntries(
+      (result.data || []).map(
+        function(item) {
 
-        throw result.error;
+          return [
+            item.section,
+            item
+          ];
 
-      }
+        }
+      )
+    );
 
 
-      const map =
-        Object.fromEntries(
-          (result.data || [])
-            .map(
-              item => [
-                item.section,
-                item
-              ]
-            )
-        );
+  modalTitleEl.textContent =
+    'صلاحيات ' +
+    (adminItem.username || '');
 
 
-      const sections = [
+  modalBodyEl.innerHTML = `
 
-        "orders",
+    <form
+      id="permForm"
+      class="form"
+    >
 
-        "customers",
+      ${sections.map(
+        function(section) {
 
-        "cards",
+          const permission =
+            permissionMap[section] || {};
 
-        "designs",
 
-        "messages",
+          return `
 
-        "settings"
+            <div class="notice-box">
 
-      ];
+              <b>
+                ${section}
+              </b>
 
 
-      modalTitleEl.textContent =
-        "صلاحيات " +
-        (
-          adminItem.username ||
-          ""
-        );
+              <label>
 
-
-      modalBodyEl.innerHTML = `
-
-        <form
-          id="permForm"
-          class="form"
-        >
-
-          ${sections.map(section => {
-
-            const permission =
-              map[section] ||
-              {};
-
-
-            return `
-
-              <div class="notice-box">
-
-                <b>
-                  ${section}
-                </b>
-
-
-                <label>
-
-                  <input
-                    type="checkbox"
-                    data-sec="${section}"
-                    data-k="view"
-                    ${
-                      permission.can_view
-                        ? "checked"
-                        : ""
-                    }
-                  >
-
-                  عرض
-
-                </label>
-
-
-                <label>
-
-                  <input
-                    type="checkbox"
-                    data-sec="${section}"
-                    data-k="edit"
-                    ${
-                      permission.can_edit
-                        ? "checked"
-                        : ""
-                    }
-                  >
-
-                  تعديل
-
-                </label>
-
-              </div>
-
-            `;
-
-          }).join("")}
-
-
-          <button
-            class="btn primary"
-            type="submit"
-          >
-            حفظ الصلاحيات
-          </button>
-
-        </form>
-
-      `;
-
-
-      modalEl.classList.add("show");
-
-
-      document
-        .getElementById("permForm")
-        .addEventListener(
-          "submit",
-          async event => {
-
-            event.preventDefault();
-
-
-            try {
-
-              /* -------------------------------------------
-                 Delete old permissions
-              ------------------------------------------- */
-
-              const deleteResult =
-                await sb
-                  .from("admin_permissions")
-                  .delete()
-                  .eq(
-                    "admin_id",
-                    id
-                  );
-
-
-              if (deleteResult.error) {
-
-                throw deleteResult.error;
-
-              }
-
-
-              /* -------------------------------------------
-                 Create new permissions
-              ------------------------------------------- */
-
-              const rows =
-                sections.map(
-                  section => {
-
-                    const viewCheckbox =
-                      document.querySelector(
-                        `[data-sec="${section}"][data-k="view"]`
-                      );
-
-
-                    const editCheckbox =
-                      document.querySelector(
-                        `[data-sec="${section}"][data-k="edit"]`
-                      );
-
-
-                    return {
-
-                      admin_id:
-                        id,
-
-                      section:
-                        section,
-
-                      can_view:
-                        !!viewCheckbox?.checked,
-
-                      can_edit:
-                        !!editCheckbox?.checked
-
-                    };
-
+                <input
+                  type="checkbox"
+                  data-sec="${section}"
+                  data-k="view"
+                  ${
+                    permission.can_view
+                      ? 'checked'
+                      : ''
                   }
-                );
+                >
+
+                عرض
+
+              </label>
 
 
-              const insertResult =
-                await sb
-                  .from("admin_permissions")
-                  .insert(
-                    rows
-                  );
+              <label>
+
+                <input
+                  type="checkbox"
+                  data-sec="${section}"
+                  data-k="edit"
+                  ${
+                    permission.can_edit
+                      ? 'checked'
+                      : ''
+                  }
+                >
+
+                تعديل
+
+              </label>
+
+            </div>
+
+          `;
+
+        }
+      ).join('')}
 
 
-              if (insertResult.error) {
+      <button
+        class="btn primary"
+        type="submit"
+      >
+        حفظ الصلاحيات
+      </button>
 
-                throw insertResult.error;
+    </form>
 
-              }
+  `;
 
 
-              zoma.toast(
-                "تم حفظ الصلاحيات",
-                "success"
+  modalEl.classList.add('show');
+
+
+  const permissionForm =
+    document.getElementById(
+      'permForm'
+    );
+
+
+  permissionForm.addEventListener(
+    'submit',
+    async function(event) {
+
+      event.preventDefault();
+
+
+      const deleteResult =
+        await sb
+          .from('admin_permissions')
+          .delete()
+          .eq('admin_id', id);
+
+
+      if (deleteResult.error) {
+
+        window.zoma.toast(
+          deleteResult.error.message,
+          'error'
+        );
+
+        return;
+      }
+
+
+      const rows =
+        sections.map(
+          function(section) {
+
+            const viewCheckbox =
+              document.querySelector(
+                `[data-sec="${section}"][data-k="view"]`
               );
 
 
-              closeModal();
-
-
-            } catch (error) {
-
-              console.error(
-                "Permissions error:",
-                error
+            const editCheckbox =
+              document.querySelector(
+                `[data-sec="${section}"][data-k="edit"]`
               );
 
 
-              zoma.toast(
-                error.message ||
-                "تعذر حفظ الصلاحيات",
-                "error"
-              );
+            return {
 
-            }
+              admin_id:
+                id,
+
+              section:
+                section,
+
+              can_view:
+                viewCheckbox
+                  ? viewCheckbox.checked
+                  : false,
+
+              can_edit:
+                editCheckbox
+                  ? editCheckbox.checked
+                  : false
+
+            };
 
           }
         );
 
 
-    } catch (error) {
+      const insertResult =
+        await sb
+          .from('admin_permissions')
+          .insert(rows);
 
-      console.error(
-        "Permissions load error:",
-        error
+
+      if (insertResult.error) {
+
+        window.zoma.toast(
+          insertResult.error.message,
+          'error'
+        );
+
+        return;
+      }
+
+
+      window.zoma.toast(
+        'تم حفظ الصلاحيات',
+        'success'
       );
 
 
-      zoma.toast(
-        error.message ||
-        "تعذر تحميل الصلاحيات",
-        "error"
-      );
+      closeModal();
 
     }
+  );
 
-  };
+};
 
 
-/* =========================================================
+/* =========================
    RESET DATA
-========================================================= */
+========================= */
 
 resetDataBtn.addEventListener(
-  "click",
-  async () => {
+  'click',
+  async function() {
 
     if (!admin) {
-
       return;
-
     }
 
 
-    if (
-      admin.role !== "owner"
-    ) {
+    if (admin.role !== 'owner') {
 
-      zoma.toast(
-        "هذا الإجراء للمالك فقط",
-        "error"
+      window.zoma.toast(
+        'هذا الإجراء للمالك فقط',
+        'error'
       );
 
       return;
-
     }
 
 
     if (
       !confirm(
-        "سيتم حذف بيانات التشغيل. هل أنت متأكد؟"
+        'سيتم حذف بيانات التشغيل. هل أنت متأكد؟'
       )
     ) {
-
       return;
-
     }
 
 
@@ -3721,38 +2925,36 @@ resetDataBtn.addEventListener(
 
       const result =
         await sb.rpc(
-          "zoma_reset_year_data"
+          'zoma_reset_year_data'
         );
 
 
       if (result.error) {
 
-        throw result.error;
+        window.zoma.toast(
+          result.error.message,
+          'error'
+        );
 
+        return;
       }
 
 
-      zoma.toast(
-        "تم حذف بيانات السنة",
-        "success"
+      window.zoma.toast(
+        'تم حذف بيانات السنة',
+        'success'
       );
 
 
       await load();
 
-
     } catch (error) {
 
-      console.error(
-        "Reset error:",
-        error
-      );
+      console.error(error);
 
-
-      zoma.toast(
-        error.message ||
-        "تعذر حذف بيانات السنة",
-        "error"
+      window.zoma.toast(
+        'حدث خطأ أثناء حذف البيانات',
+        'error'
       );
 
     }
@@ -3761,25 +2963,25 @@ resetDataBtn.addEventListener(
 );
 
 
-/* =========================================================
+/* =========================
    SEARCH
-========================================================= */
+========================= */
 
 orderSearchEl.addEventListener(
-  "input",
+  'input',
   renderOrders
 );
 
 
 customerSearchEl.addEventListener(
-  "input",
+  'input',
   renderCustomers
 );
 
 
-/* =========================================================
-   START ADMIN
-========================================================= */
+/* =========================
+   START
+========================= */
 
 load();
 
@@ -3787,4 +2989,3 @@ load();
 
 </body>
 </html>
-```
