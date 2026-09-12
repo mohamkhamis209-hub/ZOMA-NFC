@@ -1,18 +1,25 @@
-ZOMA SMART CARD — FULL FRONT-END + SUPABASE
-============================================
+ZOMA Smart Card - Full GitHub Pages + Supabase build
 
-1) Open Supabase SQL Editor and run sql/after-schema.sql after your existing ZOMA schema.
-2) Make sure your Admin Auth user has a matching row in public.admins:
-   insert into public.admins (id, username, full_name, role)
-   values ('AUTH_USER_UUID','Mohamed','Mohamed','owner');
-
-3) Open index.html through a local server or deploy to HTTPS (GitHub Pages/Netlify/etc.).
-4) Admin: admin/login.html
-5) Customer: customer/register.html
-6) Public card: card/index.html?id=ZOMA-XXXXXX
-
-IMPORTANT:
-- The browser contains only the Supabase ANON/PUBLISHABLE key. Never place service_role/secret keys in these files.
-- QR generation is intentionally NOT part of the business logic. The admin gets the permanent card URL and can convert it to QR using any external QR website.
-- NFC: write the same permanent card URL to the physical NFC card using a compatible Android NFC writing app/device. The database never stores personal data on the NFC chip.
-- The project is a complete functional prototype. Production hardening should include email verification policy, stronger admin controls, Storage for profile images, audit logs, notifications, device/session controls, and a real deployment domain.
+1) Upload the CONTENTS of this folder to the root of the GitHub repository. index.html must be in repository root.
+2) The project site is configured for:
+   https://mohamkhamis209-hub.github.io/ZOMA-NFC/
+3) Supabase SQL:
+   Open Supabase > SQL Editor and run sql/schema.sql.
+   If you already have the old ZOMA schema, first compare existing columns/tables. The script is mostly idempotent but is intended for a clean ZOMA database.
+4) Supabase Auth:
+   - Create an admin Auth user.
+   - Add that Auth user's UUID to public.admins, e.g.:
+     insert into public.admins(id,username,full_name,role) values ('AUTH-UUID','Mohamed','Mohamed','owner');
+   - Disable email confirmation for local/demo customer testing, or configure email delivery for production.
+5) Browser customer login:
+   Registration creates a synthetic Supabase Auth email from phone (phone_20XXXXXXXXXX@zoma.local). Users can log in using phone or Card ID because zoma_get_login_email resolves it.
+6) NFC:
+   Actual writing uses Web NFC. This requires a supported Android/Chrome device and an HTTPS page. On unsupported devices the site reports the limitation.
+   NFC stores ONLY the permanent card URL, not passwords or personal data.
+7) QR:
+   There is intentionally NO QR generator in this site. Copy the permanent card URL and turn it into QR with any external QR service, as requested.
+8) Public card link format:
+   https://mohamkhamis209-hub.github.io/ZOMA-NFC/activation.html?id=ZOMA-XXXXXX
+   Before activation it shows the secure setup flow. After activation it goes to the public card profile.
+9) Production hardening:
+   Use Supabase publishable key in the browser, keep secret/service_role keys off the frontend, configure stronger anti-abuse rules, email/phone verification, backups, and custom domain before public launch.
